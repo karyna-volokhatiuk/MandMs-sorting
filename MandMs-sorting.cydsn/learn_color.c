@@ -80,6 +80,8 @@ int analyze_measurement_boundaries(int min_rgb[3], int max_rgb[3], bool none_col
     
     while(curr_num < max_num_to_measure){
         getRGB(&color[0], &color[1], &color[2]);
+        sprintf(str, "r %d | g %d | b %d", color[0], color[1], color[2]);
+        print(str);
         
         
         if (none_col == false && compare_to_none_color(color)){
@@ -91,7 +93,7 @@ int analyze_measurement_boundaries(int min_rgb[3], int max_rgb[3], bool none_col
         }
         
         sprintf(str, "r %d | g %d | b %d", color[0], color[1], color[2]);
-        print(str);
+        //print(str);
         
         count_not_none += 1;
         if (count_not_none == 3 || count_not_none == 4 || none_col == true){

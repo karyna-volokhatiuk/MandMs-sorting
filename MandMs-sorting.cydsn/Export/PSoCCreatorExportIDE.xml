@@ -205,19 +205,26 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\RED.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\RED_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\RED_PM.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_sled.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_sled.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_pincfg.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_pixl.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_pixl.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_pixl_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\NeoPixel_pixl_PM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_PM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_SW.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_SW.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_UpDown.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_UpDown.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_UpDown_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SW_UpDown_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_SW_UpDown.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_SW_UpDown.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_INT.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_IRQ.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_IRQ.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_intClock.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ADC_intClock.h</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">

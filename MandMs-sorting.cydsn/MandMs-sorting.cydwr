@@ -33,6 +33,7 @@
       <Data key="911ee831-bbd2-412e-b7cf-8e2044b5fa56" value="Dir_3_4" />
       <Data key="5303952b-a0ae-45d8-9877-3511481f9b42" value="Step_Container" />
       <Data key="22727759-cbab-4965-9896-6476ab0b9b92" value="BLUE" />
+      <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="SW_UpDown" />
       <Data key="a2c4fd5b-659e-492f-a74a-b574576c4d64" value="Step_Container" />
       <Data key="a49ca61c-bfa1-483b-87a1-e790ca74d3b0" value="Step_Container" />
       <Data key="ae94d5f1-e0c6-40ad-bc4a-3d4cd685f0c1" value="Dir_4" />
@@ -1362,6 +1363,11 @@
     <Group key="22727759-cbab-4965-9896-6476ab0b9b92">
       <Group key="0">
         <Data key="Port Format" value="0,3" />
+      </Group>
+    </Group>
+    <Group key="77715107-f8d5-47e5-a629-0fb83101ac6b">
+      <Group key="0">
+        <Data key="Port Format" value="1,1" />
       </Group>
     </Group>
     <Group key="a2c4fd5b-659e-492f-a74a-b574576c4d64">

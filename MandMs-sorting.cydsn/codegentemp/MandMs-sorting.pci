@@ -1,5 +1,5 @@
 # MandMs-sorting
-# 2021-11-13 01:14:07Z
+# 2021-11-13 04:01:01Z
 
 # IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
 dont_use_io iocell 3 2
@@ -18,8 +18,9 @@ set_io "\I2C:sda(0)\" iocell 4 1
 set_io "\I2C:scl(0)\" iocell 4 0
 set_io "\UART:tx(0)\" iocell 0 5
 set_io "\UART:rx(0)\" iocell 0 4
-set_io "\NeoPixel:pixl(0)\" iocell 1 1
 set_io "RED(0)" iocell 1 6
 set_io "GREEN(0)" iocell 0 2
 set_io "BLUE(0)" iocell 0 3
 set_io "SW(0)" iocell 0 1
+set_io "SW_UpDown(0)" iocell 1 1
+set_location "\ADC:cy_psoc4_sar\" p4sarcell -1 -1 0

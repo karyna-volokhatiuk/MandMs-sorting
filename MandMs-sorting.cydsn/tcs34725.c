@@ -328,10 +328,6 @@ void LED(struct RGB color){
     PWM_GREEN_WriteCompare(255 -color.g);
     PWM_BLUE_WriteCompare(255 - color.b);
     
-    for (int i=0; i<20; i++){
-        NeoPixel_sendPixel(color.r, color.g, color.b);
-    }
-    NeoPixel_show();
 }
 
 //light led with scanned color

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: NeoPixel_pixl.c  
+* File Name: SW_UpDown.c  
 * Version 2.20
 *
 * Description:
@@ -15,13 +15,13 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "NeoPixel_pixl.h"
+#include "SW_UpDown.h"
 
-static NeoPixel_pixl_BACKUP_STRUCT  NeoPixel_pixl_backup = {0u, 0u, 0u};
+static SW_UpDown_BACKUP_STRUCT  SW_UpDown_backup = {0u, 0u, 0u};
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_Sleep
+* Function Name: SW_UpDown_Sleep
 ****************************************************************************//**
 *
 * \brief Stores the pin configuration and prepares the pin for entering chip 
@@ -39,30 +39,30 @@ static NeoPixel_pixl_BACKUP_STRUCT  NeoPixel_pixl_backup = {0u, 0u, 0u};
 *  deep-sleep/hibernate modes.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_Sleep_Wakeup
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_Sleep_Wakeup
 *******************************************************************************/
-void NeoPixel_pixl_Sleep(void)
+void SW_UpDown_Sleep(void)
 {
-    #if defined(NeoPixel_pixl__PC)
-        NeoPixel_pixl_backup.pcState = NeoPixel_pixl_PC;
+    #if defined(SW_UpDown__PC)
+        SW_UpDown_backup.pcState = SW_UpDown_PC;
     #else
         #if (CY_PSOC4_4200L)
             /* Save the regulator state and put the PHY into suspend mode */
-            NeoPixel_pixl_backup.usbState = NeoPixel_pixl_CR1_REG;
-            NeoPixel_pixl_USB_POWER_REG |= NeoPixel_pixl_USBIO_ENTER_SLEEP;
-            NeoPixel_pixl_CR1_REG &= NeoPixel_pixl_USBIO_CR1_OFF;
+            SW_UpDown_backup.usbState = SW_UpDown_CR1_REG;
+            SW_UpDown_USB_POWER_REG |= SW_UpDown_USBIO_ENTER_SLEEP;
+            SW_UpDown_CR1_REG &= SW_UpDown_USBIO_CR1_OFF;
         #endif
     #endif
-    #if defined(CYIPBLOCK_m0s8ioss_VERSION) && defined(NeoPixel_pixl__SIO)
-        NeoPixel_pixl_backup.sioState = NeoPixel_pixl_SIO_REG;
+    #if defined(CYIPBLOCK_m0s8ioss_VERSION) && defined(SW_UpDown__SIO)
+        SW_UpDown_backup.sioState = SW_UpDown_SIO_REG;
         /* SIO requires unregulated output buffer and single ended input buffer */
-        NeoPixel_pixl_SIO_REG &= (uint32)(~NeoPixel_pixl_SIO_LPM_MASK);
+        SW_UpDown_SIO_REG &= (uint32)(~SW_UpDown_SIO_LPM_MASK);
     #endif  
 }
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_Wakeup
+* Function Name: SW_UpDown_Wakeup
 ****************************************************************************//**
 *
 * \brief Restores the pin configuration that was saved during Pin_Sleep(). This 
@@ -77,22 +77,22 @@ void NeoPixel_pixl_Sleep(void)
 *  None
 *  
 * \funcusage
-*  Refer to NeoPixel_pixl_Sleep() for an example usage.
+*  Refer to SW_UpDown_Sleep() for an example usage.
 *******************************************************************************/
-void NeoPixel_pixl_Wakeup(void)
+void SW_UpDown_Wakeup(void)
 {
-    #if defined(NeoPixel_pixl__PC)
-        NeoPixel_pixl_PC = NeoPixel_pixl_backup.pcState;
+    #if defined(SW_UpDown__PC)
+        SW_UpDown_PC = SW_UpDown_backup.pcState;
     #else
         #if (CY_PSOC4_4200L)
             /* Restore the regulator state and come out of suspend mode */
-            NeoPixel_pixl_USB_POWER_REG &= NeoPixel_pixl_USBIO_EXIT_SLEEP_PH1;
-            NeoPixel_pixl_CR1_REG = NeoPixel_pixl_backup.usbState;
-            NeoPixel_pixl_USB_POWER_REG &= NeoPixel_pixl_USBIO_EXIT_SLEEP_PH2;
+            SW_UpDown_USB_POWER_REG &= SW_UpDown_USBIO_EXIT_SLEEP_PH1;
+            SW_UpDown_CR1_REG = SW_UpDown_backup.usbState;
+            SW_UpDown_USB_POWER_REG &= SW_UpDown_USBIO_EXIT_SLEEP_PH2;
         #endif
     #endif
-    #if defined(CYIPBLOCK_m0s8ioss_VERSION) && defined(NeoPixel_pixl__SIO)
-        NeoPixel_pixl_SIO_REG = NeoPixel_pixl_backup.sioState;
+    #if defined(CYIPBLOCK_m0s8ioss_VERSION) && defined(SW_UpDown__SIO)
+        SW_UpDown_SIO_REG = SW_UpDown_backup.sioState;
     #endif
 }
 

@@ -45,6 +45,8 @@ int my_test = 0;
 
 int count_settings = 0;
 
+int joystick = 0;
+
 
 CY_ISR(SW_Handler)
 {
@@ -62,6 +64,17 @@ CY_ISR(SW_Handler)
     }
     
     SW_ClearInterrupt();
+}
+
+CY_ISR(SW_UpDown_Handler)
+{
+
+    joystick = ADC_GetResult16(0);
+    
+    if (joystick){
+    }
+    
+    SW_UpDown_ClearInterrupt();
 }
 
 
@@ -89,6 +102,7 @@ int main(void)
     //PWM_BLUE_WriteCompare(255);
     
     isr_SW_StartEx(SW_Handler);
+    isr_SW_UpDown_StartEx(SW_UpDown_Handler);
     
     while (_tcs34725Initialised == false){
         init(TCS34725_INTEGRATIONTIME_24MS, TCS34725_GAIN_1X);
@@ -106,6 +120,9 @@ int main(void)
     //int colors_test[test][3];
     size_t idx = 0;
     
+    ADC_Start();
+    ADC_StartConvert();
+    
     //fill_boundaries();
     PWM_Container_Start();
     PWM_Container_WriteCompare(0);
@@ -120,57 +137,10 @@ int main(void)
     
     for(;;)
     {  
-        sprintf(str, "%d   \n", count_settings);
-        print(str);
-        
-        //PWM_RED_WriteCompare(my_test);
-        
-        /*
-        if (button_pushed && min_none_color[0] != 0 && boundaries[count_settings].max_rgb[0] == 0){
-            analyze_measurement_boundaries_color(boundaries[count_settings].min_rgb, boundaries[count_settings].max_rgb);
-        } else if (button_pushed){
-            analyze_measurement_boundaries_none(min_none_color, max_none_color);
-        }
-        
-        if (count_settings < 6){
-            continue;
-        }
-        */
-        
-        //PWM_RED_WriteCompare(my_test);
-        //sprintf(str, "%d", my_test);
-        //sprintf(str, "idx = %d\n", idx);
+        sprintf(str, "joystick %d   \n", joystick);
         //print(str);
         
-        //if(idx == test){
-           // sprintf(str, "in = %d", idx);
-            //print(str);
-            //for (size_t i=0; i<test; i++){
-              //  sprintf(str, "r %d | g %d | b %d\n", colors_test[i][0], colors_test[i][1], colors_test[i][2]) ;
-                //print(str);
-            //}
-            //idx = 0;
-            //CyDelay(10000);
-                
-        //}
-        /*
-        for (int i = 0; i < 2; i++){
-            getRGB(&red, &green, &blue);
-            colors[i] = getColor(red, green, blue);
-            //CyDelay(1000);
-            
-            //colors_test[idx][0] = (int)red;
-            //colors_test[idx][1] = (int)green;
-            //colors_test[idx][2] = (int)blue;
-        }
-        //idx++;
-        color = colors[0];
-        for (int i = 0; i < 1; i++){
-            if (colors[i] != colors[i+1]){
-                state = NONE;
-            }
-        }
-        */
+        
         state = CANDY;
         getRGB(&red, &green, &blue);
         color = getColor(red, green, blue);

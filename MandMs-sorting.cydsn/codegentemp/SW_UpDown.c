@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: NeoPixel_pixl.c  
+* File Name: SW_UpDown.c  
 * Version 2.20
 *
 * Description:
@@ -13,35 +13,35 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "NeoPixel_pixl.h"
+#include "SW_UpDown.h"
 
 
-#if defined(NeoPixel_pixl__PC)
-    #define NeoPixel_pixl_SetP4PinDriveMode(shift, mode)  \
+#if defined(SW_UpDown__PC)
+    #define SW_UpDown_SetP4PinDriveMode(shift, mode)  \
     do { \
-        NeoPixel_pixl_PC =   (NeoPixel_pixl_PC & \
-                                (uint32)(~(uint32)(NeoPixel_pixl_DRIVE_MODE_IND_MASK << \
-                                (NeoPixel_pixl_DRIVE_MODE_BITS * (shift))))) | \
+        SW_UpDown_PC =   (SW_UpDown_PC & \
+                                (uint32)(~(uint32)(SW_UpDown_DRIVE_MODE_IND_MASK << \
+                                (SW_UpDown_DRIVE_MODE_BITS * (shift))))) | \
                                 (uint32)((uint32)(mode) << \
-                                (NeoPixel_pixl_DRIVE_MODE_BITS * (shift))); \
+                                (SW_UpDown_DRIVE_MODE_BITS * (shift))); \
     } while (0)
 #else
     #if (CY_PSOC4_4200L)
-        #define NeoPixel_pixl_SetP4PinDriveMode(shift, mode)  \
+        #define SW_UpDown_SetP4PinDriveMode(shift, mode)  \
         do { \
-            NeoPixel_pixl_USBIO_CTRL_REG = (NeoPixel_pixl_USBIO_CTRL_REG & \
-                                    (uint32)(~(uint32)(NeoPixel_pixl_DRIVE_MODE_IND_MASK << \
-                                    (NeoPixel_pixl_DRIVE_MODE_BITS * (shift))))) | \
+            SW_UpDown_USBIO_CTRL_REG = (SW_UpDown_USBIO_CTRL_REG & \
+                                    (uint32)(~(uint32)(SW_UpDown_DRIVE_MODE_IND_MASK << \
+                                    (SW_UpDown_DRIVE_MODE_BITS * (shift))))) | \
                                     (uint32)((uint32)(mode) << \
-                                    (NeoPixel_pixl_DRIVE_MODE_BITS * (shift))); \
+                                    (SW_UpDown_DRIVE_MODE_BITS * (shift))); \
         } while (0)
     #endif
 #endif
   
 
-#if defined(NeoPixel_pixl__PC) || (CY_PSOC4_4200L) 
+#if defined(SW_UpDown__PC) || (CY_PSOC4_4200L) 
     /*******************************************************************************
-    * Function Name: NeoPixel_pixl_SetDriveMode
+    * Function Name: SW_UpDown_SetDriveMode
     ****************************************************************************//**
     *
     * \brief Sets the drive mode for each of the Pins component's pins.
@@ -67,17 +67,17 @@
     *  APIs (primary method) or disable interrupts around this function.
     *
     * \funcusage
-    *  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_SetDriveMode
+    *  \snippet SW_UpDown_SUT.c usage_SW_UpDown_SetDriveMode
     *******************************************************************************/
-    void NeoPixel_pixl_SetDriveMode(uint8 mode)
+    void SW_UpDown_SetDriveMode(uint8 mode)
     {
-		NeoPixel_pixl_SetP4PinDriveMode(NeoPixel_pixl__0__SHIFT, mode);
+		SW_UpDown_SetP4PinDriveMode(SW_UpDown__0__SHIFT, mode);
     }
 #endif
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_Write
+* Function Name: SW_UpDown_Write
 ****************************************************************************//**
 *
 * \brief Writes the value to the physical port (data output register), masking
@@ -106,18 +106,18 @@
 *  this function.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_Write
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_Write
 *******************************************************************************/
-void NeoPixel_pixl_Write(uint8 value)
+void SW_UpDown_Write(uint8 value)
 {
-    uint8 drVal = (uint8)(NeoPixel_pixl_DR & (uint8)(~NeoPixel_pixl_MASK));
-    drVal = (drVal | ((uint8)(value << NeoPixel_pixl_SHIFT) & NeoPixel_pixl_MASK));
-    NeoPixel_pixl_DR = (uint32)drVal;
+    uint8 drVal = (uint8)(SW_UpDown_DR & (uint8)(~SW_UpDown_MASK));
+    drVal = (drVal | ((uint8)(value << SW_UpDown_SHIFT) & SW_UpDown_MASK));
+    SW_UpDown_DR = (uint32)drVal;
 }
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_Read
+* Function Name: SW_UpDown_Read
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port (pin status register) and masks 
@@ -131,16 +131,16 @@ void NeoPixel_pixl_Write(uint8 value)
 *  The current value for the pins in the component as a right justified number.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_Read  
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_Read  
 *******************************************************************************/
-uint8 NeoPixel_pixl_Read(void)
+uint8 SW_UpDown_Read(void)
 {
-    return (uint8)((NeoPixel_pixl_PS & NeoPixel_pixl_MASK) >> NeoPixel_pixl_SHIFT);
+    return (uint8)((SW_UpDown_PS & SW_UpDown_MASK) >> SW_UpDown_SHIFT);
 }
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_ReadDataReg
+* Function Name: SW_UpDown_ReadDataReg
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port's data output register and masks 
@@ -149,8 +149,8 @@ uint8 NeoPixel_pixl_Read(void)
 *
 * The data output register controls the signal applied to the physical pin in 
 * conjunction with the drive mode parameter. This is not the same as the 
-* preferred NeoPixel_pixl_Read() API because the 
-* NeoPixel_pixl_ReadDataReg() reads the data register instead of the status 
+* preferred SW_UpDown_Read() API because the 
+* SW_UpDown_ReadDataReg() reads the data register instead of the status 
 * register. For output pins this is a useful function to determine the value 
 * just written to the pin.
 *
@@ -159,16 +159,16 @@ uint8 NeoPixel_pixl_Read(void)
 *  justified number for the component instance.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_ReadDataReg 
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_ReadDataReg 
 *******************************************************************************/
-uint8 NeoPixel_pixl_ReadDataReg(void)
+uint8 SW_UpDown_ReadDataReg(void)
 {
-    return (uint8)((NeoPixel_pixl_DR & NeoPixel_pixl_MASK) >> NeoPixel_pixl_SHIFT);
+    return (uint8)((SW_UpDown_DR & SW_UpDown_MASK) >> SW_UpDown_SHIFT);
 }
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_SetInterruptMode
+* Function Name: SW_UpDown_SetInterruptMode
 ****************************************************************************//**
 *
 * \brief Configures the interrupt mode for each of the Pins component's
@@ -181,12 +181,12 @@ uint8 NeoPixel_pixl_ReadDataReg(void)
 * \param position
 *  The pin position as listed in the Pins component. You may OR these to be 
 *  able to configure the interrupt mode of multiple pins within a Pins 
-*  component. Or you may use NeoPixel_pixl_INTR_ALL to configure the
+*  component. Or you may use SW_UpDown_INTR_ALL to configure the
 *  interrupt mode of all the pins in the Pins component.       
-*  - NeoPixel_pixl_0_INTR       (First pin in the list)
-*  - NeoPixel_pixl_1_INTR       (Second pin in the list)
+*  - SW_UpDown_0_INTR       (First pin in the list)
+*  - SW_UpDown_1_INTR       (Second pin in the list)
 *  - ...
-*  - NeoPixel_pixl_INTR_ALL     (All pins in Pins component)
+*  - SW_UpDown_INTR_ALL     (All pins in Pins component)
 *
 * \param mode
 *  Interrupt mode for the selected pins. Valid options are documented in
@@ -202,19 +202,19 @@ uint8 NeoPixel_pixl_ReadDataReg(void)
 *  port.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_SetInterruptMode
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_SetInterruptMode
 *******************************************************************************/
-void NeoPixel_pixl_SetInterruptMode(uint16 position, uint16 mode)
+void SW_UpDown_SetInterruptMode(uint16 position, uint16 mode)
 {
     uint32 intrCfg;
     
-    intrCfg =  NeoPixel_pixl_INTCFG & (uint32)(~(uint32)position);
-    NeoPixel_pixl_INTCFG = intrCfg | ((uint32)position & (uint32)mode);
+    intrCfg =  SW_UpDown_INTCFG & (uint32)(~(uint32)position);
+    SW_UpDown_INTCFG = intrCfg | ((uint32)position & (uint32)mode);
 }
 
 
 /*******************************************************************************
-* Function Name: NeoPixel_pixl_ClearInterrupt
+* Function Name: SW_UpDown_ClearInterrupt
 ****************************************************************************//**
 *
 * \brief Clears any active interrupts attached with the component and returns 
@@ -231,13 +231,13 @@ void NeoPixel_pixl_SetInterruptMode(uint16 position, uint16 mode)
 *  those associated with the Pins component.
 *
 * \funcusage
-*  \snippet NeoPixel_pixl_SUT.c usage_NeoPixel_pixl_ClearInterrupt
+*  \snippet SW_UpDown_SUT.c usage_SW_UpDown_ClearInterrupt
 *******************************************************************************/
-uint8 NeoPixel_pixl_ClearInterrupt(void)
+uint8 SW_UpDown_ClearInterrupt(void)
 {
-	uint8 maskedStatus = (uint8)(NeoPixel_pixl_INTSTAT & NeoPixel_pixl_MASK);
-	NeoPixel_pixl_INTSTAT = maskedStatus;
-    return maskedStatus >> NeoPixel_pixl_SHIFT;
+	uint8 maskedStatus = (uint8)(SW_UpDown_INTSTAT & SW_UpDown_MASK);
+	SW_UpDown_INTSTAT = maskedStatus;
+    return maskedStatus >> SW_UpDown_SHIFT;
 }
 
 

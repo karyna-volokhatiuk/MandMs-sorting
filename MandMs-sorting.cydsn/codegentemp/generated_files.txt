@@ -84,9 +84,6 @@
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_SPI_UART_PVT.h" value="HEADER;;;;;UART" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_PVT.h" value="HEADER;;;;;UART" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_BOOT.h" value="HEADER;;;;;UART" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_sled.c" value="SOURCE_C;CortexM0;;;;NeoPixel" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_sled.h" value="HEADER;;;;;NeoPixel" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_pincfg.h" value="HEADER;;;;;NeoPixel" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\PWM_RED.c" value="SOURCE_C;CortexM0;;;;PWM_RED" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\PWM_RED.h" value="HEADER;;;;;PWM_RED" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\PWM_RED_PM.c" value="SOURCE_C;CortexM0;;;;PWM_RED" />
@@ -114,6 +111,16 @@
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\SW_PM.c" value="SOURCE_C;CortexM0;;;;SW" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\isr_SW.c" value="SOURCE_C;CortexM0;;;;isr_SW" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\isr_SW.h" value="HEADER;;;;;isr_SW" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\SW_UpDown.c" value="SOURCE_C;CortexM0;;;;SW_UpDown" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\SW_UpDown.h" value="HEADER;;;;;SW_UpDown" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\SW_UpDown_aliases.h" value="HEADER;;;;;SW_UpDown" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\SW_UpDown_PM.c" value="SOURCE_C;CortexM0;;;;SW_UpDown" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC.c" value="SOURCE_C;CortexM0;;;;ADC" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC.h" value="HEADER;;;;;ADC" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_PM.c" value="SOURCE_C;CortexM0;;;;ADC" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_INT.c" value="SOURCE_C;CortexM0;;;;ADC" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\isr_SW_UpDown.c" value="SOURCE_C;CortexM0;;;;isr_SW_UpDown" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\isr_SW_UpDown.h" value="HEADER;;;;;isr_SW_UpDown" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\I2C_SCBCLK.c" value="SOURCE_C;CortexM0;;;;I2C_SCBCLK" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\I2C_SCBCLK.h" value="HEADER;;;;;I2C_SCBCLK" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\I2C_sda.c" value="SOURCE_C;CortexM0;;;;I2C_sda" />
@@ -136,10 +143,10 @@
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_rx.h" value="HEADER;;;;;UART_rx" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_rx_aliases.h" value="HEADER;;;;;UART_rx" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\UART_rx_PM.c" value="SOURCE_C;CortexM0;;;;UART_rx" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_pixl.c" value="SOURCE_C;CortexM0;;;;NeoPixel_pixl" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_pixl.h" value="HEADER;;;;;NeoPixel_pixl" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_pixl_aliases.h" value="HEADER;;;;;NeoPixel_pixl" />
-  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\NeoPixel_pixl_PM.c" value="SOURCE_C;CortexM0;;;;NeoPixel_pixl" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_IRQ.c" value="SOURCE_C;CortexM0;;;;ADC_IRQ" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_IRQ.h" value="HEADER;;;;;ADC_IRQ" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_intClock.c" value="SOURCE_C;CortexM0;;;;ADC_intClock" />
+  <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\ADC_intClock.h" value="HEADER;;;;;ADC_intClock" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\cm0gcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\Cm0RealView.scat" value="LINKER_SCRIPT;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
   <file name="C:\Users\ADMIN\Documents\Sorting-project\MandMs-sorting.cydsn\codegentemp\Cm0Start.c" value="SOURCE_C;CortexM0;;;;cy_boot" />

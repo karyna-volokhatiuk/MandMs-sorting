@@ -47,7 +47,7 @@ net Net_75
 	switch ":udb@[UDB=(0,1)]:pld0:input_permute.mc0_main_2==>:udb@[UDB=(0,1)]:pld0:mc0.main_2"
 	term   ":udb@[UDB=(0,1)]:pld0:mc0.main_2"
 end Net_75
-net Net_100_4
+net Net_1761_4
 	term   ":udb@[UDB=(1,1)]:pld0:mc1.q"
 	switch ":udb@[UDB=(1,1)]:pld0:mc1.q==>:udb@[UDB=(1,1)]:pld0:output_permute1.q_1"
 	switch ":udb@[UDB=(1,1)]:pld0:output_permute1.output_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v27"
@@ -75,7 +75,7 @@ net Net_100_4
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.main_1"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc3_main_1==>:udb@[UDB=(1,1)]:pld0:mc3.main_1"
 	term   ":udb@[UDB=(1,1)]:pld0:mc3.main_1"
-end Net_100_4
+end Net_1761_4
 net \FreqDiv_1:not_last_reset\
 	term   ":udb@[UDB=(0,0)]:pld1:mc3.q"
 	switch ":udb@[UDB=(0,0)]:pld1:mc3.q==>:udb@[UDB=(0,0)]:pld1:output_permute1.q_3"
@@ -152,15 +152,15 @@ net Net_1232
 	switch ":udb@[UDB=(0,0)]:clockreset:clken_pld0_mux.pld0_clken==>:udb@[UDB=(0,0)]:pld0:mc2.clk_en"
 	term   ":udb@[UDB=(0,0)]:pld0:mc2.clk_en"
 end Net_1232
-net Net_100_0
+net Net_1761_0
 	term   ":udb@[UDB=(1,1)]:pld1:mc0.q"
-	switch ":udb@[UDB=(1,1)]:pld1:mc0.q==>:udb@[UDB=(1,1)]:pld1:output_permute1.q_0"
-	switch ":udb@[UDB=(1,1)]:pld1:output_permute1.output_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v37"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v37"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:37,88"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:21,88_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v21"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v21==>:udb@[UDB=(1,1)]:pld0:input_permute.input_10"
+	switch ":udb@[UDB=(1,1)]:pld1:mc0.q==>:udb@[UDB=(1,1)]:pld1:output_permute2.q_0"
+	switch ":udb@[UDB=(1,1)]:pld1:output_permute2.output_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v35"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v35"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:35,82"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:19,82_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v19"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v19==>:udb@[UDB=(1,1)]:pld0:input_permute.input_9"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc1_main_0==>:udb@[UDB=(1,1)]:pld0:mc1.main_0"
 	term   ":udb@[UDB=(1,1)]:pld0:mc1.main_0"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc0_main_0==>:udb@[UDB=(1,1)]:pld0:mc0.main_0"
@@ -169,9 +169,9 @@ net Net_100_0
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.main_0"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc3_main_0==>:udb@[UDB=(1,1)]:pld0:mc3.main_0"
 	term   ":udb@[UDB=(1,1)]:pld0:mc3.main_0"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:51,88_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v51"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v51==>:udb@[UDB=(1,1)]:pld1:input_permute.input_6"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:53,82_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v53"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v53==>:udb@[UDB=(1,1)]:pld1:input_permute.input_5"
 	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc0_main_0==>:udb@[UDB=(1,1)]:pld1:mc0.main_0"
 	term   ":udb@[UDB=(1,1)]:pld1:mc0.main_0"
 	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc1_main_1==>:udb@[UDB=(1,1)]:pld1:mc1.main_1"
@@ -180,7 +180,7 @@ net Net_100_0
 	term   ":udb@[UDB=(1,1)]:pld1:mc2.main_0"
 	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc3_main_0==>:udb@[UDB=(1,1)]:pld1:mc3.main_0"
 	term   ":udb@[UDB=(1,1)]:pld1:mc3.main_0"
-end Net_100_0
+end Net_1761_0
 net \FreqDiv_1:count_0\
 	term   ":udb@[UDB=(0,0)]:pld1:mc2.q"
 	switch ":udb@[UDB=(0,0)]:pld1:mc2.q==>:udb@[UDB=(0,0)]:pld1:output_permute3.q_2"
@@ -252,7 +252,19 @@ net \FreqDiv_2:not_last_reset\
 	switch ":udb@[UDB=(1,0)]:pld0:input_permute.mc2_main_0==>:udb@[UDB=(1,0)]:pld0:mc2.main_0"
 	term   ":udb@[UDB=(1,0)]:pld0:mc2.main_0"
 end \FreqDiv_2:not_last_reset\
-net Net_100_3
+net \Debouncer_1:DEBOUNCER[0]:d_sync_1\
+	term   ":udb@[UDB=(0,1)]:pld1:mc1.q"
+	switch ":udb@[UDB=(0,1)]:pld1:mc1.q==>:udb@[UDB=(0,1)]:pld1:output_permute3.q_1"
+	switch ":udb@[UDB=(0,1)]:pld1:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v32"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v32"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:32,72"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:62,72_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v62"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v62==>:udb@[UDB=(0,1)]:pld1:input_permute.input_0"
+	switch ":udb@[UDB=(0,1)]:pld1:input_permute.mc0_main_1==>:udb@[UDB=(0,1)]:pld1:mc0.main_1"
+	term   ":udb@[UDB=(0,1)]:pld1:mc0.main_1"
+end \Debouncer_1:DEBOUNCER[0]:d_sync_1\
+net Net_1761_3
 	term   ":udb@[UDB=(1,1)]:pld0:mc0.q"
 	switch ":udb@[UDB=(1,1)]:pld0:mc0.q==>:udb@[UDB=(1,1)]:pld0:output_permute0.q_0"
 	switch ":udb@[UDB=(1,1)]:pld0:output_permute0.output_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v25"
@@ -265,8 +277,8 @@ net Net_100_3
 	term   ":udb@[UDB=(1,1)]:pld0:mc1.main_3"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc0_main_3==>:udb@[UDB=(1,1)]:pld0:mc0.main_3"
 	term   ":udb@[UDB=(1,1)]:pld0:mc0.main_3"
-end Net_100_3
-net Net_100_2
+end Net_1761_3
+net Net_1761_2
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.q"
 	switch ":udb@[UDB=(1,1)]:pld0:mc2.q==>:udb@[UDB=(1,1)]:pld0:output_permute2.q_2"
 	switch ":udb@[UDB=(1,1)]:pld0:output_permute2.output_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v29"
@@ -281,8 +293,8 @@ net Net_100_2
 	term   ":udb@[UDB=(1,1)]:pld0:mc0.main_4"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc2_main_3==>:udb@[UDB=(1,1)]:pld0:mc2.main_3"
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.main_3"
-end Net_100_2
-net Net_100_1
+end Net_1761_2
+net Net_1761_1
 	term   ":udb@[UDB=(1,1)]:pld0:mc3.q"
 	switch ":udb@[UDB=(1,1)]:pld0:mc3.q==>:udb@[UDB=(1,1)]:pld0:output_permute3.q_3"
 	switch ":udb@[UDB=(1,1)]:pld0:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v31"
@@ -299,34 +311,22 @@ net Net_100_1
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.main_4"
 	switch ":udb@[UDB=(1,1)]:pld0:input_permute.mc3_main_3==>:udb@[UDB=(1,1)]:pld0:mc3.main_3"
 	term   ":udb@[UDB=(1,1)]:pld0:mc3.main_3"
-end Net_100_1
-net \Debouncer_1:DEBOUNCER[0]:d_sync_1\
-	term   ":udb@[UDB=(0,1)]:pld1:mc1.q"
-	switch ":udb@[UDB=(0,1)]:pld1:mc1.q==>:udb@[UDB=(0,1)]:pld1:output_permute2.q_1"
+end Net_1761_1
+net \Debouncer_1:DEBOUNCER[0]:d_sync_0\
+	term   ":udb@[UDB=(0,1)]:pld1:mc2.q"
+	switch ":udb@[UDB=(0,1)]:pld1:mc2.q==>:udb@[UDB=(0,1)]:pld1:output_permute2.q_2"
 	switch ":udb@[UDB=(0,1)]:pld1:output_permute2.output_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v34"
 	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v34"
 	switch ":udbswitch@[UDB=(0,1)][side=top]:34,41"
 	switch ":udbswitch@[UDB=(0,1)][side=top]:50,41_f"
 	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v50"
 	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v50==>:udb@[UDB=(0,1)]:pld1:input_permute.input_6"
-	switch ":udb@[UDB=(0,1)]:pld1:input_permute.mc0_main_1==>:udb@[UDB=(0,1)]:pld1:mc0.main_1"
-	term   ":udb@[UDB=(0,1)]:pld1:mc0.main_1"
-end \Debouncer_1:DEBOUNCER[0]:d_sync_1\
-net \Debouncer_1:DEBOUNCER[0]:d_sync_0\
-	term   ":udb@[UDB=(0,1)]:pld1:mc2.q"
-	switch ":udb@[UDB=(0,1)]:pld1:mc2.q==>:udb@[UDB=(0,1)]:pld1:output_permute3.q_2"
-	switch ":udb@[UDB=(0,1)]:pld1:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v32"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v32"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:32,0"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:62,0_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v62"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v62==>:udb@[UDB=(0,1)]:pld1:input_permute.input_0"
 	switch ":udb@[UDB=(0,1)]:pld1:input_permute.mc1_main_0==>:udb@[UDB=(0,1)]:pld1:mc1.main_0"
 	term   ":udb@[UDB=(0,1)]:pld1:mc1.main_0"
 	switch ":udb@[UDB=(0,1)]:pld1:input_permute.mc0_main_0==>:udb@[UDB=(0,1)]:pld1:mc0.main_0"
 	term   ":udb@[UDB=(0,1)]:pld1:mc0.main_0"
 end \Debouncer_1:DEBOUNCER[0]:d_sync_0\
-net Net_1457
+net Net_1460
 	term   ":udb@[UDB=(0,0)]:pld0:mc0.q"
 	switch ":udb@[UDB=(0,0)]:pld0:mc0.q==>:udb@[UDB=(0,0)]:pld0:output_permute3.q_0"
 	switch ":udb@[UDB=(0,0)]:pld0:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,0)][side=top]:v30"
@@ -347,7 +347,7 @@ net Net_1457
 	term   ":udb@[UDB=(0,1)]:pld1:mc1.clk_en"
 	switch ":udb@[UDB=(0,1)]:clockreset:clken_pld1_mux.pld1_clken==>:udb@[UDB=(0,1)]:pld1:mc0.clk_en"
 	term   ":udb@[UDB=(0,1)]:pld1:mc0.clk_en"
-end Net_1457
+end Net_1460
 net \FreqDiv_1:count_3\
 	term   ":udb@[UDB=(0,0)]:pld0:mc2.q"
 	switch ":udb@[UDB=(0,0)]:pld0:mc2.q==>:udb@[UDB=(0,0)]:pld0:output_permute2.q_2"
@@ -551,125 +551,11 @@ net ClockBlock_HFClk
 	term   ":interrupt_10.clock"
 	switch ":m0s8clockblockcell.hfclk==>:interrupt_0.clock"
 	term   ":interrupt_0.clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_14.clock"
+	term   ":interrupt_14.clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_2.clock"
+	term   ":interrupt_2.clock"
 end ClockBlock_HFClk
-net Net_104
-	term   ":udb@[UDB=(1,1)]:controlcell.control_0"
-	switch ":udb@[UDB=(1,1)]:controlcell.control_0==>:udb@[UDB=(1,1)]:controlcell_control_0_permute.in_0"
-	switch ":udb@[UDB=(1,1)]:controlcell_control_0_permute.controlcell_control_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v105"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v105"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:105,73"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:55,73_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v55"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v55==>:udb@[UDB=(1,1)]:pld1:input_permute.input_4"
-	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc3_main_1==>:udb@[UDB=(1,1)]:pld1:mc3.main_1"
-	term   ":udb@[UDB=(1,1)]:pld1:mc3.main_1"
-end Net_104
-net Net_107
-	term   ":udb@[UDB=(1,1)]:controlcell.control_1"
-	switch ":udb@[UDB=(1,1)]:controlcell.control_1==>:udb@[UDB=(1,1)]:controlcell_control_1_permute.in_0"
-	switch ":udb@[UDB=(1,1)]:controlcell_control_1_permute.controlcell_control_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v107"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v107"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:107,60"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:59,60_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v59"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v59==>:udb@[UDB=(1,1)]:pld1:input_permute.input_2"
-	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc2_main_1==>:udb@[UDB=(1,1)]:pld1:mc2.main_1"
-	term   ":udb@[UDB=(1,1)]:pld1:mc2.main_1"
-end Net_107
-net Net_110
-	term   ":udb@[UDB=(1,1)]:controlcell.control_2"
-	switch ":udb@[UDB=(1,1)]:controlcell.control_2==>:udb@[UDB=(1,1)]:controlcell_control_2_permute.in_0"
-	switch ":udb@[UDB=(1,1)]:controlcell_control_2_permute.controlcell_control_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v109"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v109"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:109,54"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:61,54_f"
-	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v61"
-	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v61==>:udb@[UDB=(1,1)]:pld1:input_permute.input_1"
-	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc1_main_0==>:udb@[UDB=(1,1)]:pld1:mc1.main_0"
-	term   ":udb@[UDB=(1,1)]:pld1:mc1.main_0"
-end Net_110
-net Net_130
-	term   ":udb@[UDB=(1,1)]:pld1:mc1.q"
-	switch ":udb@[UDB=(1,1)]:pld1:mc1.q==>:udb@[UDB=(1,1)]:pld1:output_permute3.q_1"
-	switch ":udb@[UDB=(1,1)]:pld1:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v33"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v33"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:33,44"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:30,44_f"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_30_bot_b"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:30,88_b"
-	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:91,88_f"
-	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v87+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v89+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v91"
-	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v87+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v89+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v91==>:ioport0:inputs1_mux.in_3"
-	switch ":ioport0:inputs1_mux.pin0__pin_input==>:ioport0:hsiom_out0.dsi"
-	switch ":ioport0:hsiom_out0.hsiom0_out==>:ioport0:pin0.pin_input"
-	term   ":ioport0:pin0.pin_input"
-end Net_130
-net Net_131
-	term   ":udb@[UDB=(1,1)]:pld1:mc2.q"
-	switch ":udb@[UDB=(1,1)]:pld1:mc2.q==>:udb@[UDB=(1,1)]:pld1:output_permute2.q_2"
-	switch ":udb@[UDB=(1,1)]:pld1:output_permute2.output_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v35"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v35"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:35,65"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:26,65_f"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:vseg_26_bot_f"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:26,87_b"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:hseg_87_b"
-	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:101,87_f"
-	switch "IStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v101+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v103+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v99"
-	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v101+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v103+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v99==>:ioport3:inputs2_mux.in_3"
-	switch ":ioport3:inputs2_mux.pin7__pin_input==>:ioport3:hsiom_out7.dsi"
-	switch ":ioport3:hsiom_out7.hsiom7_out==>:ioport3:pin7.pin_input"
-	term   ":ioport3:pin7.pin_input"
-end Net_131
-net Net_132
-	term   ":udb@[UDB=(1,1)]:pld1:mc3.q"
-	switch ":udb@[UDB=(1,1)]:pld1:mc3.q==>:udb@[UDB=(1,1)]:pld1:output_permute0.q_3"
-	switch ":udb@[UDB=(1,1)]:pld1:output_permute0.output_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v39"
-	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v39"
-	switch ":udbswitch@[UDB=(0,1)][side=top]:39,91"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:27,91_f"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_27_bot_b"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:27,76_b"
-	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:95,76_f"
-	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v93+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v95+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v97"
-	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v93+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v95+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v97==>:ioport0:inputs2_mux.in_1"
-	switch ":ioport0:inputs2_mux.pin7__pin_input==>:ioport0:hsiom_out7.dsi"
-	switch ":ioport0:hsiom_out7.hsiom7_out==>:ioport0:pin7.pin_input"
-	term   ":ioport0:pin7.pin_input"
-end Net_132
-net Net_1383
-	term   ":m0s8tcpwmcell_2.line"
-	switch ":m0s8tcpwmcell_2.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
-	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
-	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:28,57"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:7,57_f"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_7_top_f"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:vseg_7_top_f"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:7,74_b"
-	switch ":dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:96,74_f"
-	switch "IStub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v92+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v94+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v96"
-	switch "Stub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v92+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v94+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v96==>:ioport1:inputs2_mux.in_0"
-	switch ":ioport1:inputs2_mux.pin6__pin_input==>:ioport1:hsiom_out6.dsi"
-	switch ":ioport1:hsiom_out6.hsiom6_out==>:ioport1:pin6.pin_input"
-	term   ":ioport1:pin6.pin_input"
-end Net_1383
-net Net_1395
-	term   ":m0s8tcpwmcell_3.line"
-	switch ":m0s8tcpwmcell_3.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v29+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v31"
-	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v29+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v31"
-	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:29,89"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:hseg_89_f"
-	switch ":hvswitch@[UDB=(0,0)][side=left]:22,89_f"
-	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_22_top_f"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:vseg_22_top_f"
-	switch ":hvswitch@[UDB=(2,0)][side=left]:22,71_b"
-	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:80,71_f"
-	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v80+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v82+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v84"
-	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v80+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v82+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v84==>:ioport0:inputs1_mux.in_0"
-	switch ":ioport0:inputs1_mux.pin2__pin_input==>:ioport0:hsiom_out2.dsi"
-	switch ":ioport0:hsiom_out2.hsiom2_out==>:ioport0:pin2.pin_input"
-	term   ":ioport0:pin2.pin_input"
-end Net_1395
 net Net_1407
 	term   ":m0s8tcpwmcell_1.line"
 	switch ":m0s8tcpwmcell_1.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v25+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v27"
@@ -687,18 +573,6 @@ net Net_1407
 	switch ":ioport0:hsiom_out3.hsiom3_out==>:ioport0:pin3.pin_input"
 	term   ":ioport0:pin3.pin_input"
 end Net_1407
-net Net_1430
-	term   ":m0s8tcpwmcell_0.line"
-	switch ":m0s8tcpwmcell_0.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v24+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v26"
-	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v24+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v26"
-	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:26,15"
-	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:82,15_f"
-	switch "IStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v80+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v82+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v84"
-	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v80+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v82+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v84==>:ioport3:inputs1_mux.in_0"
-	switch ":ioport3:inputs1_mux.pin1__pin_input==>:ioport3:hsiom_out1.dsi"
-	switch ":ioport3:hsiom_out1.hsiom1_out==>:ioport3:pin1.pin_input"
-	term   ":ioport3:pin1.pin_input"
-end Net_1430
 net Net_1445
 	term   ":logicalport_0.interrupt"
 	switch ":logicalport_0.interrupt==>Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v16+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v18"
@@ -713,7 +587,19 @@ net Net_1445
 	switch ":udb@[UDB=(0,1)]:pld1:input_permute.mc2_main_0==>:udb@[UDB=(0,1)]:pld1:mc2.main_0"
 	term   ":udb@[UDB=(0,1)]:pld1:mc2.main_0"
 end Net_1445
-net Net_1450
+net Net_1458
+	term   ":m0s8tcpwmcell_0.line"
+	switch ":m0s8tcpwmcell_0.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v24+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v26"
+	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v24+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v26"
+	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:26,15"
+	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:82,15_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v80+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v82+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v84"
+	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v80+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v82+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v84==>:ioport3:inputs1_mux.in_0"
+	switch ":ioport3:inputs1_mux.pin1__pin_input==>:ioport3:hsiom_out1.dsi"
+	switch ":ioport3:hsiom_out1.hsiom1_out==>:ioport3:pin1.pin_input"
+	term   ":ioport3:pin1.pin_input"
+end Net_1458
+net Net_1465
 	term   ":udb@[UDB=(0,1)]:pld1:mc0.q"
 	switch ":udb@[UDB=(0,1)]:pld1:mc0.q==>:udb@[UDB=(0,1)]:pld1:output_permute1.q_0"
 	switch ":udb@[UDB=(0,1)]:pld1:output_permute1.output_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v36"
@@ -727,7 +613,136 @@ net Net_1450
 	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v105+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v107+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v109==>:interrupt_idmux_0.in_1"
 	switch ":interrupt_idmux_0.interrupt_idmux_0__out==>:interrupt_0.interrupt"
 	term   ":interrupt_0.interrupt"
-end Net_1450
+end Net_1465
+net Net_1726
+	term   ":p4sarcell.eos_intr"
+	switch ":p4sarcell.eos_intr==>Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v45+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v47"
+	switch "OStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v45+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v47"
+	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:45,58"
+	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:114,58_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v110+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v112+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v114"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v110+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v112+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v114==>:interrupt_idmux_2.in_1"
+	switch ":interrupt_idmux_2.interrupt_idmux_2__out==>:interrupt_2.interrupt"
+	term   ":interrupt_2.interrupt"
+end Net_1726
+net Net_1738
+	term   ":m0s8tcpwmcell_2.line"
+	switch ":m0s8tcpwmcell_2.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
+	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
+	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:28,57"
+	switch ":hvswitch@[UDB=(0,0)][side=left]:7,57_f"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_7_top_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:vseg_7_top_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:7,74_b"
+	switch ":dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:96,74_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v92+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v94+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v96"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v92+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v94+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v96==>:ioport1:inputs2_mux.in_0"
+	switch ":ioport1:inputs2_mux.pin6__pin_input==>:ioport1:hsiom_out6.dsi"
+	switch ":ioport1:hsiom_out6.hsiom6_out==>:ioport1:pin6.pin_input"
+	term   ":ioport1:pin6.pin_input"
+end Net_1738
+net Net_1739
+	term   ":m0s8tcpwmcell_3.line"
+	switch ":m0s8tcpwmcell_3.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v29+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v31"
+	switch "OStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v29+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v31"
+	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:29,89"
+	switch ":hvswitch@[UDB=(0,0)][side=left]:hseg_89_f"
+	switch ":hvswitch@[UDB=(0,0)][side=left]:22,89_f"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_22_top_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:vseg_22_top_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:22,71_b"
+	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:80,71_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v80+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v82+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v84"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v80+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v82+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v84==>:ioport0:inputs1_mux.in_0"
+	switch ":ioport0:inputs1_mux.pin2__pin_input==>:ioport0:hsiom_out2.dsi"
+	switch ":ioport0:hsiom_out2.hsiom2_out==>:ioport0:pin2.pin_input"
+	term   ":ioport0:pin2.pin_input"
+end Net_1739
+net Net_1754
+	term   ":udb@[UDB=(1,1)]:controlcell.control_0"
+	switch ":udb@[UDB=(1,1)]:controlcell.control_0==>:udb@[UDB=(1,1)]:controlcell_control_0_permute.in_0"
+	switch ":udb@[UDB=(1,1)]:controlcell_control_0_permute.controlcell_control_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v105"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v105"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:105,73"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:55,73_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v55"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v55==>:udb@[UDB=(1,1)]:pld1:input_permute.input_4"
+	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc3_main_1==>:udb@[UDB=(1,1)]:pld1:mc3.main_1"
+	term   ":udb@[UDB=(1,1)]:pld1:mc3.main_1"
+end Net_1754
+net Net_1758
+	term   ":udb@[UDB=(1,1)]:controlcell.control_1"
+	switch ":udb@[UDB=(1,1)]:controlcell.control_1==>:udb@[UDB=(1,1)]:controlcell_control_1_permute.in_0"
+	switch ":udb@[UDB=(1,1)]:controlcell_control_1_permute.controlcell_control_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v107"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v107"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:107,60"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:59,60_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v59"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v59==>:udb@[UDB=(1,1)]:pld1:input_permute.input_2"
+	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc2_main_1==>:udb@[UDB=(1,1)]:pld1:mc2.main_1"
+	term   ":udb@[UDB=(1,1)]:pld1:mc2.main_1"
+end Net_1758
+net Net_1759
+	term   ":udb@[UDB=(1,1)]:controlcell.control_2"
+	switch ":udb@[UDB=(1,1)]:controlcell.control_2==>:udb@[UDB=(1,1)]:controlcell_control_2_permute.in_0"
+	switch ":udb@[UDB=(1,1)]:controlcell_control_2_permute.controlcell_control_2==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v109"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v109"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:109,54"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:61,54_f"
+	switch "IStub-:udbswitch@[UDB=(0,1)][side=top]:v61"
+	switch "Stub-:udbswitch@[UDB=(0,1)][side=top]:v61==>:udb@[UDB=(1,1)]:pld1:input_permute.input_1"
+	switch ":udb@[UDB=(1,1)]:pld1:input_permute.mc1_main_0==>:udb@[UDB=(1,1)]:pld1:mc1.main_0"
+	term   ":udb@[UDB=(1,1)]:pld1:mc1.main_0"
+end Net_1759
+net Net_1769
+	term   ":udb@[UDB=(1,1)]:pld1:mc1.q"
+	switch ":udb@[UDB=(1,1)]:pld1:mc1.q==>:udb@[UDB=(1,1)]:pld1:output_permute1.q_1"
+	switch ":udb@[UDB=(1,1)]:pld1:output_permute1.output_1==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v37"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v37"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:37,59"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:28,59_f"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_28_bot_b"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:28,5_b"
+	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:87,5_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v87+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v89+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v91"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v87+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v89+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v91==>:ioport0:inputs1_mux.in_3"
+	switch ":ioport0:inputs1_mux.pin0__pin_input==>:ioport0:hsiom_out0.dsi"
+	switch ":ioport0:hsiom_out0.hsiom0_out==>:ioport0:pin0.pin_input"
+	term   ":ioport0:pin0.pin_input"
+end Net_1769
+net Net_1770
+	term   ":udb@[UDB=(1,1)]:pld1:mc2.q"
+	switch ":udb@[UDB=(1,1)]:pld1:mc2.q==>:udb@[UDB=(1,1)]:pld1:output_permute3.q_2"
+	switch ":udb@[UDB=(1,1)]:pld1:output_permute3.output_3==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v33"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v33"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:33,3"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:hseg_3_b"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:6,3_f"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_6_top_b"
+	switch ":hvswitch@[UDB=(0,0)][side=left]:6,75_b"
+	switch ":dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:97,75_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v97"
+	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v97==>:ioport3:inputs2_mux.in_1"
+	switch ":ioport3:inputs2_mux.pin7__pin_input==>:ioport3:hsiom_out7.dsi"
+	switch ":ioport3:hsiom_out7.hsiom7_out==>:ioport3:pin7.pin_input"
+	term   ":ioport3:pin7.pin_input"
+end Net_1770
+net Net_1771
+	term   ":udb@[UDB=(1,1)]:pld1:mc3.q"
+	switch ":udb@[UDB=(1,1)]:pld1:mc3.q==>:udb@[UDB=(1,1)]:pld1:output_permute0.q_3"
+	switch ":udb@[UDB=(1,1)]:pld1:output_permute0.output_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v39"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v39"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:39,50"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:27,50_f"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:vseg_27_bot_b"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:27,76_b"
+	switch ":dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:95,76_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v93+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v95+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v97"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v93+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v95+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v97==>:ioport0:inputs2_mux.in_1"
+	switch ":ioport0:inputs2_mux.pin7__pin_input==>:ioport0:hsiom_out7.dsi"
+	switch ":ioport0:hsiom_out7.hsiom7_out==>:ioport0:pin7.pin_input"
+	term   ":ioport0:pin7.pin_input"
+end Net_1771
 net Net_364
 	term   ":m0s8scbcell_0.interrupt"
 	switch ":m0s8scbcell_0.interrupt==>:interrupt_idmux_10.in_0"
@@ -748,6 +763,12 @@ net Net_381
 	switch ":m0s8scbcell_0__i2c_sda__hsiom_permute.m0s8scbcell_0__i2c_sda==>:m0s8scbcell_0.i2c_sda"
 	term   ":m0s8scbcell_0.i2c_sda"
 end Net_381
+net \ADC:Net_3112\
+	term   ":p4sarcell.irq"
+	switch ":p4sarcell.irq==>:interrupt_idmux_14.in_0"
+	switch ":interrupt_idmux_14.interrupt_idmux_14__out==>:interrupt_14.interrupt"
+	term   ":interrupt_14.interrupt"
+end \ADC:Net_3112\
 net \UART:rx_wire\
 	term   ":ioport0:pin4.fb"
 	switch ":ioport0:pin4.fb==>:ioport0:hsiom_in4.hsiom4_in"
@@ -761,6 +782,23 @@ net \UART:tx_wire\
 	switch ":ioport0:hsiom_out5.hsiom5_out==>:ioport0:pin5.pin_input"
 	term   ":ioport0:pin5.pin_input"
 end \UART:tx_wire\
+net __ONE__
+	term   ":udb@[UDB=(0,1)]:pld0:mc1.q"
+	switch ":udb@[UDB=(0,1)]:pld0:mc1.q==>:udb@[UDB=(0,1)]:pld0:output_permute0.q_1"
+	switch ":udb@[UDB=(0,1)]:pld0:output_permute0.output_0==>Stub-:udbswitch@[UDB=(0,1)][side=top]:v24"
+	switch "OStub-:udbswitch@[UDB=(0,1)][side=top]:v24"
+	switch ":udbswitch@[UDB=(0,1)][side=top]:24,69"
+	switch ":hvswitch@[UDB=(1,0)][side=left]:20,69_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:vseg_20_top_f"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:20,91_b"
+	switch ":hvswitch@[UDB=(2,0)][side=left]:hseg_91_b"
+	switch ":dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:88,91_f"
+	switch "IStub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v86+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v88+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v90"
+	switch "Stub-:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v86+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v88+:dsiswitch_bottom@[DSI=(1,0)][side=bottom]:dsihc_bottom:v90==>:ioport1:inputs1_mux.in_2"
+	switch ":ioport1:inputs1_mux.pin1__pin_input==>:ioport1:hsiom_out1.dsi"
+	switch ":ioport1:hsiom_out1.hsiom1_out==>:ioport1:pin1.pin_input"
+	term   ":ioport1:pin1.pin_input"
+end __ONE__
 net dclk_to_genclk
 	term   ":m0s8clockblockcell.udb_div_0"
 	switch ":m0s8clockblockcell.udb_div_0==>:dclk_permute.dclk_in_0"
