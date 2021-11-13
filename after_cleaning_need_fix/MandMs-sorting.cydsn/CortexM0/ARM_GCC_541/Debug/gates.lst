@@ -1,0 +1,1529 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"gates.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.RunMotors45Degrees,"ax",%progbits
+  20              		.align	2
+  21              		.global	RunMotors45Degrees
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	RunMotors45Degrees, %function
+  25              	RunMotors45Degrees:
+  26              	.LFB33:
+  27              		.file 1 "gates.c"
+   1:gates.c       **** #include "gates.h"
+   2:gates.c       **** 
+   3:gates.c       **** //function for running needed drivers
+   4:gates.c       **** //EXAMPLE: if we want to run the third driver, arguments will be 0,0,1
+   5:gates.c       **** //argument that equals to 0 means not to run this driver, 1 means to run
+   6:gates.c       **** void RunMotors45Degrees(bool direction, struct motors gates){
+  28              		.loc 1 6 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              		.cfi_def_cfa_offset 12
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  38 0002 83B0     		sub	sp, sp, #12
+  39              		.cfi_def_cfa_offset 24
+  40 0004 0500     		movs	r5, r0
+  41 0006 01AC     		add	r4, sp, #4
+  42 0008 0191     		str	r1, [sp, #4]
+   7:gates.c       ****     
+   8:gates.c       ****     //set direction
+   9:gates.c       ****     Dir_1_Write(direction);
+  43              		.loc 1 9 0
+  44 000a FFF7FEFF 		bl	Dir_1_Write
+  45              	.LVL1:
+  10:gates.c       ****     Dir_2_5_Write(direction);
+  46              		.loc 1 10 0
+  47 000e 2800     		movs	r0, r5
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 2
+
+
+  48 0010 FFF7FEFF 		bl	Dir_2_5_Write
+  49              	.LVL2:
+  11:gates.c       ****     Dir_3_4_Write(direction);
+  50              		.loc 1 11 0
+  51 0014 2800     		movs	r0, r5
+  52 0016 FFF7FEFF 		bl	Dir_3_4_Write
+  53              	.LVL3:
+  12:gates.c       ****     
+  13:gates.c       ****     //count value of counter to run needed motors
+  14:gates.c       ****     uint8_t val = 0b000;
+  15:gates.c       ****     val = val | gates.motor_1 | (gates.motor_2_5 << 1) | (gates.motor_3_4 << 2);
+  54              		.loc 1 15 0
+  55 001a 2278     		ldrb	r2, [r4]
+  56 001c 6078     		ldrb	r0, [r4, #1]
+  57 001e 4000     		lsls	r0, r0, #1
+  58 0020 A378     		ldrb	r3, [r4, #2]
+  59 0022 9B00     		lsls	r3, r3, #2
+  60 0024 1043     		orrs	r0, r2
+  61 0026 1843     		orrs	r0, r3
+  62 0028 C0B2     		uxtb	r0, r0
+  63              	.LVL4:
+  16:gates.c       ****     
+  17:gates.c       ****     Control_Reg_2_Write(val);
+  64              		.loc 1 17 0
+  65 002a FFF7FEFF 		bl	Control_Reg_2_Write
+  66              	.LVL5:
+  18:gates.c       ****     
+  19:gates.c       ****     Control_Reg_1_Write(true);
+  67              		.loc 1 19 0
+  68 002e 0120     		movs	r0, #1
+  69 0030 FFF7FEFF 		bl	Control_Reg_1_Write
+  70              	.LVL6:
+  71              	.L2:
+  20:gates.c       ****     
+  21:gates.c       ****     while (Status_Reg_1_Read() != true);
+  72              		.loc 1 21 0 discriminator 1
+  73 0034 FFF7FEFF 		bl	Status_Reg_1_Read
+  74              	.LVL7:
+  75 0038 0128     		cmp	r0, #1
+  76 003a FBD1     		bne	.L2
+  22:gates.c       ****     
+  23:gates.c       ****     Control_Reg_1_Write(false);
+  77              		.loc 1 23 0
+  78 003c 0020     		movs	r0, #0
+  79 003e FFF7FEFF 		bl	Control_Reg_1_Write
+  80              	.LVL8:
+  81              	.L3:
+  24:gates.c       ****     
+  25:gates.c       ****     while (Status_Reg_1_Read() != false);
+  82              		.loc 1 25 0 discriminator 1
+  83 0042 FFF7FEFF 		bl	Status_Reg_1_Read
+  84              	.LVL9:
+  85 0046 0028     		cmp	r0, #0
+  86 0048 FBD1     		bne	.L3
+  26:gates.c       **** }
+  87              		.loc 1 26 0
+  88 004a 03B0     		add	sp, sp, #12
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 3
+
+
+  89              		@ sp needed
+  90 004c 30BD     		pop	{r4, r5, pc}
+  91              		.cfi_endproc
+  92              	.LFE33:
+  93              		.size	RunMotors45Degrees, .-RunMotors45Degrees
+  94 004e C046     		.section	.text.OpenCloseGates,"ax",%progbits
+  95              		.align	2
+  96              		.global	OpenCloseGates
+  97              		.code	16
+  98              		.thumb_func
+  99              		.type	OpenCloseGates, %function
+ 100              	OpenCloseGates:
+ 101              	.LFB34:
+  27:gates.c       **** 
+  28:gates.c       **** void OpenCloseGates(struct motors gates){
+ 102              		.loc 1 28 0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 8
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106 0000 00B5     		push	{lr}
+ 107              		.cfi_def_cfa_offset 4
+ 108              		.cfi_offset 14, -4
+ 109 0002 83B0     		sub	sp, sp, #12
+ 110              		.cfi_def_cfa_offset 16
+ 111 0004 0100     		movs	r1, r0
+ 112 0006 0190     		str	r0, [sp, #4]
+  29:gates.c       ****     
+  30:gates.c       ****     //run needed motors 45 degrees clockwise
+  31:gates.c       ****     RunMotors45Degrees(CCW, gates);
+ 113              		.loc 1 31 0
+ 114 0008 0120     		movs	r0, #1
+ 115 000a FFF7FEFF 		bl	RunMotors45Degrees
+ 116              	.LVL10:
+  32:gates.c       ****     CyDelay(190);
+ 117              		.loc 1 32 0
+ 118 000e BE20     		movs	r0, #190
+ 119 0010 FFF7FEFF 		bl	CyDelay
+ 120              	.LVL11:
+  33:gates.c       ****     
+  34:gates.c       ****     PWM_Container_Stop();
+ 121              		.loc 1 34 0
+ 122 0014 FFF7FEFF 		bl	PWM_Container_Stop
+ 123              	.LVL12:
+  35:gates.c       ****     CyDelay(DELAY_STOP_AFTER_OPEN);
+ 124              		.loc 1 35 0
+ 125 0018 0648     		ldr	r0, .L5
+ 126 001a FFF7FEFF 		bl	CyDelay
+ 127              	.LVL13:
+  36:gates.c       ****     
+  37:gates.c       ****     //run needed motors 45 degrees counterclockwise
+  38:gates.c       ****     RunMotors45Degrees(CW, gates);
+ 128              		.loc 1 38 0
+ 129 001e 0199     		ldr	r1, [sp, #4]
+ 130 0020 0020     		movs	r0, #0
+ 131 0022 FFF7FEFF 		bl	RunMotors45Degrees
+ 132              	.LVL14:
+  39:gates.c       ****     
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 4
+
+
+  40:gates.c       ****     CyDelay(DELAY_STOP_AFTER_CLOSE);
+ 133              		.loc 1 40 0
+ 134 0026 0A20     		movs	r0, #10
+ 135 0028 FFF7FEFF 		bl	CyDelay
+ 136              	.LVL15:
+  41:gates.c       ****     PWM_Container_Start();
+ 137              		.loc 1 41 0
+ 138 002c FFF7FEFF 		bl	PWM_Container_Start
+ 139              	.LVL16:
+  42:gates.c       **** }
+ 140              		.loc 1 42 0
+ 141 0030 03B0     		add	sp, sp, #12
+ 142              		@ sp needed
+ 143 0032 00BD     		pop	{pc}
+ 144              	.L6:
+ 145              		.align	2
+ 146              	.L5:
+ 147 0034 26020000 		.word	550
+ 148              		.cfi_endproc
+ 149              	.LFE34:
+ 150              		.size	OpenCloseGates, .-OpenCloseGates
+ 151              		.section	.text.OpenCloseTestGates,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	OpenCloseTestGates
+ 154              		.code	16
+ 155              		.thumb_func
+ 156              		.type	OpenCloseTestGates, %function
+ 157              	OpenCloseTestGates:
+ 158              	.LFB35:
+  43:gates.c       **** 
+  44:gates.c       **** void OpenCloseTestGates(int count_settings, bool open){
+ 159              		.loc 1 44 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 8
+ 162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 163              	.LVL17:
+ 164 0000 10B5     		push	{r4, lr}
+ 165              		.cfi_def_cfa_offset 8
+ 166              		.cfi_offset 4, -8
+ 167              		.cfi_offset 14, -4
+ 168 0002 82B0     		sub	sp, sp, #8
+ 169              		.cfi_def_cfa_offset 16
+ 170 0004 0C00     		movs	r4, r1
+  45:gates.c       ****     struct motors gates;
+  46:gates.c       ****     
+  47:gates.c       ****     switch (count_settings){
+ 171              		.loc 1 47 0
+ 172 0006 0628     		cmp	r0, #6
+ 173 0008 2AD8     		bhi	.L8
+ 174 000a 8000     		lsls	r0, r0, #2
+ 175              	.LVL18:
+ 176 000c 1B4B     		ldr	r3, .L18
+ 177 000e 1B58     		ldr	r3, [r3, r0]
+ 178 0010 9F46     		mov	pc, r3
+ 179              		.section	.rodata
+ 180              		.align	2
+ 181              	.L10:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 5
+
+
+ 182 0000 60000000 		.word	.L8
+ 183 0004 12000000 		.word	.L9
+ 184 0008 2C000000 		.word	.L11
+ 185 000c 1E000000 		.word	.L12
+ 186 0010 3A000000 		.word	.L13
+ 187 0014 46000000 		.word	.L14
+ 188 0018 54000000 		.word	.L15
+ 189              		.section	.text.OpenCloseTestGates
+ 190              	.L9:
+  48:gates.c       ****         case RED:
+  49:gates.c       ****             gates = (struct motors){0, 0, 0};
+ 191              		.loc 1 49 0
+ 192 0012 01AB     		add	r3, sp, #4
+ 193 0014 0022     		movs	r2, #0
+ 194 0016 1A70     		strb	r2, [r3]
+ 195 0018 5A70     		strb	r2, [r3, #1]
+ 196 001a 9A70     		strb	r2, [r3, #2]
+  50:gates.c       ****             break;
+ 197              		.loc 1 50 0
+ 198 001c 20E0     		b	.L8
+ 199              	.L12:
+  51:gates.c       ****         case ORANGE:
+  52:gates.c       ****             gates = (struct motors){0, 0, 1};
+ 200              		.loc 1 52 0
+ 201 001e 01AB     		add	r3, sp, #4
+ 202 0020 0022     		movs	r2, #0
+ 203 0022 1A70     		strb	r2, [r3]
+ 204 0024 5A70     		strb	r2, [r3, #1]
+ 205 0026 0132     		adds	r2, r2, #1
+ 206 0028 9A70     		strb	r2, [r3, #2]
+  53:gates.c       ****             break;
+ 207              		.loc 1 53 0
+ 208 002a 19E0     		b	.L8
+ 209              	.L11:
+  54:gates.c       ****         case YELLOW:
+  55:gates.c       ****             gates = (struct motors){0, 1, 0};
+ 210              		.loc 1 55 0
+ 211 002c 01AB     		add	r3, sp, #4
+ 212 002e 0022     		movs	r2, #0
+ 213 0030 1A70     		strb	r2, [r3]
+ 214 0032 0121     		movs	r1, #1
+ 215              	.LVL19:
+ 216 0034 5970     		strb	r1, [r3, #1]
+ 217 0036 9A70     		strb	r2, [r3, #2]
+  56:gates.c       ****             break;
+ 218              		.loc 1 56 0
+ 219 0038 12E0     		b	.L8
+ 220              	.LVL20:
+ 221              	.L13:
+  57:gates.c       ****         case GREEN:
+  58:gates.c       ****             gates = (struct motors){0, 1, 1};
+ 222              		.loc 1 58 0
+ 223 003a 0322     		movs	r2, #3
+ 224 003c 1049     		ldr	r1, .L18+4
+ 225              	.LVL21:
+ 226 003e 01A8     		add	r0, sp, #4
+ 227 0040 FFF7FEFF 		bl	memcpy
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 6
+
+
+ 228              	.LVL22:
+  59:gates.c       ****             break;
+ 229              		.loc 1 59 0
+ 230 0044 0CE0     		b	.L8
+ 231              	.LVL23:
+ 232              	.L14:
+  60:gates.c       ****         case BLUE:
+  61:gates.c       ****             gates = (struct motors){1, 0, 0};
+ 233              		.loc 1 61 0
+ 234 0046 01AB     		add	r3, sp, #4
+ 235 0048 0122     		movs	r2, #1
+ 236 004a 1A70     		strb	r2, [r3]
+ 237 004c 0022     		movs	r2, #0
+ 238 004e 5A70     		strb	r2, [r3, #1]
+ 239 0050 9A70     		strb	r2, [r3, #2]
+  62:gates.c       ****             break;
+ 240              		.loc 1 62 0
+ 241 0052 05E0     		b	.L8
+ 242              	.L15:
+  63:gates.c       ****         case BROWN:
+  64:gates.c       ****             gates = (struct motors){1, 0, 1};
+ 243              		.loc 1 64 0
+ 244 0054 0322     		movs	r2, #3
+ 245 0056 0A49     		ldr	r1, .L18+4
+ 246              	.LVL24:
+ 247 0058 0431     		adds	r1, r1, #4
+ 248 005a 01A8     		add	r0, sp, #4
+ 249 005c FFF7FEFF 		bl	memcpy
+ 250              	.LVL25:
+ 251              	.L8:
+  65:gates.c       ****             break;
+  66:gates.c       ****     }
+  67:gates.c       ****     if (open){
+ 252              		.loc 1 67 0
+ 253 0060 002C     		cmp	r4, #0
+ 254 0062 04D0     		beq	.L16
+  68:gates.c       ****         RunMotors45Degrees(CCW, gates);
+ 255              		.loc 1 68 0
+ 256 0064 0199     		ldr	r1, [sp, #4]
+ 257 0066 0120     		movs	r0, #1
+ 258 0068 FFF7FEFF 		bl	RunMotors45Degrees
+ 259              	.LVL26:
+ 260 006c 03E0     		b	.L7
+ 261              	.L16:
+  69:gates.c       ****     } else{
+  70:gates.c       ****         RunMotors45Degrees(CW, gates);
+ 262              		.loc 1 70 0
+ 263 006e 0199     		ldr	r1, [sp, #4]
+ 264 0070 0020     		movs	r0, #0
+ 265 0072 FFF7FEFF 		bl	RunMotors45Degrees
+ 266              	.LVL27:
+ 267              	.L7:
+  71:gates.c       ****     }
+  72:gates.c       ****     
+  73:gates.c       **** }...
+ 268              		.loc 1 73 0
+ 269 0076 02B0     		add	sp, sp, #8
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 7
+
+
+ 270              		@ sp needed
+ 271 0078 10BD     		pop	{r4, pc}
+ 272              	.L19:
+ 273 007a C046     		.align	2
+ 274              	.L18:
+ 275 007c 00000000 		.word	.L10
+ 276 0080 1C000000 		.word	.LANCHOR0
+ 277              		.cfi_endproc
+ 278              	.LFE35:
+ 279              		.size	OpenCloseTestGates, .-OpenCloseTestGates
+ 280              		.comm	max_none_color,12,4
+ 281              		.comm	min_none_color,12,4
+ 282              		.comm	button_pushed,1,1
+ 283              		.section	.rodata
+ 284              		.align	2
+ 285              		.set	.LANCHOR0,. + 0
+ 286              	.LC0:
+ 287 001c 00       		.byte	0
+ 288 001d 01       		.byte	1
+ 289 001e 01       		.byte	1
+ 290 001f 00       		.space	1
+ 291              	.LC1:
+ 292 0020 01       		.byte	1
+ 293 0021 00       		.byte	0
+ 294 0022 01       		.byte	1
+ 295              		.text
+ 296              	.Letext0:
+ 297              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 298              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 299              		.file 4 "gates.h"
+ 300              		.file 5 "tcs34725.h"
+ 301              		.file 6 "Generated_Source\\PSoC4/Dir_1.h"
+ 302              		.file 7 "Generated_Source\\PSoC4/Dir_2_5.h"
+ 303              		.file 8 "Generated_Source\\PSoC4/Dir_3_4.h"
+ 304              		.file 9 "Generated_Source\\PSoC4/Control_Reg_2.h"
+ 305              		.file 10 "Generated_Source\\PSoC4/Control_Reg_1.h"
+ 306              		.file 11 "Generated_Source\\PSoC4/Status_Reg_1.h"
+ 307              		.file 12 "Generated_Source\\PSoC4/CyLib.h"
+ 308              		.file 13 "Generated_Source\\PSoC4/PWM_Container.h"
+ 309              		.section	.debug_info,"",%progbits
+ 310              	.Ldebug_info0:
+ 311 0000 89030000 		.4byte	0x389
+ 312 0004 0400     		.2byte	0x4
+ 313 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 314 000a 04       		.byte	0x4
+ 315 000b 01       		.uleb128 0x1
+ 316 000c 5D010000 		.4byte	.LASF39
+ 317 0010 0C       		.byte	0xc
+ 318 0011 F7000000 		.4byte	.LASF40
+ 319 0015 99020000 		.4byte	.LASF41
+ 320 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 321 001d 00000000 		.4byte	0
+ 322 0021 00000000 		.4byte	.Ldebug_line0
+ 323 0025 02       		.uleb128 0x2
+ 324 0026 01       		.byte	0x1
+ 325 0027 06       		.byte	0x6
+ 326 0028 71020000 		.4byte	.LASF0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 8
+
+
+ 327 002c 03       		.uleb128 0x3
+ 328 002d 0B000000 		.4byte	.LASF12
+ 329 0031 02       		.byte	0x2
+ 330 0032 1D       		.byte	0x1d
+ 331 0033 37000000 		.4byte	0x37
+ 332 0037 02       		.uleb128 0x2
+ 333 0038 01       		.byte	0x1
+ 334 0039 08       		.byte	0x8
+ 335 003a 81000000 		.4byte	.LASF1
+ 336 003e 02       		.uleb128 0x2
+ 337 003f 02       		.byte	0x2
+ 338 0040 05       		.byte	0x5
+ 339 0041 4B020000 		.4byte	.LASF2
+ 340 0045 02       		.uleb128 0x2
+ 341 0046 02       		.byte	0x2
+ 342 0047 07       		.byte	0x7
+ 343 0048 3C000000 		.4byte	.LASF3
+ 344 004c 02       		.uleb128 0x2
+ 345 004d 04       		.byte	0x4
+ 346 004e 05       		.byte	0x5
+ 347 004f 5C020000 		.4byte	.LASF4
+ 348 0053 02       		.uleb128 0x2
+ 349 0054 04       		.byte	0x4
+ 350 0055 07       		.byte	0x7
+ 351 0056 8F000000 		.4byte	.LASF5
+ 352 005a 02       		.uleb128 0x2
+ 353 005b 08       		.byte	0x8
+ 354 005c 05       		.byte	0x5
+ 355 005d 10020000 		.4byte	.LASF6
+ 356 0061 02       		.uleb128 0x2
+ 357 0062 08       		.byte	0x8
+ 358 0063 07       		.byte	0x7
+ 359 0064 0C010000 		.4byte	.LASF7
+ 360 0068 04       		.uleb128 0x4
+ 361 0069 04       		.byte	0x4
+ 362 006a 05       		.byte	0x5
+ 363 006b 696E7400 		.ascii	"int\000"
+ 364 006f 02       		.uleb128 0x2
+ 365 0070 04       		.byte	0x4
+ 366 0071 07       		.byte	0x7
+ 367 0072 FF000000 		.4byte	.LASF8
+ 368 0076 02       		.uleb128 0x2
+ 369 0077 08       		.byte	0x8
+ 370 0078 04       		.byte	0x4
+ 371 0079 65020000 		.4byte	.LASF9
+ 372 007d 02       		.uleb128 0x2
+ 373 007e 04       		.byte	0x4
+ 374 007f 07       		.byte	0x7
+ 375 0080 07020000 		.4byte	.LASF10
+ 376 0084 02       		.uleb128 0x2
+ 377 0085 01       		.byte	0x1
+ 378 0086 08       		.byte	0x8
+ 379 0087 30020000 		.4byte	.LASF11
+ 380 008b 03       		.uleb128 0x3
+ 381 008c 4F000000 		.4byte	.LASF13
+ 382 0090 03       		.byte	0x3
+ 383 0091 18       		.byte	0x18
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 9
+
+
+ 384 0092 2C000000 		.4byte	0x2c
+ 385 0096 02       		.uleb128 0x2
+ 386 0097 04       		.byte	0x4
+ 387 0098 04       		.byte	0x4
+ 388 0099 6D000000 		.4byte	.LASF14
+ 389 009d 02       		.uleb128 0x2
+ 390 009e 08       		.byte	0x8
+ 391 009f 04       		.byte	0x4
+ 392 00a0 D7000000 		.4byte	.LASF15
+ 393 00a4 05       		.uleb128 0x5
+ 394 00a5 55020000 		.4byte	.LASF42
+ 395 00a9 03       		.byte	0x3
+ 396 00aa 04       		.byte	0x4
+ 397 00ab 0E       		.byte	0xe
+ 398 00ac D5000000 		.4byte	0xd5
+ 399 00b0 06       		.uleb128 0x6
+ 400 00b1 EB010000 		.4byte	.LASF16
+ 401 00b5 04       		.byte	0x4
+ 402 00b6 0F       		.byte	0xf
+ 403 00b7 D5000000 		.4byte	0xd5
+ 404 00bb 00       		.byte	0
+ 405 00bc 06       		.uleb128 0x6
+ 406 00bd 32000000 		.4byte	.LASF17
+ 407 00c1 04       		.byte	0x4
+ 408 00c2 10       		.byte	0x10
+ 409 00c3 D5000000 		.4byte	0xd5
+ 410 00c7 01       		.byte	0x1
+ 411 00c8 06       		.uleb128 0x6
+ 412 00c9 DE000000 		.4byte	.LASF18
+ 413 00cd 04       		.byte	0x4
+ 414 00ce 11       		.byte	0x11
+ 415 00cf D5000000 		.4byte	0xd5
+ 416 00d3 02       		.byte	0x2
+ 417 00d4 00       		.byte	0
+ 418 00d5 02       		.uleb128 0x2
+ 419 00d6 01       		.byte	0x1
+ 420 00d7 02       		.byte	0x2
+ 421 00d8 7D020000 		.4byte	.LASF19
+ 422 00dc 07       		.uleb128 0x7
+ 423 00dd 37010000 		.4byte	.LASF22
+ 424 00e1 01       		.byte	0x1
+ 425 00e2 06       		.byte	0x6
+ 426 00e3 00000000 		.4byte	.LFB33
+ 427 00e7 4E000000 		.4byte	.LFE33-.LFB33
+ 428 00eb 01       		.uleb128 0x1
+ 429 00ec 9C       		.byte	0x9c
+ 430 00ed 9B010000 		.4byte	0x19b
+ 431 00f1 08       		.uleb128 0x8
+ 432 00f2 63000000 		.4byte	.LASF20
+ 433 00f6 01       		.byte	0x1
+ 434 00f7 06       		.byte	0x6
+ 435 00f8 D5000000 		.4byte	0xd5
+ 436 00fc 00000000 		.4byte	.LLST0
+ 437 0100 09       		.uleb128 0x9
+ 438 0101 05000000 		.4byte	.LASF21
+ 439 0105 01       		.byte	0x1
+ 440 0106 06       		.byte	0x6
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 10
+
+
+ 441 0107 A4000000 		.4byte	0xa4
+ 442 010b 02       		.uleb128 0x2
+ 443 010c 91       		.byte	0x91
+ 444 010d 6C       		.sleb128 -20
+ 445 010e 0A       		.uleb128 0xa
+ 446 010f 76616C00 		.ascii	"val\000"
+ 447 0113 01       		.byte	0x1
+ 448 0114 0E       		.byte	0xe
+ 449 0115 8B000000 		.4byte	0x8b
+ 450 0119 21000000 		.4byte	.LLST1
+ 451 011d 0B       		.uleb128 0xb
+ 452 011e 0E000000 		.4byte	.LVL1
+ 453 0122 1E030000 		.4byte	0x31e
+ 454 0126 31010000 		.4byte	0x131
+ 455 012a 0C       		.uleb128 0xc
+ 456 012b 01       		.uleb128 0x1
+ 457 012c 50       		.byte	0x50
+ 458 012d 02       		.uleb128 0x2
+ 459 012e 75       		.byte	0x75
+ 460 012f 00       		.sleb128 0
+ 461 0130 00       		.byte	0
+ 462 0131 0B       		.uleb128 0xb
+ 463 0132 14000000 		.4byte	.LVL2
+ 464 0136 29030000 		.4byte	0x329
+ 465 013a 45010000 		.4byte	0x145
+ 466 013e 0C       		.uleb128 0xc
+ 467 013f 01       		.uleb128 0x1
+ 468 0140 50       		.byte	0x50
+ 469 0141 02       		.uleb128 0x2
+ 470 0142 75       		.byte	0x75
+ 471 0143 00       		.sleb128 0
+ 472 0144 00       		.byte	0
+ 473 0145 0B       		.uleb128 0xb
+ 474 0146 1A000000 		.4byte	.LVL3
+ 475 014a 34030000 		.4byte	0x334
+ 476 014e 59010000 		.4byte	0x159
+ 477 0152 0C       		.uleb128 0xc
+ 478 0153 01       		.uleb128 0x1
+ 479 0154 50       		.byte	0x50
+ 480 0155 02       		.uleb128 0x2
+ 481 0156 75       		.byte	0x75
+ 482 0157 00       		.sleb128 0
+ 483 0158 00       		.byte	0
+ 484 0159 0D       		.uleb128 0xd
+ 485 015a 2E000000 		.4byte	.LVL5
+ 486 015e 3F030000 		.4byte	0x33f
+ 487 0162 0B       		.uleb128 0xb
+ 488 0163 34000000 		.4byte	.LVL6
+ 489 0167 4A030000 		.4byte	0x34a
+ 490 016b 75010000 		.4byte	0x175
+ 491 016f 0C       		.uleb128 0xc
+ 492 0170 01       		.uleb128 0x1
+ 493 0171 50       		.byte	0x50
+ 494 0172 01       		.uleb128 0x1
+ 495 0173 31       		.byte	0x31
+ 496 0174 00       		.byte	0
+ 497 0175 0D       		.uleb128 0xd
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 11
+
+
+ 498 0176 38000000 		.4byte	.LVL7
+ 499 017a 55030000 		.4byte	0x355
+ 500 017e 0B       		.uleb128 0xb
+ 501 017f 42000000 		.4byte	.LVL8
+ 502 0183 4A030000 		.4byte	0x34a
+ 503 0187 91010000 		.4byte	0x191
+ 504 018b 0C       		.uleb128 0xc
+ 505 018c 01       		.uleb128 0x1
+ 506 018d 50       		.byte	0x50
+ 507 018e 01       		.uleb128 0x1
+ 508 018f 30       		.byte	0x30
+ 509 0190 00       		.byte	0
+ 510 0191 0D       		.uleb128 0xd
+ 511 0192 46000000 		.4byte	.LVL9
+ 512 0196 55030000 		.4byte	0x355
+ 513 019a 00       		.byte	0
+ 514 019b 07       		.uleb128 0x7
+ 515 019c 15000000 		.4byte	.LASF23
+ 516 01a0 01       		.byte	0x1
+ 517 01a1 1C       		.byte	0x1c
+ 518 01a2 00000000 		.4byte	.LFB34
+ 519 01a6 38000000 		.4byte	.LFE34-.LFB34
+ 520 01aa 01       		.uleb128 0x1
+ 521 01ab 9C       		.byte	0x9c
+ 522 01ac 33020000 		.4byte	0x233
+ 523 01b0 09       		.uleb128 0x9
+ 524 01b1 05000000 		.4byte	.LASF21
+ 525 01b5 01       		.byte	0x1
+ 526 01b6 1C       		.byte	0x1c
+ 527 01b7 A4000000 		.4byte	0xa4
+ 528 01bb 02       		.uleb128 0x2
+ 529 01bc 91       		.byte	0x91
+ 530 01bd 74       		.sleb128 -12
+ 531 01be 0B       		.uleb128 0xb
+ 532 01bf 0E000000 		.4byte	.LVL10
+ 533 01c3 DC000000 		.4byte	0xdc
+ 534 01c7 D1010000 		.4byte	0x1d1
+ 535 01cb 0C       		.uleb128 0xc
+ 536 01cc 01       		.uleb128 0x1
+ 537 01cd 50       		.byte	0x50
+ 538 01ce 01       		.uleb128 0x1
+ 539 01cf 31       		.byte	0x31
+ 540 01d0 00       		.byte	0
+ 541 01d1 0B       		.uleb128 0xb
+ 542 01d2 14000000 		.4byte	.LVL11
+ 543 01d6 60030000 		.4byte	0x360
+ 544 01da E5010000 		.4byte	0x1e5
+ 545 01de 0C       		.uleb128 0xc
+ 546 01df 01       		.uleb128 0x1
+ 547 01e0 50       		.byte	0x50
+ 548 01e1 02       		.uleb128 0x2
+ 549 01e2 08       		.byte	0x8
+ 550 01e3 BE       		.byte	0xbe
+ 551 01e4 00       		.byte	0
+ 552 01e5 0D       		.uleb128 0xd
+ 553 01e6 18000000 		.4byte	.LVL12
+ 554 01ea 6B030000 		.4byte	0x36b
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 12
+
+
+ 555 01ee 0B       		.uleb128 0xb
+ 556 01ef 1E000000 		.4byte	.LVL13
+ 557 01f3 60030000 		.4byte	0x360
+ 558 01f7 03020000 		.4byte	0x203
+ 559 01fb 0C       		.uleb128 0xc
+ 560 01fc 01       		.uleb128 0x1
+ 561 01fd 50       		.byte	0x50
+ 562 01fe 03       		.uleb128 0x3
+ 563 01ff 0A       		.byte	0xa
+ 564 0200 2602     		.2byte	0x226
+ 565 0202 00       		.byte	0
+ 566 0203 0B       		.uleb128 0xb
+ 567 0204 26000000 		.4byte	.LVL14
+ 568 0208 DC000000 		.4byte	0xdc
+ 569 020c 16020000 		.4byte	0x216
+ 570 0210 0C       		.uleb128 0xc
+ 571 0211 01       		.uleb128 0x1
+ 572 0212 50       		.byte	0x50
+ 573 0213 01       		.uleb128 0x1
+ 574 0214 30       		.byte	0x30
+ 575 0215 00       		.byte	0
+ 576 0216 0B       		.uleb128 0xb
+ 577 0217 2C000000 		.4byte	.LVL15
+ 578 021b 60030000 		.4byte	0x360
+ 579 021f 29020000 		.4byte	0x229
+ 580 0223 0C       		.uleb128 0xc
+ 581 0224 01       		.uleb128 0x1
+ 582 0225 50       		.byte	0x50
+ 583 0226 01       		.uleb128 0x1
+ 584 0227 3A       		.byte	0x3a
+ 585 0228 00       		.byte	0
+ 586 0229 0D       		.uleb128 0xd
+ 587 022a 30000000 		.4byte	.LVL16
+ 588 022e 77030000 		.4byte	0x377
+ 589 0232 00       		.byte	0
+ 590 0233 07       		.uleb128 0x7
+ 591 0234 4A010000 		.4byte	.LASF24
+ 592 0238 01       		.byte	0x1
+ 593 0239 2C       		.byte	0x2c
+ 594 023a 00000000 		.4byte	.LFB35
+ 595 023e 84000000 		.4byte	.LFE35-.LFB35
+ 596 0242 01       		.uleb128 0x1
+ 597 0243 9C       		.byte	0x9c
+ 598 0244 DB020000 		.4byte	0x2db
+ 599 0248 08       		.uleb128 0x8
+ 600 0249 35020000 		.4byte	.LASF25
+ 601 024d 01       		.byte	0x1
+ 602 024e 2C       		.byte	0x2c
+ 603 024f 68000000 		.4byte	0x68
+ 604 0253 40000000 		.4byte	.LLST2
+ 605 0257 08       		.uleb128 0x8
+ 606 0258 00000000 		.4byte	.LASF26
+ 607 025c 01       		.byte	0x1
+ 608 025d 2C       		.byte	0x2c
+ 609 025e D5000000 		.4byte	0xd5
+ 610 0262 61000000 		.4byte	.LLST3
+ 611 0266 0E       		.uleb128 0xe
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 13
+
+
+ 612 0267 05000000 		.4byte	.LASF21
+ 613 026b 01       		.byte	0x1
+ 614 026c 2D       		.byte	0x2d
+ 615 026d A4000000 		.4byte	0xa4
+ 616 0271 02       		.uleb128 0x2
+ 617 0272 91       		.byte	0x91
+ 618 0273 74       		.sleb128 -12
+ 619 0274 0B       		.uleb128 0xb
+ 620 0275 44000000 		.4byte	.LVL22
+ 621 0279 83030000 		.4byte	0x383
+ 622 027d 96020000 		.4byte	0x296
+ 623 0281 0C       		.uleb128 0xc
+ 624 0282 01       		.uleb128 0x1
+ 625 0283 50       		.byte	0x50
+ 626 0284 02       		.uleb128 0x2
+ 627 0285 91       		.byte	0x91
+ 628 0286 74       		.sleb128 -12
+ 629 0287 0C       		.uleb128 0xc
+ 630 0288 01       		.uleb128 0x1
+ 631 0289 51       		.byte	0x51
+ 632 028a 05       		.uleb128 0x5
+ 633 028b 03       		.byte	0x3
+ 634 028c 1C000000 		.4byte	.LANCHOR0
+ 635 0290 0C       		.uleb128 0xc
+ 636 0291 01       		.uleb128 0x1
+ 637 0292 52       		.byte	0x52
+ 638 0293 01       		.uleb128 0x1
+ 639 0294 33       		.byte	0x33
+ 640 0295 00       		.byte	0
+ 641 0296 0B       		.uleb128 0xb
+ 642 0297 60000000 		.4byte	.LVL25
+ 643 029b 83030000 		.4byte	0x383
+ 644 029f B8020000 		.4byte	0x2b8
+ 645 02a3 0C       		.uleb128 0xc
+ 646 02a4 01       		.uleb128 0x1
+ 647 02a5 50       		.byte	0x50
+ 648 02a6 02       		.uleb128 0x2
+ 649 02a7 91       		.byte	0x91
+ 650 02a8 74       		.sleb128 -12
+ 651 02a9 0C       		.uleb128 0xc
+ 652 02aa 01       		.uleb128 0x1
+ 653 02ab 51       		.byte	0x51
+ 654 02ac 05       		.uleb128 0x5
+ 655 02ad 03       		.byte	0x3
+ 656 02ae 20000000 		.4byte	.LANCHOR0+4
+ 657 02b2 0C       		.uleb128 0xc
+ 658 02b3 01       		.uleb128 0x1
+ 659 02b4 52       		.byte	0x52
+ 660 02b5 01       		.uleb128 0x1
+ 661 02b6 33       		.byte	0x33
+ 662 02b7 00       		.byte	0
+ 663 02b8 0B       		.uleb128 0xb
+ 664 02b9 6C000000 		.4byte	.LVL26
+ 665 02bd DC000000 		.4byte	0xdc
+ 666 02c1 CB020000 		.4byte	0x2cb
+ 667 02c5 0C       		.uleb128 0xc
+ 668 02c6 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 14
+
+
+ 669 02c7 50       		.byte	0x50
+ 670 02c8 01       		.uleb128 0x1
+ 671 02c9 31       		.byte	0x31
+ 672 02ca 00       		.byte	0
+ 673 02cb 0F       		.uleb128 0xf
+ 674 02cc 76000000 		.4byte	.LVL27
+ 675 02d0 DC000000 		.4byte	0xdc
+ 676 02d4 0C       		.uleb128 0xc
+ 677 02d5 01       		.uleb128 0x1
+ 678 02d6 50       		.byte	0x50
+ 679 02d7 01       		.uleb128 0x1
+ 680 02d8 30       		.byte	0x30
+ 681 02d9 00       		.byte	0
+ 682 02da 00       		.byte	0
+ 683 02db 10       		.uleb128 0x10
+ 684 02dc 24000000 		.4byte	.LASF27
+ 685 02e0 05       		.byte	0x5
+ 686 02e1 19       		.byte	0x19
+ 687 02e2 D5000000 		.4byte	0xd5
+ 688 02e6 05       		.uleb128 0x5
+ 689 02e7 03       		.byte	0x3
+ 690 02e8 00000000 		.4byte	button_pushed
+ 691 02ec 11       		.uleb128 0x11
+ 692 02ed 68000000 		.4byte	0x68
+ 693 02f1 FC020000 		.4byte	0x2fc
+ 694 02f5 12       		.uleb128 0x12
+ 695 02f6 7D000000 		.4byte	0x7d
+ 696 02fa 02       		.byte	0x2
+ 697 02fb 00       		.byte	0
+ 698 02fc 10       		.uleb128 0x10
+ 699 02fd E8000000 		.4byte	.LASF28
+ 700 0301 05       		.byte	0x5
+ 701 0302 1B       		.byte	0x1b
+ 702 0303 EC020000 		.4byte	0x2ec
+ 703 0307 05       		.uleb128 0x5
+ 704 0308 03       		.byte	0x3
+ 705 0309 00000000 		.4byte	min_none_color
+ 706 030d 10       		.uleb128 0x10
+ 707 030e C8000000 		.4byte	.LASF29
+ 708 0312 05       		.byte	0x5
+ 709 0313 1C       		.byte	0x1c
+ 710 0314 EC020000 		.4byte	0x2ec
+ 711 0318 05       		.uleb128 0x5
+ 712 0319 03       		.byte	0x3
+ 713 031a 00000000 		.4byte	max_none_color
+ 714 031e 13       		.uleb128 0x13
+ 715 031f 57000000 		.4byte	.LASF30
+ 716 0323 57000000 		.4byte	.LASF30
+ 717 0327 06       		.byte	0x6
+ 718 0328 33       		.byte	0x33
+ 719 0329 13       		.uleb128 0x13
+ 720 032a 8B020000 		.4byte	.LASF31
+ 721 032e 8B020000 		.4byte	.LASF31
+ 722 0332 07       		.byte	0x7
+ 723 0333 33       		.byte	0x33
+ 724 0334 13       		.uleb128 0x13
+ 725 0335 73000000 		.4byte	.LASF32
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 15
+
+
+ 726 0339 73000000 		.4byte	.LASF32
+ 727 033d 08       		.byte	0x8
+ 728 033e 33       		.byte	0x33
+ 729 033f 13       		.uleb128 0x13
+ 730 0340 F3010000 		.4byte	.LASF33
+ 731 0344 F3010000 		.4byte	.LASF33
+ 732 0348 09       		.byte	0x9
+ 733 0349 2F       		.byte	0x2f
+ 734 034a 13       		.uleb128 0x13
+ 735 034b 23010000 		.4byte	.LASF34
+ 736 034f 23010000 		.4byte	.LASF34
+ 737 0353 0A       		.byte	0xa
+ 738 0354 2F       		.byte	0x2f
+ 739 0355 13       		.uleb128 0x13
+ 740 0356 1E020000 		.4byte	.LASF35
+ 741 035a 1E020000 		.4byte	.LASF35
+ 742 035e 0B       		.byte	0xb
+ 743 035f 30       		.byte	0x30
+ 744 0360 13       		.uleb128 0x13
+ 745 0361 83020000 		.4byte	.LASF36
+ 746 0365 83020000 		.4byte	.LASF36
+ 747 0369 0C       		.byte	0xc
+ 748 036a EC       		.byte	0xec
+ 749 036b 14       		.uleb128 0x14
+ 750 036c A1000000 		.4byte	.LASF37
+ 751 0370 A1000000 		.4byte	.LASF37
+ 752 0374 0D       		.byte	0xd
+ 753 0375 3301     		.2byte	0x133
+ 754 0377 14       		.uleb128 0x14
+ 755 0378 B4000000 		.4byte	.LASF38
+ 756 037c B4000000 		.4byte	.LASF38
+ 757 0380 0D       		.byte	0xd
+ 758 0381 3201     		.2byte	0x132
+ 759 0383 15       		.uleb128 0x15
+ 760 0384 44020000 		.4byte	.LASF43
+ 761 0388 44020000 		.4byte	.LASF43
+ 762 038c 00       		.byte	0
+ 763              		.section	.debug_abbrev,"",%progbits
+ 764              	.Ldebug_abbrev0:
+ 765 0000 01       		.uleb128 0x1
+ 766 0001 11       		.uleb128 0x11
+ 767 0002 01       		.byte	0x1
+ 768 0003 25       		.uleb128 0x25
+ 769 0004 0E       		.uleb128 0xe
+ 770 0005 13       		.uleb128 0x13
+ 771 0006 0B       		.uleb128 0xb
+ 772 0007 03       		.uleb128 0x3
+ 773 0008 0E       		.uleb128 0xe
+ 774 0009 1B       		.uleb128 0x1b
+ 775 000a 0E       		.uleb128 0xe
+ 776 000b 55       		.uleb128 0x55
+ 777 000c 17       		.uleb128 0x17
+ 778 000d 11       		.uleb128 0x11
+ 779 000e 01       		.uleb128 0x1
+ 780 000f 10       		.uleb128 0x10
+ 781 0010 17       		.uleb128 0x17
+ 782 0011 00       		.byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 16
+
+
+ 783 0012 00       		.byte	0
+ 784 0013 02       		.uleb128 0x2
+ 785 0014 24       		.uleb128 0x24
+ 786 0015 00       		.byte	0
+ 787 0016 0B       		.uleb128 0xb
+ 788 0017 0B       		.uleb128 0xb
+ 789 0018 3E       		.uleb128 0x3e
+ 790 0019 0B       		.uleb128 0xb
+ 791 001a 03       		.uleb128 0x3
+ 792 001b 0E       		.uleb128 0xe
+ 793 001c 00       		.byte	0
+ 794 001d 00       		.byte	0
+ 795 001e 03       		.uleb128 0x3
+ 796 001f 16       		.uleb128 0x16
+ 797 0020 00       		.byte	0
+ 798 0021 03       		.uleb128 0x3
+ 799 0022 0E       		.uleb128 0xe
+ 800 0023 3A       		.uleb128 0x3a
+ 801 0024 0B       		.uleb128 0xb
+ 802 0025 3B       		.uleb128 0x3b
+ 803 0026 0B       		.uleb128 0xb
+ 804 0027 49       		.uleb128 0x49
+ 805 0028 13       		.uleb128 0x13
+ 806 0029 00       		.byte	0
+ 807 002a 00       		.byte	0
+ 808 002b 04       		.uleb128 0x4
+ 809 002c 24       		.uleb128 0x24
+ 810 002d 00       		.byte	0
+ 811 002e 0B       		.uleb128 0xb
+ 812 002f 0B       		.uleb128 0xb
+ 813 0030 3E       		.uleb128 0x3e
+ 814 0031 0B       		.uleb128 0xb
+ 815 0032 03       		.uleb128 0x3
+ 816 0033 08       		.uleb128 0x8
+ 817 0034 00       		.byte	0
+ 818 0035 00       		.byte	0
+ 819 0036 05       		.uleb128 0x5
+ 820 0037 13       		.uleb128 0x13
+ 821 0038 01       		.byte	0x1
+ 822 0039 03       		.uleb128 0x3
+ 823 003a 0E       		.uleb128 0xe
+ 824 003b 0B       		.uleb128 0xb
+ 825 003c 0B       		.uleb128 0xb
+ 826 003d 3A       		.uleb128 0x3a
+ 827 003e 0B       		.uleb128 0xb
+ 828 003f 3B       		.uleb128 0x3b
+ 829 0040 0B       		.uleb128 0xb
+ 830 0041 01       		.uleb128 0x1
+ 831 0042 13       		.uleb128 0x13
+ 832 0043 00       		.byte	0
+ 833 0044 00       		.byte	0
+ 834 0045 06       		.uleb128 0x6
+ 835 0046 0D       		.uleb128 0xd
+ 836 0047 00       		.byte	0
+ 837 0048 03       		.uleb128 0x3
+ 838 0049 0E       		.uleb128 0xe
+ 839 004a 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 17
+
+
+ 840 004b 0B       		.uleb128 0xb
+ 841 004c 3B       		.uleb128 0x3b
+ 842 004d 0B       		.uleb128 0xb
+ 843 004e 49       		.uleb128 0x49
+ 844 004f 13       		.uleb128 0x13
+ 845 0050 38       		.uleb128 0x38
+ 846 0051 0B       		.uleb128 0xb
+ 847 0052 00       		.byte	0
+ 848 0053 00       		.byte	0
+ 849 0054 07       		.uleb128 0x7
+ 850 0055 2E       		.uleb128 0x2e
+ 851 0056 01       		.byte	0x1
+ 852 0057 3F       		.uleb128 0x3f
+ 853 0058 19       		.uleb128 0x19
+ 854 0059 03       		.uleb128 0x3
+ 855 005a 0E       		.uleb128 0xe
+ 856 005b 3A       		.uleb128 0x3a
+ 857 005c 0B       		.uleb128 0xb
+ 858 005d 3B       		.uleb128 0x3b
+ 859 005e 0B       		.uleb128 0xb
+ 860 005f 27       		.uleb128 0x27
+ 861 0060 19       		.uleb128 0x19
+ 862 0061 11       		.uleb128 0x11
+ 863 0062 01       		.uleb128 0x1
+ 864 0063 12       		.uleb128 0x12
+ 865 0064 06       		.uleb128 0x6
+ 866 0065 40       		.uleb128 0x40
+ 867 0066 18       		.uleb128 0x18
+ 868 0067 9742     		.uleb128 0x2117
+ 869 0069 19       		.uleb128 0x19
+ 870 006a 01       		.uleb128 0x1
+ 871 006b 13       		.uleb128 0x13
+ 872 006c 00       		.byte	0
+ 873 006d 00       		.byte	0
+ 874 006e 08       		.uleb128 0x8
+ 875 006f 05       		.uleb128 0x5
+ 876 0070 00       		.byte	0
+ 877 0071 03       		.uleb128 0x3
+ 878 0072 0E       		.uleb128 0xe
+ 879 0073 3A       		.uleb128 0x3a
+ 880 0074 0B       		.uleb128 0xb
+ 881 0075 3B       		.uleb128 0x3b
+ 882 0076 0B       		.uleb128 0xb
+ 883 0077 49       		.uleb128 0x49
+ 884 0078 13       		.uleb128 0x13
+ 885 0079 02       		.uleb128 0x2
+ 886 007a 17       		.uleb128 0x17
+ 887 007b 00       		.byte	0
+ 888 007c 00       		.byte	0
+ 889 007d 09       		.uleb128 0x9
+ 890 007e 05       		.uleb128 0x5
+ 891 007f 00       		.byte	0
+ 892 0080 03       		.uleb128 0x3
+ 893 0081 0E       		.uleb128 0xe
+ 894 0082 3A       		.uleb128 0x3a
+ 895 0083 0B       		.uleb128 0xb
+ 896 0084 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 18
+
+
+ 897 0085 0B       		.uleb128 0xb
+ 898 0086 49       		.uleb128 0x49
+ 899 0087 13       		.uleb128 0x13
+ 900 0088 02       		.uleb128 0x2
+ 901 0089 18       		.uleb128 0x18
+ 902 008a 00       		.byte	0
+ 903 008b 00       		.byte	0
+ 904 008c 0A       		.uleb128 0xa
+ 905 008d 34       		.uleb128 0x34
+ 906 008e 00       		.byte	0
+ 907 008f 03       		.uleb128 0x3
+ 908 0090 08       		.uleb128 0x8
+ 909 0091 3A       		.uleb128 0x3a
+ 910 0092 0B       		.uleb128 0xb
+ 911 0093 3B       		.uleb128 0x3b
+ 912 0094 0B       		.uleb128 0xb
+ 913 0095 49       		.uleb128 0x49
+ 914 0096 13       		.uleb128 0x13
+ 915 0097 02       		.uleb128 0x2
+ 916 0098 17       		.uleb128 0x17
+ 917 0099 00       		.byte	0
+ 918 009a 00       		.byte	0
+ 919 009b 0B       		.uleb128 0xb
+ 920 009c 898201   		.uleb128 0x4109
+ 921 009f 01       		.byte	0x1
+ 922 00a0 11       		.uleb128 0x11
+ 923 00a1 01       		.uleb128 0x1
+ 924 00a2 31       		.uleb128 0x31
+ 925 00a3 13       		.uleb128 0x13
+ 926 00a4 01       		.uleb128 0x1
+ 927 00a5 13       		.uleb128 0x13
+ 928 00a6 00       		.byte	0
+ 929 00a7 00       		.byte	0
+ 930 00a8 0C       		.uleb128 0xc
+ 931 00a9 8A8201   		.uleb128 0x410a
+ 932 00ac 00       		.byte	0
+ 933 00ad 02       		.uleb128 0x2
+ 934 00ae 18       		.uleb128 0x18
+ 935 00af 9142     		.uleb128 0x2111
+ 936 00b1 18       		.uleb128 0x18
+ 937 00b2 00       		.byte	0
+ 938 00b3 00       		.byte	0
+ 939 00b4 0D       		.uleb128 0xd
+ 940 00b5 898201   		.uleb128 0x4109
+ 941 00b8 00       		.byte	0
+ 942 00b9 11       		.uleb128 0x11
+ 943 00ba 01       		.uleb128 0x1
+ 944 00bb 31       		.uleb128 0x31
+ 945 00bc 13       		.uleb128 0x13
+ 946 00bd 00       		.byte	0
+ 947 00be 00       		.byte	0
+ 948 00bf 0E       		.uleb128 0xe
+ 949 00c0 34       		.uleb128 0x34
+ 950 00c1 00       		.byte	0
+ 951 00c2 03       		.uleb128 0x3
+ 952 00c3 0E       		.uleb128 0xe
+ 953 00c4 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 19
+
+
+ 954 00c5 0B       		.uleb128 0xb
+ 955 00c6 3B       		.uleb128 0x3b
+ 956 00c7 0B       		.uleb128 0xb
+ 957 00c8 49       		.uleb128 0x49
+ 958 00c9 13       		.uleb128 0x13
+ 959 00ca 02       		.uleb128 0x2
+ 960 00cb 18       		.uleb128 0x18
+ 961 00cc 00       		.byte	0
+ 962 00cd 00       		.byte	0
+ 963 00ce 0F       		.uleb128 0xf
+ 964 00cf 898201   		.uleb128 0x4109
+ 965 00d2 01       		.byte	0x1
+ 966 00d3 11       		.uleb128 0x11
+ 967 00d4 01       		.uleb128 0x1
+ 968 00d5 31       		.uleb128 0x31
+ 969 00d6 13       		.uleb128 0x13
+ 970 00d7 00       		.byte	0
+ 971 00d8 00       		.byte	0
+ 972 00d9 10       		.uleb128 0x10
+ 973 00da 34       		.uleb128 0x34
+ 974 00db 00       		.byte	0
+ 975 00dc 03       		.uleb128 0x3
+ 976 00dd 0E       		.uleb128 0xe
+ 977 00de 3A       		.uleb128 0x3a
+ 978 00df 0B       		.uleb128 0xb
+ 979 00e0 3B       		.uleb128 0x3b
+ 980 00e1 0B       		.uleb128 0xb
+ 981 00e2 49       		.uleb128 0x49
+ 982 00e3 13       		.uleb128 0x13
+ 983 00e4 3F       		.uleb128 0x3f
+ 984 00e5 19       		.uleb128 0x19
+ 985 00e6 02       		.uleb128 0x2
+ 986 00e7 18       		.uleb128 0x18
+ 987 00e8 00       		.byte	0
+ 988 00e9 00       		.byte	0
+ 989 00ea 11       		.uleb128 0x11
+ 990 00eb 01       		.uleb128 0x1
+ 991 00ec 01       		.byte	0x1
+ 992 00ed 49       		.uleb128 0x49
+ 993 00ee 13       		.uleb128 0x13
+ 994 00ef 01       		.uleb128 0x1
+ 995 00f0 13       		.uleb128 0x13
+ 996 00f1 00       		.byte	0
+ 997 00f2 00       		.byte	0
+ 998 00f3 12       		.uleb128 0x12
+ 999 00f4 21       		.uleb128 0x21
+ 1000 00f5 00       		.byte	0
+ 1001 00f6 49       		.uleb128 0x49
+ 1002 00f7 13       		.uleb128 0x13
+ 1003 00f8 2F       		.uleb128 0x2f
+ 1004 00f9 0B       		.uleb128 0xb
+ 1005 00fa 00       		.byte	0
+ 1006 00fb 00       		.byte	0
+ 1007 00fc 13       		.uleb128 0x13
+ 1008 00fd 2E       		.uleb128 0x2e
+ 1009 00fe 00       		.byte	0
+ 1010 00ff 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 20
+
+
+ 1011 0100 19       		.uleb128 0x19
+ 1012 0101 3C       		.uleb128 0x3c
+ 1013 0102 19       		.uleb128 0x19
+ 1014 0103 6E       		.uleb128 0x6e
+ 1015 0104 0E       		.uleb128 0xe
+ 1016 0105 03       		.uleb128 0x3
+ 1017 0106 0E       		.uleb128 0xe
+ 1018 0107 3A       		.uleb128 0x3a
+ 1019 0108 0B       		.uleb128 0xb
+ 1020 0109 3B       		.uleb128 0x3b
+ 1021 010a 0B       		.uleb128 0xb
+ 1022 010b 00       		.byte	0
+ 1023 010c 00       		.byte	0
+ 1024 010d 14       		.uleb128 0x14
+ 1025 010e 2E       		.uleb128 0x2e
+ 1026 010f 00       		.byte	0
+ 1027 0110 3F       		.uleb128 0x3f
+ 1028 0111 19       		.uleb128 0x19
+ 1029 0112 3C       		.uleb128 0x3c
+ 1030 0113 19       		.uleb128 0x19
+ 1031 0114 6E       		.uleb128 0x6e
+ 1032 0115 0E       		.uleb128 0xe
+ 1033 0116 03       		.uleb128 0x3
+ 1034 0117 0E       		.uleb128 0xe
+ 1035 0118 3A       		.uleb128 0x3a
+ 1036 0119 0B       		.uleb128 0xb
+ 1037 011a 3B       		.uleb128 0x3b
+ 1038 011b 05       		.uleb128 0x5
+ 1039 011c 00       		.byte	0
+ 1040 011d 00       		.byte	0
+ 1041 011e 15       		.uleb128 0x15
+ 1042 011f 2E       		.uleb128 0x2e
+ 1043 0120 00       		.byte	0
+ 1044 0121 3F       		.uleb128 0x3f
+ 1045 0122 19       		.uleb128 0x19
+ 1046 0123 3C       		.uleb128 0x3c
+ 1047 0124 19       		.uleb128 0x19
+ 1048 0125 6E       		.uleb128 0x6e
+ 1049 0126 0E       		.uleb128 0xe
+ 1050 0127 03       		.uleb128 0x3
+ 1051 0128 0E       		.uleb128 0xe
+ 1052 0129 00       		.byte	0
+ 1053 012a 00       		.byte	0
+ 1054 012b 00       		.byte	0
+ 1055              		.section	.debug_loc,"",%progbits
+ 1056              	.Ldebug_loc0:
+ 1057              	.LLST0:
+ 1058 0000 00000000 		.4byte	.LVL0
+ 1059 0004 0D000000 		.4byte	.LVL1-1
+ 1060 0008 0100     		.2byte	0x1
+ 1061 000a 50       		.byte	0x50
+ 1062 000b 0D000000 		.4byte	.LVL1-1
+ 1063 000f 4E000000 		.4byte	.LFE33
+ 1064 0013 0400     		.2byte	0x4
+ 1065 0015 F3       		.byte	0xf3
+ 1066 0016 01       		.uleb128 0x1
+ 1067 0017 50       		.byte	0x50
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 21
+
+
+ 1068 0018 9F       		.byte	0x9f
+ 1069 0019 00000000 		.4byte	0
+ 1070 001d 00000000 		.4byte	0
+ 1071              	.LLST1:
+ 1072 0021 1A000000 		.4byte	.LVL3
+ 1073 0025 2A000000 		.4byte	.LVL4
+ 1074 0029 0200     		.2byte	0x2
+ 1075 002b 30       		.byte	0x30
+ 1076 002c 9F       		.byte	0x9f
+ 1077 002d 2A000000 		.4byte	.LVL4
+ 1078 0031 2D000000 		.4byte	.LVL5-1
+ 1079 0035 0100     		.2byte	0x1
+ 1080 0037 50       		.byte	0x50
+ 1081 0038 00000000 		.4byte	0
+ 1082 003c 00000000 		.4byte	0
+ 1083              	.LLST2:
+ 1084 0040 00000000 		.4byte	.LVL17
+ 1085 0044 0C000000 		.4byte	.LVL18
+ 1086 0048 0100     		.2byte	0x1
+ 1087 004a 50       		.byte	0x50
+ 1088 004b 0C000000 		.4byte	.LVL18
+ 1089 004f 84000000 		.4byte	.LFE35
+ 1090 0053 0400     		.2byte	0x4
+ 1091 0055 F3       		.byte	0xf3
+ 1092 0056 01       		.uleb128 0x1
+ 1093 0057 50       		.byte	0x50
+ 1094 0058 9F       		.byte	0x9f
+ 1095 0059 00000000 		.4byte	0
+ 1096 005d 00000000 		.4byte	0
+ 1097              	.LLST3:
+ 1098 0061 00000000 		.4byte	.LVL17
+ 1099 0065 34000000 		.4byte	.LVL19
+ 1100 0069 0100     		.2byte	0x1
+ 1101 006b 51       		.byte	0x51
+ 1102 006c 34000000 		.4byte	.LVL19
+ 1103 0070 3A000000 		.4byte	.LVL20
+ 1104 0074 0400     		.2byte	0x4
+ 1105 0076 F3       		.byte	0xf3
+ 1106 0077 01       		.uleb128 0x1
+ 1107 0078 51       		.byte	0x51
+ 1108 0079 9F       		.byte	0x9f
+ 1109 007a 3A000000 		.4byte	.LVL20
+ 1110 007e 3E000000 		.4byte	.LVL21
+ 1111 0082 0100     		.2byte	0x1
+ 1112 0084 51       		.byte	0x51
+ 1113 0085 3E000000 		.4byte	.LVL21
+ 1114 0089 46000000 		.4byte	.LVL23
+ 1115 008d 0400     		.2byte	0x4
+ 1116 008f F3       		.byte	0xf3
+ 1117 0090 01       		.uleb128 0x1
+ 1118 0091 51       		.byte	0x51
+ 1119 0092 9F       		.byte	0x9f
+ 1120 0093 46000000 		.4byte	.LVL23
+ 1121 0097 58000000 		.4byte	.LVL24
+ 1122 009b 0100     		.2byte	0x1
+ 1123 009d 51       		.byte	0x51
+ 1124 009e 58000000 		.4byte	.LVL24
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 22
+
+
+ 1125 00a2 84000000 		.4byte	.LFE35
+ 1126 00a6 0400     		.2byte	0x4
+ 1127 00a8 F3       		.byte	0xf3
+ 1128 00a9 01       		.uleb128 0x1
+ 1129 00aa 51       		.byte	0x51
+ 1130 00ab 9F       		.byte	0x9f
+ 1131 00ac 00000000 		.4byte	0
+ 1132 00b0 00000000 		.4byte	0
+ 1133              		.section	.debug_aranges,"",%progbits
+ 1134 0000 2C000000 		.4byte	0x2c
+ 1135 0004 0200     		.2byte	0x2
+ 1136 0006 00000000 		.4byte	.Ldebug_info0
+ 1137 000a 04       		.byte	0x4
+ 1138 000b 00       		.byte	0
+ 1139 000c 0000     		.2byte	0
+ 1140 000e 0000     		.2byte	0
+ 1141 0010 00000000 		.4byte	.LFB33
+ 1142 0014 4E000000 		.4byte	.LFE33-.LFB33
+ 1143 0018 00000000 		.4byte	.LFB34
+ 1144 001c 38000000 		.4byte	.LFE34-.LFB34
+ 1145 0020 00000000 		.4byte	.LFB35
+ 1146 0024 84000000 		.4byte	.LFE35-.LFB35
+ 1147 0028 00000000 		.4byte	0
+ 1148 002c 00000000 		.4byte	0
+ 1149              		.section	.debug_ranges,"",%progbits
+ 1150              	.Ldebug_ranges0:
+ 1151 0000 00000000 		.4byte	.LFB33
+ 1152 0004 4E000000 		.4byte	.LFE33
+ 1153 0008 00000000 		.4byte	.LFB34
+ 1154 000c 38000000 		.4byte	.LFE34
+ 1155 0010 00000000 		.4byte	.LFB35
+ 1156 0014 84000000 		.4byte	.LFE35
+ 1157 0018 00000000 		.4byte	0
+ 1158 001c 00000000 		.4byte	0
+ 1159              		.section	.debug_line,"",%progbits
+ 1160              	.Ldebug_line0:
+ 1161 0000 21020000 		.section	.debug_str,"MS",%progbits,1
+ 1161      0200C601 
+ 1161      00000201 
+ 1161      FB0E0D00 
+ 1161      01010101 
+ 1162              	.LASF26:
+ 1163 0000 6F70656E 		.ascii	"open\000"
+ 1163      00
+ 1164              	.LASF21:
+ 1165 0005 67617465 		.ascii	"gates\000"
+ 1165      7300
+ 1166              	.LASF12:
+ 1167 000b 5F5F7569 		.ascii	"__uint8_t\000"
+ 1167      6E74385F 
+ 1167      7400
+ 1168              	.LASF23:
+ 1169 0015 4F70656E 		.ascii	"OpenCloseGates\000"
+ 1169      436C6F73 
+ 1169      65476174 
+ 1169      657300
+ 1170              	.LASF27:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 23
+
+
+ 1171 0024 62757474 		.ascii	"button_pushed\000"
+ 1171      6F6E5F70 
+ 1171      75736865 
+ 1171      6400
+ 1172              	.LASF17:
+ 1173 0032 6D6F746F 		.ascii	"motor_2_5\000"
+ 1173      725F325F 
+ 1173      3500
+ 1174              	.LASF3:
+ 1175 003c 73686F72 		.ascii	"short unsigned int\000"
+ 1175      7420756E 
+ 1175      7369676E 
+ 1175      65642069 
+ 1175      6E7400
+ 1176              	.LASF13:
+ 1177 004f 75696E74 		.ascii	"uint8_t\000"
+ 1177      385F7400 
+ 1178              	.LASF30:
+ 1179 0057 4469725F 		.ascii	"Dir_1_Write\000"
+ 1179      315F5772 
+ 1179      69746500 
+ 1180              	.LASF20:
+ 1181 0063 64697265 		.ascii	"direction\000"
+ 1181      6374696F 
+ 1181      6E00
+ 1182              	.LASF14:
+ 1183 006d 666C6F61 		.ascii	"float\000"
+ 1183      7400
+ 1184              	.LASF32:
+ 1185 0073 4469725F 		.ascii	"Dir_3_4_Write\000"
+ 1185      335F345F 
+ 1185      57726974 
+ 1185      6500
+ 1186              	.LASF1:
+ 1187 0081 756E7369 		.ascii	"unsigned char\000"
+ 1187      676E6564 
+ 1187      20636861 
+ 1187      7200
+ 1188              	.LASF5:
+ 1189 008f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1189      20756E73 
+ 1189      69676E65 
+ 1189      6420696E 
+ 1189      7400
+ 1190              	.LASF37:
+ 1191 00a1 50574D5F 		.ascii	"PWM_Container_Stop\000"
+ 1191      436F6E74 
+ 1191      61696E65 
+ 1191      725F5374 
+ 1191      6F7000
+ 1192              	.LASF38:
+ 1193 00b4 50574D5F 		.ascii	"PWM_Container_Start\000"
+ 1193      436F6E74 
+ 1193      61696E65 
+ 1193      725F5374 
+ 1193      61727400 
+ 1194              	.LASF29:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 24
+
+
+ 1195 00c8 6D61785F 		.ascii	"max_none_color\000"
+ 1195      6E6F6E65 
+ 1195      5F636F6C 
+ 1195      6F7200
+ 1196              	.LASF15:
+ 1197 00d7 646F7562 		.ascii	"double\000"
+ 1197      6C6500
+ 1198              	.LASF18:
+ 1199 00de 6D6F746F 		.ascii	"motor_3_4\000"
+ 1199      725F335F 
+ 1199      3400
+ 1200              	.LASF28:
+ 1201 00e8 6D696E5F 		.ascii	"min_none_color\000"
+ 1201      6E6F6E65 
+ 1201      5F636F6C 
+ 1201      6F7200
+ 1202              	.LASF40:
+ 1203 00f7 67617465 		.ascii	"gates.c\000"
+ 1203      732E6300 
+ 1204              	.LASF8:
+ 1205 00ff 756E7369 		.ascii	"unsigned int\000"
+ 1205      676E6564 
+ 1205      20696E74 
+ 1205      00
+ 1206              	.LASF7:
+ 1207 010c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1207      206C6F6E 
+ 1207      6720756E 
+ 1207      7369676E 
+ 1207      65642069 
+ 1208              	.LASF34:
+ 1209 0123 436F6E74 		.ascii	"Control_Reg_1_Write\000"
+ 1209      726F6C5F 
+ 1209      5265675F 
+ 1209      315F5772 
+ 1209      69746500 
+ 1210              	.LASF22:
+ 1211 0137 52756E4D 		.ascii	"RunMotors45Degrees\000"
+ 1211      6F746F72 
+ 1211      73343544 
+ 1211      65677265 
+ 1211      657300
+ 1212              	.LASF24:
+ 1213 014a 4F70656E 		.ascii	"OpenCloseTestGates\000"
+ 1213      436C6F73 
+ 1213      65546573 
+ 1213      74476174 
+ 1213      657300
+ 1214              	.LASF39:
+ 1215 015d 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1215      43313120 
+ 1215      352E342E 
+ 1215      31203230 
+ 1215      31363036 
+ 1216 0190 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1216      20726576 
+ 1216      6973696F 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 25
+
+
+ 1216      6E203233 
+ 1216      37373135 
+ 1217 01c3 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1217      66756E63 
+ 1217      74696F6E 
+ 1217      2D736563 
+ 1217      74696F6E 
+ 1218              	.LASF16:
+ 1219 01eb 6D6F746F 		.ascii	"motor_1\000"
+ 1219      725F3100 
+ 1220              	.LASF33:
+ 1221 01f3 436F6E74 		.ascii	"Control_Reg_2_Write\000"
+ 1221      726F6C5F 
+ 1221      5265675F 
+ 1221      325F5772 
+ 1221      69746500 
+ 1222              	.LASF10:
+ 1223 0207 73697A65 		.ascii	"sizetype\000"
+ 1223      74797065 
+ 1223      00
+ 1224              	.LASF6:
+ 1225 0210 6C6F6E67 		.ascii	"long long int\000"
+ 1225      206C6F6E 
+ 1225      6720696E 
+ 1225      7400
+ 1226              	.LASF35:
+ 1227 021e 53746174 		.ascii	"Status_Reg_1_Read\000"
+ 1227      75735F52 
+ 1227      65675F31 
+ 1227      5F526561 
+ 1227      6400
+ 1228              	.LASF11:
+ 1229 0230 63686172 		.ascii	"char\000"
+ 1229      00
+ 1230              	.LASF25:
+ 1231 0235 636F756E 		.ascii	"count_settings\000"
+ 1231      745F7365 
+ 1231      7474696E 
+ 1231      677300
+ 1232              	.LASF43:
+ 1233 0244 6D656D63 		.ascii	"memcpy\000"
+ 1233      707900
+ 1234              	.LASF2:
+ 1235 024b 73686F72 		.ascii	"short int\000"
+ 1235      7420696E 
+ 1235      7400
+ 1236              	.LASF42:
+ 1237 0255 6D6F746F 		.ascii	"motors\000"
+ 1237      727300
+ 1238              	.LASF4:
+ 1239 025c 6C6F6E67 		.ascii	"long int\000"
+ 1239      20696E74 
+ 1239      00
+ 1240              	.LASF9:
+ 1241 0265 6C6F6E67 		.ascii	"long double\000"
+ 1241      20646F75 
+ 1241      626C6500 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccPTxmye.s 			page 26
+
+
+ 1242              	.LASF0:
+ 1243 0271 7369676E 		.ascii	"signed char\000"
+ 1243      65642063 
+ 1243      68617200 
+ 1244              	.LASF19:
+ 1245 027d 5F426F6F 		.ascii	"_Bool\000"
+ 1245      6C00
+ 1246              	.LASF36:
+ 1247 0283 43794465 		.ascii	"CyDelay\000"
+ 1247      6C617900 
+ 1248              	.LASF31:
+ 1249 028b 4469725F 		.ascii	"Dir_2_5_Write\000"
+ 1249      325F355F 
+ 1249      57726974 
+ 1249      6500
+ 1250              	.LASF41:
+ 1251 0299 433A5C55 		.ascii	"C:\\Users\\ADMIN\\Documents\\Sorting-project\\MandM"
+ 1251      73657273 
+ 1251      5C41444D 
+ 1251      494E5C44 
+ 1251      6F63756D 
+ 1252 02c7 732D736F 		.ascii	"s-sorting.cydsn\000"
+ 1252      7274696E 
+ 1252      672E6379 
+ 1252      64736E00 
+ 1253              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
