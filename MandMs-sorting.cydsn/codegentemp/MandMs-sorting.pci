@@ -1,0 +1,25 @@
+# MandMs-sorting
+# 2021-11-13 01:14:07Z
+
+# IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 2
+# IO_3@[IOP=(3)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 3
+set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
+set_io "Step_1(0)" iocell 0 7
+set_io "Step_2_5(0)" iocell 3 7
+set_io "Step_3_4(0)" iocell 0 0
+set_io "Dir_1(0)" iocell 3 5
+set_io "Dir_2_5(0)" iocell 1 0
+set_io "Dir_3_4(0)" iocell 2 7
+set_io "Dir_Container(0)" iocell 0 6
+set_io "Step_Container(0)" iocell 3 1
+set_io "\I2C:sda(0)\" iocell 4 1
+set_io "\I2C:scl(0)\" iocell 4 0
+set_io "\UART:tx(0)\" iocell 0 5
+set_io "\UART:rx(0)\" iocell 0 4
+set_io "\NeoPixel:pixl(0)\" iocell 1 1
+set_io "RED(0)" iocell 1 6
+set_io "GREEN(0)" iocell 0 2
+set_io "BLUE(0)" iocell 0 3
+set_io "SW(0)" iocell 0 1

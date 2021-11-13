@@ -1,0 +1,2741 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"learn_color.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.compare_to_none_color,"ax",%progbits
+  20              		.align	2
+  21              		.global	compare_to_none_color
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	compare_to_none_color, %function
+  25              	compare_to_none_color:
+  26              	.LFB36:
+  27              		.file 1 "learn_color.c"
+   1:learn_color.c **** /* ========================================
+   2:learn_color.c ****  *
+   3:learn_color.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:learn_color.c ****  * All Rights Reserved
+   5:learn_color.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:learn_color.c ****  *
+   7:learn_color.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:learn_color.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:learn_color.c ****  *
+  10:learn_color.c ****  * ========================================
+  11:learn_color.c **** */
+  12:learn_color.c **** 
+  13:learn_color.c **** /* [] END OF FILE */
+  14:learn_color.c **** #include "learn_color.h"
+  15:learn_color.c **** #include "main.h"
+  16:learn_color.c **** 
+  17:learn_color.c **** //new
+  18:learn_color.c **** bool button_pushed = false;
+  19:learn_color.c **** 
+  20:learn_color.c **** int min_none_color[3] = {255, 255, 255};
+  21:learn_color.c **** int max_none_color[3] = {0, 0, 0};
+  22:learn_color.c **** 
+  23:learn_color.c **** 
+  24:learn_color.c **** //int min_rgb[3] = {255, 255, 255};
+  25:learn_color.c **** //int max_rgb[3] = {0, 0, 0};
+  26:learn_color.c **** //int mid_rgb[3];
+  27:learn_color.c **** //
+  28:learn_color.c **** 
+  29:learn_color.c **** /*
+  30:learn_color.c **** void fill_boundaries(){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 2
+
+
+  31:learn_color.c ****     
+  32:learn_color.c ****     for(size_t i; i<6; i++){
+  33:learn_color.c ****         for (size_t j; j<3; j++){
+  34:learn_color.c ****             boundaries[i].min_rgb[j] = 255;
+  35:learn_color.c ****             boundaries[i].max_rgb[j] = 0;
+  36:learn_color.c ****         }
+  37:learn_color.c ****         
+  38:learn_color.c ****     }
+  39:learn_color.c ****     
+  40:learn_color.c ****     boundaries[0].min_rgb[0] = 1;
+  41:learn_color.c ****     boundaries[0].min_rgb[1] = 1;
+  42:learn_color.c ****     boundaries[0].min_rgb[2] = 1;
+  43:learn_color.c ****     
+  44:learn_color.c ****     boundaries[0].max_rgb[0] = 1;
+  45:learn_color.c ****     boundaries[0].max_rgb[1] = 1;
+  46:learn_color.c ****     boundaries[0].max_rgb[2] = 1;
+  47:learn_color.c ****     
+  48:learn_color.c ****     
+  49:learn_color.c **** }
+  50:learn_color.c **** */
+  51:learn_color.c **** 
+  52:learn_color.c **** int analyze_measurement_boundaries(int min_rgb[3], int max_rgb[3], bool none_col, int count_setting
+  53:learn_color.c ****     
+  54:learn_color.c ****     int color[3];
+  55:learn_color.c ****     
+  56:learn_color.c ****     //int all_measurements[MAX_NUM_TO_MEASURE][3];
+  57:learn_color.c ****     
+  58:learn_color.c ****     sprintf(str, "none %d", none_col);
+  59:learn_color.c ****     //print(str);
+  60:learn_color.c ****     
+  61:learn_color.c ****     sprintf(str, "settings %d", count_settings);
+  62:learn_color.c ****     //print(str);    
+  63:learn_color.c ****     
+  64:learn_color.c ****     size_t curr_num = 0;
+  65:learn_color.c ****     
+  66:learn_color.c ****     if(!button_pushed){
+  67:learn_color.c ****         return 0;
+  68:learn_color.c ****     }
+  69:learn_color.c ****     
+  70:learn_color.c ****     PWM_Container_WriteCompare(1);
+  71:learn_color.c ****     
+  72:learn_color.c ****     size_t max_num_to_measure = none_col ? MAX_NUM_TO_MEASURE_NONE : MAX_NUM_TO_MEASURE;
+  73:learn_color.c ****     
+  74:learn_color.c ****     if (!none_col){
+  75:learn_color.c ****         OpenCloseTestGates(count_settings, true);
+  76:learn_color.c ****     }
+  77:learn_color.c ****     
+  78:learn_color.c ****     int count_not_none = 0;
+  79:learn_color.c ****    
+  80:learn_color.c ****     
+  81:learn_color.c ****     while(curr_num < max_num_to_measure){
+  82:learn_color.c ****         getRGB(&color[0], &color[1], &color[2]);
+  83:learn_color.c ****         
+  84:learn_color.c ****         
+  85:learn_color.c ****         if (none_col == false && compare_to_none_color(color)){
+  86:learn_color.c ****             sprintf(str, "SOS");
+  87:learn_color.c ****             print(str);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 3
+
+
+  88:learn_color.c ****             count_not_none = 0;
+  89:learn_color.c ****             continue;
+  90:learn_color.c ****             
+  91:learn_color.c ****         }
+  92:learn_color.c ****         
+  93:learn_color.c ****         sprintf(str, "r %d | g %d | b %d", color[0], color[1], color[2]);
+  94:learn_color.c ****         print(str);
+  95:learn_color.c ****         
+  96:learn_color.c ****         count_not_none += 1;
+  97:learn_color.c ****         if (count_not_none == 3 || count_not_none == 4 || none_col == true){
+  98:learn_color.c ****             
+  99:learn_color.c ****             for (size_t i = 0; i<3; i++){
+ 100:learn_color.c ****             
+ 101:learn_color.c ****                 sprintf(str, "check %d", 0);
+ 102:learn_color.c ****                 //print(str);
+ 103:learn_color.c ****                 if (color[i] < min_rgb[i]){
+ 104:learn_color.c ****                     sprintf(str, "check %d", 1);
+ 105:learn_color.c ****                     //print(str);
+ 106:learn_color.c ****                     min_rgb[i] = color[i];
+ 107:learn_color.c ****                 }
+ 108:learn_color.c ****                 if (color[i] > max_rgb[i]){
+ 109:learn_color.c ****                     sprintf(str, "check %d", 2);
+ 110:learn_color.c ****                     //print(str);
+ 111:learn_color.c ****                     max_rgb[i] = color[i];
+ 112:learn_color.c ****                 }
+ 113:learn_color.c ****                 
+ 114:learn_color.c ****                 //all_measurements[curr_num][i] = color[i];
+ 115:learn_color.c ****             }
+ 116:learn_color.c ****             curr_num += 2;
+ 117:learn_color.c ****         }
+ 118:learn_color.c ****         
+ 119:learn_color.c ****         
+ 120:learn_color.c ****         
+ 121:learn_color.c ****         
+ 122:learn_color.c ****     }
+ 123:learn_color.c ****     
+ 124:learn_color.c ****     
+ 125:learn_color.c ****     button_pushed = false;
+ 126:learn_color.c ****     CyDelay(2000);
+ 127:learn_color.c ****     
+ 128:learn_color.c ****     if (!none_col){
+ 129:learn_color.c ****         OpenCloseTestGates(count_settings, false);
+ 130:learn_color.c ****     }
+ 131:learn_color.c ****     
+ 132:learn_color.c ****     PWM_Container_WriteCompare(0);
+ 133:learn_color.c ****     
+ 134:learn_color.c ****     
+ 135:learn_color.c ****     if(none_col){
+ 136:learn_color.c ****         sprintf(str, "NONE");
+ 137:learn_color.c ****         print(str);
+ 138:learn_color.c ****         for (size_t i = 0; i<3; i++){
+ 139:learn_color.c ****             min_rgb[i] -= 5;
+ 140:learn_color.c ****             max_rgb[i] += 5;
+ 141:learn_color.c ****         }
+ 142:learn_color.c ****     } else{;
+ 143:learn_color.c ****         for (size_t i = 0; i<3; i++){
+ 144:learn_color.c ****             min_rgb[i] -= 2;
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 4
+
+
+ 145:learn_color.c ****             max_rgb[i] += 2;
+ 146:learn_color.c ****         }
+ 147:learn_color.c ****     }
+ 148:learn_color.c ****     
+ 149:learn_color.c ****     //for (size_t i; i < curr_num; i++){
+ 150:learn_color.c ****       //  sprintf(str, "r %d | g %d | b %d", all_measurements[i][0], all_measurements[i][1], all_me
+ 151:learn_color.c ****      //   print(str);
+ 152:learn_color.c ****     //}
+ 153:learn_color.c ****     
+ 154:learn_color.c ****     sprintf(str, "min r %d | g %d | b %d", min_rgb[0], min_rgb[1], min_rgb[2]);
+ 155:learn_color.c ****     print(str);
+ 156:learn_color.c ****     
+ 157:learn_color.c ****     sprintf(str, "max r %d | g %d | b %d", max_rgb[0], max_rgb[1], max_rgb[2]);
+ 158:learn_color.c ****     print(str);
+ 159:learn_color.c ****     
+ 160:learn_color.c ****     //CyDelay(10000);
+ 161:learn_color.c ****     return 0;
+ 162:learn_color.c ****     //total sum of color measurements
+ 163:learn_color.c ****     //for (size_t i; i <= curr_num; i++){
+ 164:learn_color.c ****       //  for (size_t j; j < 3; j++){
+ 165:learn_color.c ****         //    mid_rgb[j] += all_measurements[i][j];
+ 166:learn_color.c ****         //}
+ 167:learn_color.c ****     //}
+ 168:learn_color.c ****     //find the average
+ 169:learn_color.c ****     //for (size_t i; i < 3; i++){
+ 170:learn_color.c ****       //  mid_rgb[i] /= curr_num+1;
+ 171:learn_color.c ****     //}
+ 172:learn_color.c **** 
+ 173:learn_color.c **** }
+ 174:learn_color.c **** 
+ 175:learn_color.c **** void analyze_measurement_boundaries_none(int min_rgb[3], int max_rgb[3]){
+ 176:learn_color.c ****     analyze_measurement_boundaries(min_rgb, max_rgb, true, 0);
+ 177:learn_color.c **** }
+ 178:learn_color.c **** void analyze_measurement_boundaries_color(int min_rgb[3], int max_rgb[3], int count_settings){
+ 179:learn_color.c ****     analyze_measurement_boundaries(min_rgb, max_rgb, false, count_settings);
+ 180:learn_color.c **** }
+ 181:learn_color.c **** 
+ 182:learn_color.c **** //true if color == none
+ 183:learn_color.c **** bool compare_to_none_color(int color[3]){
+  28              		.loc 1 183 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  37              	.LVL1:
+  38              	.LBB2:
+ 184:learn_color.c ****     for (size_t i = 0; i<3; i++){
+  39              		.loc 1 184 0
+  40 0002 0023     		movs	r3, #0
+  41 0004 0AE0     		b	.L2
+  42              	.LVL2:
+  43              	.L4:
+ 185:learn_color.c ****         if (min_none_color[i] > color[i] || max_none_color[i] < color[i]){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 5
+
+
+  44              		.loc 1 185 0
+  45 0006 9A00     		lsls	r2, r3, #2
+  46 0008 0849     		ldr	r1, .L7
+  47 000a 5458     		ldr	r4, [r2, r1]
+  48 000c 1158     		ldr	r1, [r2, r0]
+  49 000e 8C42     		cmp	r4, r1
+  50 0010 08DC     		bgt	.L5
+  51              		.loc 1 185 0 is_stmt 0 discriminator 1
+  52 0012 074C     		ldr	r4, .L7+4
+  53 0014 1259     		ldr	r2, [r2, r4]
+  54 0016 9142     		cmp	r1, r2
+  55 0018 06DC     		bgt	.L6
+ 184:learn_color.c ****     for (size_t i = 0; i<3; i++){
+  56              		.loc 1 184 0 is_stmt 1 discriminator 2
+  57 001a 0133     		adds	r3, r3, #1
+  58              	.LVL3:
+  59              	.L2:
+ 184:learn_color.c ****     for (size_t i = 0; i<3; i++){
+  60              		.loc 1 184 0 is_stmt 0 discriminator 1
+  61 001c 022B     		cmp	r3, #2
+  62 001e F2D9     		bls	.L4
+  63              	.LBE2:
+ 186:learn_color.c ****             return false;
+ 187:learn_color.c ****         }       
+ 188:learn_color.c ****     }
+ 189:learn_color.c ****     
+ 190:learn_color.c ****     return true;
+  64              		.loc 1 190 0 is_stmt 1
+  65 0020 0120     		movs	r0, #1
+  66              	.LVL4:
+  67              	.LBB3:
+  68 0022 02E0     		b	.L3
+  69              	.LVL5:
+  70              	.L5:
+ 186:learn_color.c ****             return false;
+  71              		.loc 1 186 0
+  72 0024 0020     		movs	r0, #0
+  73              	.LVL6:
+  74 0026 00E0     		b	.L3
+  75              	.LVL7:
+  76              	.L6:
+  77 0028 0020     		movs	r0, #0
+  78              	.LVL8:
+  79              	.L3:
+  80              	.LBE3:
+ 191:learn_color.c ****     
+ 192:learn_color.c **** }
+  81              		.loc 1 192 0
+  82              		@ sp needed
+  83 002a 10BD     		pop	{r4, pc}
+  84              	.L8:
+  85              		.align	2
+  86              	.L7:
+  87 002c 00000000 		.word	.LANCHOR0
+  88 0030 00000000 		.word	.LANCHOR1
+  89              		.cfi_endproc
+  90              	.LFE36:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 6
+
+
+  91              		.size	compare_to_none_color, .-compare_to_none_color
+  92              		.section	.text.analyze_measurement_boundaries,"ax",%progbits
+  93              		.align	2
+  94              		.global	analyze_measurement_boundaries
+  95              		.code	16
+  96              		.thumb_func
+  97              		.type	analyze_measurement_boundaries, %function
+  98              	analyze_measurement_boundaries:
+  99              	.LFB33:
+  52:learn_color.c ****     
+ 100              		.loc 1 52 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 24
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              	.LVL9:
+ 105 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 106              		.cfi_def_cfa_offset 20
+ 107              		.cfi_offset 4, -20
+ 108              		.cfi_offset 5, -16
+ 109              		.cfi_offset 6, -12
+ 110              		.cfi_offset 7, -8
+ 111              		.cfi_offset 14, -4
+ 112 0002 5F46     		mov	r7, fp
+ 113 0004 5646     		mov	r6, r10
+ 114 0006 4D46     		mov	r5, r9
+ 115 0008 4446     		mov	r4, r8
+ 116 000a F0B4     		push	{r4, r5, r6, r7}
+ 117              		.cfi_def_cfa_offset 36
+ 118              		.cfi_offset 8, -36
+ 119              		.cfi_offset 9, -32
+ 120              		.cfi_offset 10, -28
+ 121              		.cfi_offset 11, -24
+ 122 000c 89B0     		sub	sp, sp, #36
+ 123              		.cfi_def_cfa_offset 72
+ 124 000e 8146     		mov	r9, r0
+ 125 0010 8846     		mov	r8, r1
+ 126 0012 9346     		mov	fp, r2
+ 127 0014 1D00     		movs	r5, r3
+ 128 0016 0393     		str	r3, [sp, #12]
+  58:learn_color.c ****     //print(str);
+ 129              		.loc 1 58 0
+ 130 0018 754C     		ldr	r4, .L31
+ 131 001a 7649     		ldr	r1, .L31+4
+ 132              	.LVL10:
+ 133 001c 2000     		movs	r0, r4
+ 134              	.LVL11:
+ 135 001e FFF7FEFF 		bl	sprintf
+ 136              	.LVL12:
+  61:learn_color.c ****     //print(str);    
+ 137              		.loc 1 61 0
+ 138 0022 2A00     		movs	r2, r5
+ 139 0024 7449     		ldr	r1, .L31+8
+ 140 0026 2000     		movs	r0, r4
+ 141 0028 FFF7FEFF 		bl	sprintf
+ 142              	.LVL13:
+  66:learn_color.c ****         return 0;
+ 143              		.loc 1 66 0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 7
+
+
+ 144 002c 734B     		ldr	r3, .L31+12
+ 145 002e 1B7B     		ldrb	r3, [r3, #12]
+ 146 0030 002B     		cmp	r3, #0
+ 147 0032 00D1     		bne	.LCB127
+ 148 0034 D3E0     		b	.L10	@long jump
+ 149              	.LCB127:
+  70:learn_color.c ****     
+ 150              		.loc 1 70 0
+ 151 0036 0120     		movs	r0, #1
+ 152 0038 FFF7FEFF 		bl	PWM_Container_WriteCompare
+ 153              	.LVL14:
+  72:learn_color.c ****     
+ 154              		.loc 1 72 0
+ 155 003c 5B46     		mov	r3, fp
+ 156 003e 002B     		cmp	r3, #0
+ 157 0040 02D0     		beq	.L27
+ 158 0042 6423     		movs	r3, #100
+ 159 0044 0293     		str	r3, [sp, #8]
+ 160 0046 01E0     		b	.L11
+ 161              	.L27:
+ 162 0048 0A23     		movs	r3, #10
+ 163 004a 0293     		str	r3, [sp, #8]
+ 164              	.L11:
+ 165              	.LVL15:
+  74:learn_color.c ****         OpenCloseTestGates(count_settings, true);
+ 166              		.loc 1 74 0 discriminator 4
+ 167 004c 5B46     		mov	r3, fp
+ 168 004e 002B     		cmp	r3, #0
+ 169 0050 03D1     		bne	.L12
+  75:learn_color.c ****     }
+ 170              		.loc 1 75 0
+ 171 0052 0121     		movs	r1, #1
+ 172 0054 0398     		ldr	r0, [sp, #12]
+ 173 0056 FFF7FEFF 		bl	OpenCloseTestGates
+ 174              	.LVL16:
+ 175              	.L12:
+  88:learn_color.c ****             continue;
+ 176              		.loc 1 88 0
+ 177 005a 0026     		movs	r6, #0
+ 178 005c 0023     		movs	r3, #0
+ 179 005e 1F00     		movs	r7, r3
+ 180 0060 5BE0     		b	.L13
+ 181              	.LVL17:
+ 182              	.L20:
+  82:learn_color.c ****         
+ 183              		.loc 1 82 0
+ 184 0062 07AA     		add	r2, sp, #28
+ 185 0064 06A9     		add	r1, sp, #24
+ 186 0066 05A8     		add	r0, sp, #20
+ 187 0068 FFF7FEFF 		bl	getRGB
+ 188              	.LVL18:
+  85:learn_color.c ****             sprintf(str, "SOS");
+ 189              		.loc 1 85 0
+ 190 006c 5B46     		mov	r3, fp
+ 191 006e 002B     		cmp	r3, #0
+ 192 0070 0FD1     		bne	.L14
+  85:learn_color.c ****             sprintf(str, "SOS");
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 8
+
+
+ 193              		.loc 1 85 0 is_stmt 0 discriminator 1
+ 194 0072 05A8     		add	r0, sp, #20
+ 195 0074 FFF7FEFF 		bl	compare_to_none_color
+ 196              	.LVL19:
+ 197 0078 0028     		cmp	r0, #0
+ 198 007a 0AD0     		beq	.L14
+  86:learn_color.c ****             print(str);
+ 199              		.loc 1 86 0 is_stmt 1
+ 200 007c 5C4C     		ldr	r4, .L31
+ 201 007e 0422     		movs	r2, #4
+ 202 0080 5F49     		ldr	r1, .L31+16
+ 203 0082 2000     		movs	r0, r4
+ 204 0084 FFF7FEFF 		bl	memcpy
+ 205              	.LVL20:
+  87:learn_color.c ****             count_not_none = 0;
+ 206              		.loc 1 87 0
+ 207 0088 2000     		movs	r0, r4
+ 208 008a FFF7FEFF 		bl	print
+ 209              	.LVL21:
+  88:learn_color.c ****             continue;
+ 210              		.loc 1 88 0
+ 211 008e 0026     		movs	r6, #0
+  89:learn_color.c ****             
+ 212              		.loc 1 89 0
+ 213 0090 43E0     		b	.L13
+ 214              	.LVL22:
+ 215              	.L14:
+  93:learn_color.c ****         print(str);
+ 216              		.loc 1 93 0
+ 217 0092 069B     		ldr	r3, [sp, #24]
+ 218 0094 564C     		ldr	r4, .L31
+ 219 0096 079A     		ldr	r2, [sp, #28]
+ 220 0098 0092     		str	r2, [sp]
+ 221 009a 059A     		ldr	r2, [sp, #20]
+ 222 009c 5949     		ldr	r1, .L31+20
+ 223 009e 2000     		movs	r0, r4
+ 224 00a0 FFF7FEFF 		bl	sprintf
+ 225              	.LVL23:
+  94:learn_color.c ****         
+ 226              		.loc 1 94 0
+ 227 00a4 2000     		movs	r0, r4
+ 228 00a6 FFF7FEFF 		bl	print
+ 229              	.LVL24:
+  96:learn_color.c ****         if (count_not_none == 3 || count_not_none == 4 || none_col == true){
+ 230              		.loc 1 96 0
+ 231 00aa 0136     		adds	r6, r6, #1
+ 232              	.LVL25:
+  97:learn_color.c ****             
+ 233              		.loc 1 97 0
+ 234 00ac F31E     		subs	r3, r6, #3
+ 235 00ae 012B     		cmp	r3, #1
+ 236 00b0 2AD9     		bls	.L28
+  97:learn_color.c ****             
+ 237              		.loc 1 97 0 is_stmt 0 discriminator 1
+ 238 00b2 5B46     		mov	r3, fp
+ 239 00b4 002B     		cmp	r3, #0
+ 240 00b6 2AD1     		bne	.L29
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 9
+
+
+ 241 00b8 2FE0     		b	.L13
+ 242              	.LVL26:
+ 243              	.L19:
+ 244              	.LBB4:
+ 101:learn_color.c ****                 //print(str);
+ 245              		.loc 1 101 0 is_stmt 1
+ 246 00ba 0022     		movs	r2, #0
+ 247 00bc 5249     		ldr	r1, .L31+24
+ 248 00be 4C48     		ldr	r0, .L31
+ 249 00c0 FFF7FEFF 		bl	sprintf
+ 250              	.LVL27:
+ 103:learn_color.c ****                     sprintf(str, "check %d", 1);
+ 251              		.loc 1 103 0
+ 252 00c4 AC00     		lsls	r4, r5, #2
+ 253 00c6 05AB     		add	r3, sp, #20
+ 254 00c8 E358     		ldr	r3, [r4, r3]
+ 255 00ca 4A46     		mov	r2, r9
+ 256 00cc 1619     		adds	r6, r2, r4
+ 257 00ce 3268     		ldr	r2, [r6]
+ 258 00d0 9342     		cmp	r3, r2
+ 259 00d2 07DA     		bge	.L17
+ 104:learn_color.c ****                     //print(str);
+ 260              		.loc 1 104 0
+ 261 00d4 0122     		movs	r2, #1
+ 262 00d6 4C49     		ldr	r1, .L31+24
+ 263 00d8 4548     		ldr	r0, .L31
+ 264 00da FFF7FEFF 		bl	sprintf
+ 265              	.LVL28:
+ 106:learn_color.c ****                 }
+ 266              		.loc 1 106 0
+ 267 00de 05AA     		add	r2, sp, #20
+ 268 00e0 A358     		ldr	r3, [r4, r2]
+ 269 00e2 3360     		str	r3, [r6]
+ 270              	.L17:
+ 108:learn_color.c ****                     sprintf(str, "check %d", 2);
+ 271              		.loc 1 108 0
+ 272 00e4 AB00     		lsls	r3, r5, #2
+ 273 00e6 05AA     		add	r2, sp, #20
+ 274 00e8 9B58     		ldr	r3, [r3, r2]
+ 275 00ea 4444     		add	r4, r4, r8
+ 276 00ec 2268     		ldr	r2, [r4]
+ 277 00ee 9342     		cmp	r3, r2
+ 278 00f0 08DD     		ble	.L18
+ 109:learn_color.c ****                     //print(str);
+ 279              		.loc 1 109 0
+ 280 00f2 0222     		movs	r2, #2
+ 281 00f4 4449     		ldr	r1, .L31+24
+ 282 00f6 3E48     		ldr	r0, .L31
+ 283 00f8 FFF7FEFF 		bl	sprintf
+ 284              	.LVL29:
+ 111:learn_color.c ****                 }
+ 285              		.loc 1 111 0
+ 286 00fc AB00     		lsls	r3, r5, #2
+ 287 00fe 05AA     		add	r2, sp, #20
+ 288 0100 9B58     		ldr	r3, [r3, r2]
+ 289 0102 2360     		str	r3, [r4]
+ 290              	.L18:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 10
+
+
+  99:learn_color.c ****             
+ 291              		.loc 1 99 0 discriminator 2
+ 292 0104 0135     		adds	r5, r5, #1
+ 293              	.LVL30:
+ 294 0106 04E0     		b	.L16
+ 295              	.LVL31:
+ 296              	.L28:
+ 297              	.LBE4:
+ 298 0108 0025     		movs	r5, #0
+ 299 010a B246     		mov	r10, r6
+ 300 010c 01E0     		b	.L16
+ 301              	.L29:
+ 302 010e 0025     		movs	r5, #0
+ 303 0110 B246     		mov	r10, r6
+ 304              	.LVL32:
+ 305              	.L16:
+ 306              	.LBB5:
+  99:learn_color.c ****             
+ 307              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 308 0112 022D     		cmp	r5, #2
+ 309 0114 D1D9     		bls	.L19
+ 310 0116 5646     		mov	r6, r10
+ 311              	.LBE5:
+ 116:learn_color.c ****         }
+ 312              		.loc 1 116 0 is_stmt 1
+ 313 0118 0237     		adds	r7, r7, #2
+ 314              	.LVL33:
+ 315              	.L13:
+  81:learn_color.c ****         getRGB(&color[0], &color[1], &color[2]);
+ 316              		.loc 1 81 0
+ 317 011a 029B     		ldr	r3, [sp, #8]
+ 318 011c 9F42     		cmp	r7, r3
+ 319 011e A0D3     		bcc	.L20
+ 125:learn_color.c ****     CyDelay(2000);
+ 320              		.loc 1 125 0
+ 321 0120 0022     		movs	r2, #0
+ 322 0122 364B     		ldr	r3, .L31+12
+ 323 0124 1A73     		strb	r2, [r3, #12]
+ 126:learn_color.c ****     
+ 324              		.loc 1 126 0
+ 325 0126 FA20     		movs	r0, #250
+ 326 0128 C000     		lsls	r0, r0, #3
+ 327 012a FFF7FEFF 		bl	CyDelay
+ 328              	.LVL34:
+ 128:learn_color.c ****         OpenCloseTestGates(count_settings, false);
+ 329              		.loc 1 128 0
+ 330 012e 5B46     		mov	r3, fp
+ 331 0130 002B     		cmp	r3, #0
+ 332 0132 03D1     		bne	.L21
+ 129:learn_color.c ****     }
+ 333              		.loc 1 129 0
+ 334 0134 0021     		movs	r1, #0
+ 335 0136 0398     		ldr	r0, [sp, #12]
+ 336 0138 FFF7FEFF 		bl	OpenCloseTestGates
+ 337              	.LVL35:
+ 338              	.L21:
+ 132:learn_color.c ****     
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 11
+
+
+ 339              		.loc 1 132 0
+ 340 013c 0020     		movs	r0, #0
+ 341 013e FFF7FEFF 		bl	PWM_Container_WriteCompare
+ 342              	.LVL36:
+ 135:learn_color.c ****         sprintf(str, "NONE");
+ 343              		.loc 1 135 0
+ 344 0142 5B46     		mov	r3, fp
+ 345 0144 002B     		cmp	r3, #0
+ 346 0146 26D0     		beq	.L30
+ 136:learn_color.c ****         print(str);
+ 347              		.loc 1 136 0
+ 348 0148 294C     		ldr	r4, .L31
+ 349 014a 0522     		movs	r2, #5
+ 350 014c 2F49     		ldr	r1, .L31+28
+ 351 014e 2000     		movs	r0, r4
+ 352 0150 FFF7FEFF 		bl	memcpy
+ 353              	.LVL37:
+ 137:learn_color.c ****         for (size_t i = 0; i<3; i++){
+ 354              		.loc 1 137 0
+ 355 0154 2000     		movs	r0, r4
+ 356 0156 FFF7FEFF 		bl	print
+ 357              	.LVL38:
+ 358              	.LBB6:
+ 138:learn_color.c ****             min_rgb[i] -= 5;
+ 359              		.loc 1 138 0
+ 360 015a 0022     		movs	r2, #0
+ 361 015c 4C46     		mov	r4, r9
+ 362 015e 4546     		mov	r5, r8
+ 363 0160 09E0     		b	.L23
+ 364              	.LVL39:
+ 365              	.L24:
+ 139:learn_color.c ****             max_rgb[i] += 5;
+ 366              		.loc 1 139 0 discriminator 3
+ 367 0162 9300     		lsls	r3, r2, #2
+ 368 0164 E018     		adds	r0, r4, r3
+ 369 0166 0168     		ldr	r1, [r0]
+ 370 0168 0539     		subs	r1, r1, #5
+ 371 016a 0160     		str	r1, [r0]
+ 140:learn_color.c ****         }
+ 372              		.loc 1 140 0 discriminator 3
+ 373 016c EB18     		adds	r3, r5, r3
+ 374 016e 1968     		ldr	r1, [r3]
+ 375 0170 0531     		adds	r1, r1, #5
+ 376 0172 1960     		str	r1, [r3]
+ 138:learn_color.c ****             min_rgb[i] -= 5;
+ 377              		.loc 1 138 0 discriminator 3
+ 378 0174 0132     		adds	r2, r2, #1
+ 379              	.LVL40:
+ 380              	.L23:
+ 138:learn_color.c ****             min_rgb[i] -= 5;
+ 381              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 382 0176 022A     		cmp	r2, #2
+ 383 0178 F3D9     		bls	.L24
+ 384 017a A146     		mov	r9, r4
+ 385 017c A846     		mov	r8, r5
+ 386 017e 11E0     		b	.L25
+ 387              	.LVL41:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 12
+
+
+ 388              	.L26:
+ 389              	.LBE6:
+ 390              	.LBB7:
+ 144:learn_color.c ****             max_rgb[i] += 2;
+ 391              		.loc 1 144 0 is_stmt 1 discriminator 3
+ 392 0180 9300     		lsls	r3, r2, #2
+ 393 0182 E018     		adds	r0, r4, r3
+ 394 0184 0168     		ldr	r1, [r0]
+ 395 0186 0239     		subs	r1, r1, #2
+ 396 0188 0160     		str	r1, [r0]
+ 145:learn_color.c ****         }
+ 397              		.loc 1 145 0 discriminator 3
+ 398 018a EB18     		adds	r3, r5, r3
+ 399 018c 1968     		ldr	r1, [r3]
+ 400 018e 0231     		adds	r1, r1, #2
+ 401 0190 1960     		str	r1, [r3]
+ 143:learn_color.c ****             min_rgb[i] -= 2;
+ 402              		.loc 1 143 0 discriminator 3
+ 403 0192 0132     		adds	r2, r2, #1
+ 404              	.LVL42:
+ 405 0194 02E0     		b	.L22
+ 406              	.LVL43:
+ 407              	.L30:
+ 408              	.LBE7:
+ 409 0196 0022     		movs	r2, #0
+ 410 0198 4C46     		mov	r4, r9
+ 411 019a 4546     		mov	r5, r8
+ 412              	.LVL44:
+ 413              	.L22:
+ 414              	.LBB8:
+ 143:learn_color.c ****             min_rgb[i] -= 2;
+ 415              		.loc 1 143 0 is_stmt 0 discriminator 1
+ 416 019c 022A     		cmp	r2, #2
+ 417 019e EFD9     		bls	.L26
+ 418 01a0 A146     		mov	r9, r4
+ 419 01a2 A846     		mov	r8, r5
+ 420              	.LVL45:
+ 421              	.L25:
+ 422              	.LBE8:
+ 154:learn_color.c ****     print(str);
+ 423              		.loc 1 154 0 is_stmt 1
+ 424 01a4 4B46     		mov	r3, r9
+ 425 01a6 5B68     		ldr	r3, [r3, #4]
+ 426 01a8 4A46     		mov	r2, r9
+ 427 01aa 1268     		ldr	r2, [r2]
+ 428 01ac 104C     		ldr	r4, .L31
+ 429              	.LVL46:
+ 430 01ae 4946     		mov	r1, r9
+ 431 01b0 8968     		ldr	r1, [r1, #8]
+ 432 01b2 0091     		str	r1, [sp]
+ 433 01b4 1649     		ldr	r1, .L31+32
+ 434 01b6 2000     		movs	r0, r4
+ 435 01b8 FFF7FEFF 		bl	sprintf
+ 436              	.LVL47:
+ 155:learn_color.c ****     
+ 437              		.loc 1 155 0
+ 438 01bc 2000     		movs	r0, r4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 13
+
+
+ 439 01be FFF7FEFF 		bl	print
+ 440              	.LVL48:
+ 157:learn_color.c ****     print(str);
+ 441              		.loc 1 157 0
+ 442 01c2 4346     		mov	r3, r8
+ 443 01c4 5B68     		ldr	r3, [r3, #4]
+ 444 01c6 4246     		mov	r2, r8
+ 445 01c8 1268     		ldr	r2, [r2]
+ 446 01ca 4146     		mov	r1, r8
+ 447 01cc 8968     		ldr	r1, [r1, #8]
+ 448 01ce 0091     		str	r1, [sp]
+ 449 01d0 1049     		ldr	r1, .L31+36
+ 450 01d2 2000     		movs	r0, r4
+ 451 01d4 FFF7FEFF 		bl	sprintf
+ 452              	.LVL49:
+ 158:learn_color.c ****     
+ 453              		.loc 1 158 0
+ 454 01d8 2000     		movs	r0, r4
+ 455 01da FFF7FEFF 		bl	print
+ 456              	.LVL50:
+ 457              	.L10:
+ 173:learn_color.c **** 
+ 458              		.loc 1 173 0
+ 459 01de 0020     		movs	r0, #0
+ 460 01e0 09B0     		add	sp, sp, #36
+ 461              		@ sp needed
+ 462              	.LVL51:
+ 463              	.LVL52:
+ 464 01e2 3CBC     		pop	{r2, r3, r4, r5}
+ 465 01e4 9046     		mov	r8, r2
+ 466 01e6 9946     		mov	r9, r3
+ 467 01e8 A246     		mov	r10, r4
+ 468 01ea AB46     		mov	fp, r5
+ 469 01ec F0BD     		pop	{r4, r5, r6, r7, pc}
+ 470              	.L32:
+ 471 01ee C046     		.align	2
+ 472              	.L31:
+ 473 01f0 00000000 		.word	str
+ 474 01f4 00000000 		.word	.LC2
+ 475 01f8 08000000 		.word	.LC5
+ 476 01fc 00000000 		.word	.LANCHOR1
+ 477 0200 14000000 		.word	.LC8
+ 478 0204 18000000 		.word	.LC10
+ 479 0208 2C000000 		.word	.LC12
+ 480 020c 38000000 		.word	.LC14
+ 481 0210 40000000 		.word	.LC16
+ 482 0214 58000000 		.word	.LC18
+ 483              		.cfi_endproc
+ 484              	.LFE33:
+ 485              		.size	analyze_measurement_boundaries, .-analyze_measurement_boundaries
+ 486              		.section	.text.analyze_measurement_boundaries_none,"ax",%progbits
+ 487              		.align	2
+ 488              		.global	analyze_measurement_boundaries_none
+ 489              		.code	16
+ 490              		.thumb_func
+ 491              		.type	analyze_measurement_boundaries_none, %function
+ 492              	analyze_measurement_boundaries_none:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 14
+
+
+ 493              	.LFB34:
+ 175:learn_color.c ****     analyze_measurement_boundaries(min_rgb, max_rgb, true, 0);
+ 494              		.loc 1 175 0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 0
+ 497              		@ frame_needed = 0, uses_anonymous_args = 0
+ 498              	.LVL53:
+ 499 0000 10B5     		push	{r4, lr}
+ 500              		.cfi_def_cfa_offset 8
+ 501              		.cfi_offset 4, -8
+ 502              		.cfi_offset 14, -4
+ 176:learn_color.c **** }
+ 503              		.loc 1 176 0
+ 504 0002 0023     		movs	r3, #0
+ 505 0004 0122     		movs	r2, #1
+ 506 0006 FFF7FEFF 		bl	analyze_measurement_boundaries
+ 507              	.LVL54:
+ 177:learn_color.c **** void analyze_measurement_boundaries_color(int min_rgb[3], int max_rgb[3], int count_settings){
+ 508              		.loc 1 177 0
+ 509              		@ sp needed
+ 510 000a 10BD     		pop	{r4, pc}
+ 511              		.cfi_endproc
+ 512              	.LFE34:
+ 513              		.size	analyze_measurement_boundaries_none, .-analyze_measurement_boundaries_none
+ 514              		.section	.text.analyze_measurement_boundaries_color,"ax",%progbits
+ 515              		.align	2
+ 516              		.global	analyze_measurement_boundaries_color
+ 517              		.code	16
+ 518              		.thumb_func
+ 519              		.type	analyze_measurement_boundaries_color, %function
+ 520              	analyze_measurement_boundaries_color:
+ 521              	.LFB35:
+ 178:learn_color.c ****     analyze_measurement_boundaries(min_rgb, max_rgb, false, count_settings);
+ 522              		.loc 1 178 0
+ 523              		.cfi_startproc
+ 524              		@ args = 0, pretend = 0, frame = 0
+ 525              		@ frame_needed = 0, uses_anonymous_args = 0
+ 526              	.LVL55:
+ 527 0000 10B5     		push	{r4, lr}
+ 528              		.cfi_def_cfa_offset 8
+ 529              		.cfi_offset 4, -8
+ 530              		.cfi_offset 14, -4
+ 531 0002 1300     		movs	r3, r2
+ 179:learn_color.c **** }
+ 532              		.loc 1 179 0
+ 533 0004 0022     		movs	r2, #0
+ 534              	.LVL56:
+ 535 0006 FFF7FEFF 		bl	analyze_measurement_boundaries
+ 536              	.LVL57:
+ 180:learn_color.c **** 
+ 537              		.loc 1 180 0
+ 538              		@ sp needed
+ 539 000a 10BD     		pop	{r4, pc}
+ 540              		.cfi_endproc
+ 541              	.LFE35:
+ 542              		.size	analyze_measurement_boundaries_color, .-analyze_measurement_boundaries_color
+ 543              		.comm	boundaries,144,4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 15
+
+
+ 544              		.comm	max_cur_color,12,4
+ 545              		.comm	min_cur_color,12,4
+ 546              		.global	max_none_color
+ 547              		.global	min_none_color
+ 548              		.global	button_pushed
+ 549              		.data
+ 550              		.align	2
+ 551              		.set	.LANCHOR0,. + 0
+ 552              		.type	min_none_color, %object
+ 553              		.size	min_none_color, 12
+ 554              	min_none_color:
+ 555 0000 FF000000 		.word	255
+ 556 0004 FF000000 		.word	255
+ 557 0008 FF000000 		.word	255
+ 558              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 559              		.align	2
+ 560              	.LC2:
+ 561 0000 6E6F6E65 		.ascii	"none %d\000"
+ 561      20256400 
+ 562              	.LC5:
+ 563 0008 73657474 		.ascii	"settings %d\000"
+ 563      696E6773 
+ 563      20256400 
+ 564              	.LC8:
+ 565 0014 534F5300 		.ascii	"SOS\000"
+ 566              	.LC10:
+ 567 0018 72202564 		.ascii	"r %d | g %d | b %d\000"
+ 567      207C2067 
+ 567      20256420 
+ 567      7C206220 
+ 567      256400
+ 568 002b 00       		.space	1
+ 569              	.LC12:
+ 570 002c 63686563 		.ascii	"check %d\000"
+ 570      6B202564 
+ 570      00
+ 571 0035 000000   		.space	3
+ 572              	.LC14:
+ 573 0038 4E4F4E45 		.ascii	"NONE\000"
+ 573      00
+ 574 003d 000000   		.space	3
+ 575              	.LC16:
+ 576 0040 6D696E20 		.ascii	"min r %d | g %d | b %d\000"
+ 576      72202564 
+ 576      207C2067 
+ 576      20256420 
+ 576      7C206220 
+ 577 0057 00       		.space	1
+ 578              	.LC18:
+ 579 0058 6D617820 		.ascii	"max r %d | g %d | b %d\000"
+ 579      72202564 
+ 579      207C2067 
+ 579      20256420 
+ 579      7C206220 
+ 580              		.bss
+ 581              		.align	2
+ 582              		.set	.LANCHOR1,. + 0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 16
+
+
+ 583              		.type	max_none_color, %object
+ 584              		.size	max_none_color, 12
+ 585              	max_none_color:
+ 586 0000 00000000 		.space	12
+ 586      00000000 
+ 586      00000000 
+ 587              		.type	button_pushed, %object
+ 588              		.size	button_pushed, 1
+ 589              	button_pushed:
+ 590 000c 00       		.space	1
+ 591              		.text
+ 592              	.Letext0:
+ 593              		.file 2 "learn_color.h"
+ 594              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 595              		.file 4 "Generated_Source\\PSoC4/PWM_Container.h"
+ 596              		.file 5 "main.h"
+ 597              		.file 6 "tcs34725.h"
+ 598              		.file 7 "utils.h"
+ 599              		.file 8 "Generated_Source\\PSoC4/CyLib.h"
+ 600              		.file 9 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 601              		.section	.debug_info,"",%progbits
+ 602              	.Ldebug_info0:
+ 603 0000 B7050000 		.4byte	0x5b7
+ 604 0004 0400     		.2byte	0x4
+ 605 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 606 000a 04       		.byte	0x4
+ 607 000b 01       		.uleb128 0x1
+ 608 000c 78010000 		.4byte	.LASF39
+ 609 0010 0C       		.byte	0xc
+ 610 0011 75020000 		.4byte	.LASF40
+ 611 0015 E1020000 		.4byte	.LASF41
+ 612 0019 48000000 		.4byte	.Ldebug_ranges0+0x48
+ 613 001d 00000000 		.4byte	0
+ 614 0021 00000000 		.4byte	.Ldebug_line0
+ 615 0025 02       		.uleb128 0x2
+ 616 0026 01       		.byte	0x1
+ 617 0027 06       		.byte	0x6
+ 618 0028 BF020000 		.4byte	.LASF0
+ 619 002c 02       		.uleb128 0x2
+ 620 002d 01       		.byte	0x1
+ 621 002e 08       		.byte	0x8
+ 622 002f 6E000000 		.4byte	.LASF1
+ 623 0033 02       		.uleb128 0x2
+ 624 0034 02       		.byte	0x2
+ 625 0035 05       		.byte	0x5
+ 626 0036 6B020000 		.4byte	.LASF2
+ 627 003a 02       		.uleb128 0x2
+ 628 003b 02       		.byte	0x2
+ 629 003c 07       		.byte	0x7
+ 630 003d B3000000 		.4byte	.LASF3
+ 631 0041 02       		.uleb128 0x2
+ 632 0042 04       		.byte	0x4
+ 633 0043 05       		.byte	0x5
+ 634 0044 9C020000 		.4byte	.LASF4
+ 635 0048 02       		.uleb128 0x2
+ 636 0049 04       		.byte	0x4
+ 637 004a 07       		.byte	0x7
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 17
+
+
+ 638 004b D5000000 		.4byte	.LASF5
+ 639 004f 02       		.uleb128 0x2
+ 640 0050 08       		.byte	0x8
+ 641 0051 05       		.byte	0x5
+ 642 0052 00000000 		.4byte	.LASF6
+ 643 0056 02       		.uleb128 0x2
+ 644 0057 08       		.byte	0x8
+ 645 0058 07       		.byte	0x7
+ 646 0059 3F010000 		.4byte	.LASF7
+ 647 005d 03       		.uleb128 0x3
+ 648 005e 04       		.byte	0x4
+ 649 005f 05       		.byte	0x5
+ 650 0060 696E7400 		.ascii	"int\000"
+ 651 0064 02       		.uleb128 0x2
+ 652 0065 04       		.byte	0x4
+ 653 0066 07       		.byte	0x7
+ 654 0067 32010000 		.4byte	.LASF8
+ 655 006b 04       		.uleb128 0x4
+ 656 006c 0E000000 		.4byte	.LASF42
+ 657 0070 09       		.byte	0x9
+ 658 0071 D8       		.byte	0xd8
+ 659 0072 64000000 		.4byte	0x64
+ 660 0076 02       		.uleb128 0x2
+ 661 0077 08       		.byte	0x8
+ 662 0078 04       		.byte	0x4
+ 663 0079 B3020000 		.4byte	.LASF9
+ 664 007d 02       		.uleb128 0x2
+ 665 007e 04       		.byte	0x4
+ 666 007f 07       		.byte	0x7
+ 667 0080 1C020000 		.4byte	.LASF10
+ 668 0084 02       		.uleb128 0x2
+ 669 0085 01       		.byte	0x1
+ 670 0086 08       		.byte	0x8
+ 671 0087 4A020000 		.4byte	.LASF11
+ 672 008b 02       		.uleb128 0x2
+ 673 008c 04       		.byte	0x4
+ 674 008d 04       		.byte	0x4
+ 675 008e 68000000 		.4byte	.LASF12
+ 676 0092 02       		.uleb128 0x2
+ 677 0093 08       		.byte	0x8
+ 678 0094 04       		.byte	0x4
+ 679 0095 53000000 		.4byte	.LASF13
+ 680 0099 05       		.uleb128 0x5
+ 681 009a 42000000 		.4byte	.LASF43
+ 682 009e 18       		.byte	0x18
+ 683 009f 02       		.byte	0x2
+ 684 00a0 2A       		.byte	0x2a
+ 685 00a1 BE000000 		.4byte	0xbe
+ 686 00a5 06       		.uleb128 0x6
+ 687 00a6 2A010000 		.4byte	.LASF14
+ 688 00aa 02       		.byte	0x2
+ 689 00ab 2B       		.byte	0x2b
+ 690 00ac BE000000 		.4byte	0xbe
+ 691 00b0 00       		.byte	0
+ 692 00b1 06       		.uleb128 0x6
+ 693 00b2 13010000 		.4byte	.LASF15
+ 694 00b6 02       		.byte	0x2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 18
+
+
+ 695 00b7 2C       		.byte	0x2c
+ 696 00b8 BE000000 		.4byte	0xbe
+ 697 00bc 0C       		.byte	0xc
+ 698 00bd 00       		.byte	0
+ 699 00be 07       		.uleb128 0x7
+ 700 00bf 5D000000 		.4byte	0x5d
+ 701 00c3 CE000000 		.4byte	0xce
+ 702 00c7 08       		.uleb128 0x8
+ 703 00c8 7D000000 		.4byte	0x7d
+ 704 00cc 02       		.byte	0x2
+ 705 00cd 00       		.byte	0
+ 706 00ce 09       		.uleb128 0x9
+ 707 00cf 06020000 		.4byte	.LASF17
+ 708 00d3 01       		.byte	0x1
+ 709 00d4 B7       		.byte	0xb7
+ 710 00d5 0A010000 		.4byte	0x10a
+ 711 00d9 00000000 		.4byte	.LFB36
+ 712 00dd 34000000 		.4byte	.LFE36-.LFB36
+ 713 00e1 01       		.uleb128 0x1
+ 714 00e2 9C       		.byte	0x9c
+ 715 00e3 0A010000 		.4byte	0x10a
+ 716 00e7 0A       		.uleb128 0xa
+ 717 00e8 0D010000 		.4byte	.LASF19
+ 718 00ec 01       		.byte	0x1
+ 719 00ed B7       		.byte	0xb7
+ 720 00ee 11010000 		.4byte	0x111
+ 721 00f2 00000000 		.4byte	.LLST0
+ 722 00f6 0B       		.uleb128 0xb
+ 723 00f7 00000000 		.4byte	.Ldebug_ranges0+0
+ 724 00fb 0C       		.uleb128 0xc
+ 725 00fc 6900     		.ascii	"i\000"
+ 726 00fe 01       		.byte	0x1
+ 727 00ff B8       		.byte	0xb8
+ 728 0100 6B000000 		.4byte	0x6b
+ 729 0104 53000000 		.4byte	.LLST1
+ 730 0108 00       		.byte	0
+ 731 0109 00       		.byte	0
+ 732 010a 02       		.uleb128 0x2
+ 733 010b 01       		.byte	0x1
+ 734 010c 02       		.byte	0x2
+ 735 010d CB020000 		.4byte	.LASF16
+ 736 0111 0D       		.uleb128 0xd
+ 737 0112 04       		.byte	0x4
+ 738 0113 5D000000 		.4byte	0x5d
+ 739 0117 09       		.uleb128 0x9
+ 740 0118 15000000 		.4byte	.LASF18
+ 741 011c 01       		.byte	0x1
+ 742 011d 34       		.byte	0x34
+ 743 011e 5D000000 		.4byte	0x5d
+ 744 0122 00000000 		.4byte	.LFB33
+ 745 0126 18020000 		.4byte	.LFE33-.LFB33
+ 746 012a 01       		.uleb128 0x1
+ 747 012b 9C       		.byte	0x9c
+ 748 012c 25040000 		.4byte	0x425
+ 749 0130 0A       		.uleb128 0xa
+ 750 0131 2A010000 		.4byte	.LASF14
+ 751 0135 01       		.byte	0x1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 19
+
+
+ 752 0136 34       		.byte	0x34
+ 753 0137 11010000 		.4byte	0x111
+ 754 013b 72000000 		.4byte	.LLST2
+ 755 013f 0A       		.uleb128 0xa
+ 756 0140 13010000 		.4byte	.LASF15
+ 757 0144 01       		.byte	0x1
+ 758 0145 34       		.byte	0x34
+ 759 0146 11010000 		.4byte	0x111
+ 760 014a CA000000 		.4byte	.LLST3
+ 761 014e 0A       		.uleb128 0xa
+ 762 014f 83020000 		.4byte	.LASF20
+ 763 0153 01       		.byte	0x1
+ 764 0154 34       		.byte	0x34
+ 765 0155 0A010000 		.4byte	0x10a
+ 766 0159 22010000 		.4byte	.LLST4
+ 767 015d 0A       		.uleb128 0xa
+ 768 015e 55020000 		.4byte	.LASF21
+ 769 0162 01       		.byte	0x1
+ 770 0163 34       		.byte	0x34
+ 771 0164 5D000000 		.4byte	0x5d
+ 772 0168 43010000 		.4byte	.LLST5
+ 773 016c 0E       		.uleb128 0xe
+ 774 016d 0D010000 		.4byte	.LASF19
+ 775 0171 01       		.byte	0x1
+ 776 0172 36       		.byte	0x36
+ 777 0173 BE000000 		.4byte	0xbe
+ 778 0177 02       		.uleb128 0x2
+ 779 0178 91       		.byte	0x91
+ 780 0179 4C       		.sleb128 -52
+ 781 017a 0F       		.uleb128 0xf
+ 782 017b 93020000 		.4byte	.LASF22
+ 783 017f 01       		.byte	0x1
+ 784 0180 40       		.byte	0x40
+ 785 0181 6B000000 		.4byte	0x6b
+ 786 0185 6D010000 		.4byte	.LLST6
+ 787 0189 0F       		.uleb128 0xf
+ 788 018a A0000000 		.4byte	.LASF23
+ 789 018e 01       		.byte	0x1
+ 790 018f 48       		.byte	0x48
+ 791 0190 6B000000 		.4byte	0x6b
+ 792 0194 8C010000 		.4byte	.LLST7
+ 793 0198 0F       		.uleb128 0xf
+ 794 0199 69010000 		.4byte	.LASF24
+ 795 019d 01       		.byte	0x1
+ 796 019e 4E       		.byte	0x4e
+ 797 019f 5D000000 		.4byte	0x5d
+ 798 01a3 A0010000 		.4byte	.LLST8
+ 799 01a7 10       		.uleb128 0x10
+ 800 01a8 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 801 01ac 0E020000 		.4byte	0x20e
+ 802 01b0 0C       		.uleb128 0xc
+ 803 01b1 6900     		.ascii	"i\000"
+ 804 01b3 01       		.byte	0x1
+ 805 01b4 63       		.byte	0x63
+ 806 01b5 6B000000 		.4byte	0x6b
+ 807 01b9 F6010000 		.4byte	.LLST9
+ 808 01bd 11       		.uleb128 0x11
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 20
+
+
+ 809 01be C4000000 		.4byte	.LVL27
+ 810 01c2 6E050000 		.4byte	0x56e
+ 811 01c6 D9010000 		.4byte	0x1d9
+ 812 01ca 12       		.uleb128 0x12
+ 813 01cb 01       		.uleb128 0x1
+ 814 01cc 51       		.byte	0x51
+ 815 01cd 05       		.uleb128 0x5
+ 816 01ce 03       		.byte	0x3
+ 817 01cf 2C000000 		.4byte	.LC12
+ 818 01d3 12       		.uleb128 0x12
+ 819 01d4 01       		.uleb128 0x1
+ 820 01d5 52       		.byte	0x52
+ 821 01d6 01       		.uleb128 0x1
+ 822 01d7 30       		.byte	0x30
+ 823 01d8 00       		.byte	0
+ 824 01d9 11       		.uleb128 0x11
+ 825 01da DE000000 		.4byte	.LVL28
+ 826 01de 6E050000 		.4byte	0x56e
+ 827 01e2 F5010000 		.4byte	0x1f5
+ 828 01e6 12       		.uleb128 0x12
+ 829 01e7 01       		.uleb128 0x1
+ 830 01e8 51       		.byte	0x51
+ 831 01e9 05       		.uleb128 0x5
+ 832 01ea 03       		.byte	0x3
+ 833 01eb 2C000000 		.4byte	.LC12
+ 834 01ef 12       		.uleb128 0x12
+ 835 01f0 01       		.uleb128 0x1
+ 836 01f1 52       		.byte	0x52
+ 837 01f2 01       		.uleb128 0x1
+ 838 01f3 31       		.byte	0x31
+ 839 01f4 00       		.byte	0
+ 840 01f5 13       		.uleb128 0x13
+ 841 01f6 FC000000 		.4byte	.LVL29
+ 842 01fa 6E050000 		.4byte	0x56e
+ 843 01fe 12       		.uleb128 0x12
+ 844 01ff 01       		.uleb128 0x1
+ 845 0200 51       		.byte	0x51
+ 846 0201 05       		.uleb128 0x5
+ 847 0202 03       		.byte	0x3
+ 848 0203 2C000000 		.4byte	.LC12
+ 849 0207 12       		.uleb128 0x12
+ 850 0208 01       		.uleb128 0x1
+ 851 0209 52       		.byte	0x52
+ 852 020a 01       		.uleb128 0x1
+ 853 020b 32       		.byte	0x32
+ 854 020c 00       		.byte	0
+ 855 020d 00       		.byte	0
+ 856 020e 14       		.uleb128 0x14
+ 857 020f 5A010000 		.4byte	.LBB6
+ 858 0213 26000000 		.4byte	.LBE6-.LBB6
+ 859 0217 29020000 		.4byte	0x229
+ 860 021b 0C       		.uleb128 0xc
+ 861 021c 6900     		.ascii	"i\000"
+ 862 021e 01       		.byte	0x1
+ 863 021f 8A       		.byte	0x8a
+ 864 0220 6B000000 		.4byte	0x6b
+ 865 0224 14020000 		.4byte	.LLST10
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 21
+
+
+ 866 0228 00       		.byte	0
+ 867 0229 10       		.uleb128 0x10
+ 868 022a 30000000 		.4byte	.Ldebug_ranges0+0x30
+ 869 022e 40020000 		.4byte	0x240
+ 870 0232 0C       		.uleb128 0xc
+ 871 0233 6900     		.ascii	"i\000"
+ 872 0235 01       		.byte	0x1
+ 873 0236 8F       		.byte	0x8f
+ 874 0237 6B000000 		.4byte	0x6b
+ 875 023b 33020000 		.4byte	.LLST11
+ 876 023f 00       		.byte	0
+ 877 0240 11       		.uleb128 0x11
+ 878 0241 22000000 		.4byte	.LVL12
+ 879 0245 6E050000 		.4byte	0x56e
+ 880 0249 63020000 		.4byte	0x263
+ 881 024d 12       		.uleb128 0x12
+ 882 024e 01       		.uleb128 0x1
+ 883 024f 50       		.byte	0x50
+ 884 0250 02       		.uleb128 0x2
+ 885 0251 74       		.byte	0x74
+ 886 0252 00       		.sleb128 0
+ 887 0253 12       		.uleb128 0x12
+ 888 0254 01       		.uleb128 0x1
+ 889 0255 51       		.byte	0x51
+ 890 0256 05       		.uleb128 0x5
+ 891 0257 03       		.byte	0x3
+ 892 0258 00000000 		.4byte	.LC2
+ 893 025c 12       		.uleb128 0x12
+ 894 025d 01       		.uleb128 0x1
+ 895 025e 52       		.byte	0x52
+ 896 025f 02       		.uleb128 0x2
+ 897 0260 7B       		.byte	0x7b
+ 898 0261 00       		.sleb128 0
+ 899 0262 00       		.byte	0
+ 900 0263 11       		.uleb128 0x11
+ 901 0264 2C000000 		.4byte	.LVL13
+ 902 0268 6E050000 		.4byte	0x56e
+ 903 026c 86020000 		.4byte	0x286
+ 904 0270 12       		.uleb128 0x12
+ 905 0271 01       		.uleb128 0x1
+ 906 0272 50       		.byte	0x50
+ 907 0273 02       		.uleb128 0x2
+ 908 0274 74       		.byte	0x74
+ 909 0275 00       		.sleb128 0
+ 910 0276 12       		.uleb128 0x12
+ 911 0277 01       		.uleb128 0x1
+ 912 0278 51       		.byte	0x51
+ 913 0279 05       		.uleb128 0x5
+ 914 027a 03       		.byte	0x3
+ 915 027b 08000000 		.4byte	.LC5
+ 916 027f 12       		.uleb128 0x12
+ 917 0280 01       		.uleb128 0x1
+ 918 0281 52       		.byte	0x52
+ 919 0282 02       		.uleb128 0x2
+ 920 0283 75       		.byte	0x75
+ 921 0284 00       		.sleb128 0
+ 922 0285 00       		.byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 22
+
+
+ 923 0286 11       		.uleb128 0x11
+ 924 0287 3C000000 		.4byte	.LVL14
+ 925 028b 79050000 		.4byte	0x579
+ 926 028f 99020000 		.4byte	0x299
+ 927 0293 12       		.uleb128 0x12
+ 928 0294 01       		.uleb128 0x1
+ 929 0295 50       		.byte	0x50
+ 930 0296 01       		.uleb128 0x1
+ 931 0297 31       		.byte	0x31
+ 932 0298 00       		.byte	0
+ 933 0299 11       		.uleb128 0x11
+ 934 029a 5A000000 		.4byte	.LVL16
+ 935 029e 85050000 		.4byte	0x585
+ 936 02a2 B3020000 		.4byte	0x2b3
+ 937 02a6 12       		.uleb128 0x12
+ 938 02a7 01       		.uleb128 0x1
+ 939 02a8 50       		.byte	0x50
+ 940 02a9 03       		.uleb128 0x3
+ 941 02aa 91       		.byte	0x91
+ 942 02ab 44       		.sleb128 -60
+ 943 02ac 06       		.byte	0x6
+ 944 02ad 12       		.uleb128 0x12
+ 945 02ae 01       		.uleb128 0x1
+ 946 02af 51       		.byte	0x51
+ 947 02b0 01       		.uleb128 0x1
+ 948 02b1 31       		.byte	0x31
+ 949 02b2 00       		.byte	0
+ 950 02b3 11       		.uleb128 0x11
+ 951 02b4 6C000000 		.4byte	.LVL18
+ 952 02b8 90050000 		.4byte	0x590
+ 953 02bc D3020000 		.4byte	0x2d3
+ 954 02c0 12       		.uleb128 0x12
+ 955 02c1 01       		.uleb128 0x1
+ 956 02c2 50       		.byte	0x50
+ 957 02c3 02       		.uleb128 0x2
+ 958 02c4 91       		.byte	0x91
+ 959 02c5 4C       		.sleb128 -52
+ 960 02c6 12       		.uleb128 0x12
+ 961 02c7 01       		.uleb128 0x1
+ 962 02c8 51       		.byte	0x51
+ 963 02c9 02       		.uleb128 0x2
+ 964 02ca 91       		.byte	0x91
+ 965 02cb 50       		.sleb128 -48
+ 966 02cc 12       		.uleb128 0x12
+ 967 02cd 01       		.uleb128 0x1
+ 968 02ce 52       		.byte	0x52
+ 969 02cf 02       		.uleb128 0x2
+ 970 02d0 91       		.byte	0x91
+ 971 02d1 54       		.sleb128 -44
+ 972 02d2 00       		.byte	0
+ 973 02d3 11       		.uleb128 0x11
+ 974 02d4 78000000 		.4byte	.LVL19
+ 975 02d8 CE000000 		.4byte	0xce
+ 976 02dc E7020000 		.4byte	0x2e7
+ 977 02e0 12       		.uleb128 0x12
+ 978 02e1 01       		.uleb128 0x1
+ 979 02e2 50       		.byte	0x50
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 23
+
+
+ 980 02e3 02       		.uleb128 0x2
+ 981 02e4 91       		.byte	0x91
+ 982 02e5 4C       		.sleb128 -52
+ 983 02e6 00       		.byte	0
+ 984 02e7 11       		.uleb128 0x11
+ 985 02e8 88000000 		.4byte	.LVL20
+ 986 02ec 9B050000 		.4byte	0x59b
+ 987 02f0 09030000 		.4byte	0x309
+ 988 02f4 12       		.uleb128 0x12
+ 989 02f5 01       		.uleb128 0x1
+ 990 02f6 50       		.byte	0x50
+ 991 02f7 02       		.uleb128 0x2
+ 992 02f8 74       		.byte	0x74
+ 993 02f9 00       		.sleb128 0
+ 994 02fa 12       		.uleb128 0x12
+ 995 02fb 01       		.uleb128 0x1
+ 996 02fc 51       		.byte	0x51
+ 997 02fd 05       		.uleb128 0x5
+ 998 02fe 03       		.byte	0x3
+ 999 02ff 14000000 		.4byte	.LC8
+ 1000 0303 12       		.uleb128 0x12
+ 1001 0304 01       		.uleb128 0x1
+ 1002 0305 52       		.byte	0x52
+ 1003 0306 01       		.uleb128 0x1
+ 1004 0307 34       		.byte	0x34
+ 1005 0308 00       		.byte	0
+ 1006 0309 11       		.uleb128 0x11
+ 1007 030a 8E000000 		.4byte	.LVL21
+ 1008 030e A4050000 		.4byte	0x5a4
+ 1009 0312 1D030000 		.4byte	0x31d
+ 1010 0316 12       		.uleb128 0x12
+ 1011 0317 01       		.uleb128 0x1
+ 1012 0318 50       		.byte	0x50
+ 1013 0319 02       		.uleb128 0x2
+ 1014 031a 74       		.byte	0x74
+ 1015 031b 00       		.sleb128 0
+ 1016 031c 00       		.byte	0
+ 1017 031d 11       		.uleb128 0x11
+ 1018 031e A4000000 		.4byte	.LVL23
+ 1019 0322 6E050000 		.4byte	0x56e
+ 1020 0326 3A030000 		.4byte	0x33a
+ 1021 032a 12       		.uleb128 0x12
+ 1022 032b 01       		.uleb128 0x1
+ 1023 032c 50       		.byte	0x50
+ 1024 032d 02       		.uleb128 0x2
+ 1025 032e 74       		.byte	0x74
+ 1026 032f 00       		.sleb128 0
+ 1027 0330 12       		.uleb128 0x12
+ 1028 0331 01       		.uleb128 0x1
+ 1029 0332 51       		.byte	0x51
+ 1030 0333 05       		.uleb128 0x5
+ 1031 0334 03       		.byte	0x3
+ 1032 0335 18000000 		.4byte	.LC10
+ 1033 0339 00       		.byte	0
+ 1034 033a 11       		.uleb128 0x11
+ 1035 033b AA000000 		.4byte	.LVL24
+ 1036 033f A4050000 		.4byte	0x5a4
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 24
+
+
+ 1037 0343 4E030000 		.4byte	0x34e
+ 1038 0347 12       		.uleb128 0x12
+ 1039 0348 01       		.uleb128 0x1
+ 1040 0349 50       		.byte	0x50
+ 1041 034a 02       		.uleb128 0x2
+ 1042 034b 74       		.byte	0x74
+ 1043 034c 00       		.sleb128 0
+ 1044 034d 00       		.byte	0
+ 1045 034e 11       		.uleb128 0x11
+ 1046 034f 2E010000 		.4byte	.LVL34
+ 1047 0353 AF050000 		.4byte	0x5af
+ 1048 0357 63030000 		.4byte	0x363
+ 1049 035b 12       		.uleb128 0x12
+ 1050 035c 01       		.uleb128 0x1
+ 1051 035d 50       		.byte	0x50
+ 1052 035e 03       		.uleb128 0x3
+ 1053 035f 0A       		.byte	0xa
+ 1054 0360 D007     		.2byte	0x7d0
+ 1055 0362 00       		.byte	0
+ 1056 0363 11       		.uleb128 0x11
+ 1057 0364 3C010000 		.4byte	.LVL35
+ 1058 0368 85050000 		.4byte	0x585
+ 1059 036c 7D030000 		.4byte	0x37d
+ 1060 0370 12       		.uleb128 0x12
+ 1061 0371 01       		.uleb128 0x1
+ 1062 0372 50       		.byte	0x50
+ 1063 0373 03       		.uleb128 0x3
+ 1064 0374 91       		.byte	0x91
+ 1065 0375 44       		.sleb128 -60
+ 1066 0376 06       		.byte	0x6
+ 1067 0377 12       		.uleb128 0x12
+ 1068 0378 01       		.uleb128 0x1
+ 1069 0379 51       		.byte	0x51
+ 1070 037a 01       		.uleb128 0x1
+ 1071 037b 30       		.byte	0x30
+ 1072 037c 00       		.byte	0
+ 1073 037d 11       		.uleb128 0x11
+ 1074 037e 42010000 		.4byte	.LVL36
+ 1075 0382 79050000 		.4byte	0x579
+ 1076 0386 90030000 		.4byte	0x390
+ 1077 038a 12       		.uleb128 0x12
+ 1078 038b 01       		.uleb128 0x1
+ 1079 038c 50       		.byte	0x50
+ 1080 038d 01       		.uleb128 0x1
+ 1081 038e 30       		.byte	0x30
+ 1082 038f 00       		.byte	0
+ 1083 0390 11       		.uleb128 0x11
+ 1084 0391 54010000 		.4byte	.LVL37
+ 1085 0395 9B050000 		.4byte	0x59b
+ 1086 0399 B2030000 		.4byte	0x3b2
+ 1087 039d 12       		.uleb128 0x12
+ 1088 039e 01       		.uleb128 0x1
+ 1089 039f 50       		.byte	0x50
+ 1090 03a0 02       		.uleb128 0x2
+ 1091 03a1 74       		.byte	0x74
+ 1092 03a2 00       		.sleb128 0
+ 1093 03a3 12       		.uleb128 0x12
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 25
+
+
+ 1094 03a4 01       		.uleb128 0x1
+ 1095 03a5 51       		.byte	0x51
+ 1096 03a6 05       		.uleb128 0x5
+ 1097 03a7 03       		.byte	0x3
+ 1098 03a8 38000000 		.4byte	.LC14
+ 1099 03ac 12       		.uleb128 0x12
+ 1100 03ad 01       		.uleb128 0x1
+ 1101 03ae 52       		.byte	0x52
+ 1102 03af 01       		.uleb128 0x1
+ 1103 03b0 35       		.byte	0x35
+ 1104 03b1 00       		.byte	0
+ 1105 03b2 11       		.uleb128 0x11
+ 1106 03b3 5A010000 		.4byte	.LVL38
+ 1107 03b7 A4050000 		.4byte	0x5a4
+ 1108 03bb C6030000 		.4byte	0x3c6
+ 1109 03bf 12       		.uleb128 0x12
+ 1110 03c0 01       		.uleb128 0x1
+ 1111 03c1 50       		.byte	0x50
+ 1112 03c2 02       		.uleb128 0x2
+ 1113 03c3 74       		.byte	0x74
+ 1114 03c4 00       		.sleb128 0
+ 1115 03c5 00       		.byte	0
+ 1116 03c6 11       		.uleb128 0x11
+ 1117 03c7 BC010000 		.4byte	.LVL47
+ 1118 03cb 6E050000 		.4byte	0x56e
+ 1119 03cf E3030000 		.4byte	0x3e3
+ 1120 03d3 12       		.uleb128 0x12
+ 1121 03d4 01       		.uleb128 0x1
+ 1122 03d5 50       		.byte	0x50
+ 1123 03d6 02       		.uleb128 0x2
+ 1124 03d7 74       		.byte	0x74
+ 1125 03d8 00       		.sleb128 0
+ 1126 03d9 12       		.uleb128 0x12
+ 1127 03da 01       		.uleb128 0x1
+ 1128 03db 51       		.byte	0x51
+ 1129 03dc 05       		.uleb128 0x5
+ 1130 03dd 03       		.byte	0x3
+ 1131 03de 40000000 		.4byte	.LC16
+ 1132 03e2 00       		.byte	0
+ 1133 03e3 11       		.uleb128 0x11
+ 1134 03e4 C2010000 		.4byte	.LVL48
+ 1135 03e8 A4050000 		.4byte	0x5a4
+ 1136 03ec F7030000 		.4byte	0x3f7
+ 1137 03f0 12       		.uleb128 0x12
+ 1138 03f1 01       		.uleb128 0x1
+ 1139 03f2 50       		.byte	0x50
+ 1140 03f3 02       		.uleb128 0x2
+ 1141 03f4 74       		.byte	0x74
+ 1142 03f5 00       		.sleb128 0
+ 1143 03f6 00       		.byte	0
+ 1144 03f7 11       		.uleb128 0x11
+ 1145 03f8 D8010000 		.4byte	.LVL49
+ 1146 03fc 6E050000 		.4byte	0x56e
+ 1147 0400 14040000 		.4byte	0x414
+ 1148 0404 12       		.uleb128 0x12
+ 1149 0405 01       		.uleb128 0x1
+ 1150 0406 50       		.byte	0x50
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 26
+
+
+ 1151 0407 02       		.uleb128 0x2
+ 1152 0408 74       		.byte	0x74
+ 1153 0409 00       		.sleb128 0
+ 1154 040a 12       		.uleb128 0x12
+ 1155 040b 01       		.uleb128 0x1
+ 1156 040c 51       		.byte	0x51
+ 1157 040d 05       		.uleb128 0x5
+ 1158 040e 03       		.byte	0x3
+ 1159 040f 58000000 		.4byte	.LC18
+ 1160 0413 00       		.byte	0
+ 1161 0414 13       		.uleb128 0x13
+ 1162 0415 DE010000 		.4byte	.LVL50
+ 1163 0419 A4050000 		.4byte	0x5a4
+ 1164 041d 12       		.uleb128 0x12
+ 1165 041e 01       		.uleb128 0x1
+ 1166 041f 50       		.byte	0x50
+ 1167 0420 02       		.uleb128 0x2
+ 1168 0421 74       		.byte	0x74
+ 1169 0422 00       		.sleb128 0
+ 1170 0423 00       		.byte	0
+ 1171 0424 00       		.byte	0
+ 1172 0425 15       		.uleb128 0x15
+ 1173 0426 7C000000 		.4byte	.LASF25
+ 1174 042a 01       		.byte	0x1
+ 1175 042b AF       		.byte	0xaf
+ 1176 042c 00000000 		.4byte	.LFB34
+ 1177 0430 0C000000 		.4byte	.LFE34-.LFB34
+ 1178 0434 01       		.uleb128 0x1
+ 1179 0435 9C       		.byte	0x9c
+ 1180 0436 7B040000 		.4byte	0x47b
+ 1181 043a 0A       		.uleb128 0xa
+ 1182 043b 2A010000 		.4byte	.LASF14
+ 1183 043f 01       		.byte	0x1
+ 1184 0440 AF       		.byte	0xaf
+ 1185 0441 11010000 		.4byte	0x111
+ 1186 0445 51020000 		.4byte	.LLST12
+ 1187 0449 0A       		.uleb128 0xa
+ 1188 044a 13010000 		.4byte	.LASF15
+ 1189 044e 01       		.byte	0x1
+ 1190 044f AF       		.byte	0xaf
+ 1191 0450 11010000 		.4byte	0x111
+ 1192 0454 72020000 		.4byte	.LLST13
+ 1193 0458 13       		.uleb128 0x13
+ 1194 0459 0A000000 		.4byte	.LVL54
+ 1195 045d 17010000 		.4byte	0x117
+ 1196 0461 12       		.uleb128 0x12
+ 1197 0462 01       		.uleb128 0x1
+ 1198 0463 50       		.byte	0x50
+ 1199 0464 03       		.uleb128 0x3
+ 1200 0465 F3       		.byte	0xf3
+ 1201 0466 01       		.uleb128 0x1
+ 1202 0467 50       		.byte	0x50
+ 1203 0468 12       		.uleb128 0x12
+ 1204 0469 01       		.uleb128 0x1
+ 1205 046a 51       		.byte	0x51
+ 1206 046b 03       		.uleb128 0x3
+ 1207 046c F3       		.byte	0xf3
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 27
+
+
+ 1208 046d 01       		.uleb128 0x1
+ 1209 046e 51       		.byte	0x51
+ 1210 046f 12       		.uleb128 0x12
+ 1211 0470 01       		.uleb128 0x1
+ 1212 0471 52       		.byte	0x52
+ 1213 0472 01       		.uleb128 0x1
+ 1214 0473 31       		.byte	0x31
+ 1215 0474 12       		.uleb128 0x12
+ 1216 0475 01       		.uleb128 0x1
+ 1217 0476 53       		.byte	0x53
+ 1218 0477 01       		.uleb128 0x1
+ 1219 0478 30       		.byte	0x30
+ 1220 0479 00       		.byte	0
+ 1221 047a 00       		.byte	0
+ 1222 047b 15       		.uleb128 0x15
+ 1223 047c 25020000 		.4byte	.LASF26
+ 1224 0480 01       		.byte	0x1
+ 1225 0481 B2       		.byte	0xb2
+ 1226 0482 00000000 		.4byte	.LFB35
+ 1227 0486 0C000000 		.4byte	.LFE35-.LFB35
+ 1228 048a 01       		.uleb128 0x1
+ 1229 048b 9C       		.byte	0x9c
+ 1230 048c E2040000 		.4byte	0x4e2
+ 1231 0490 0A       		.uleb128 0xa
+ 1232 0491 2A010000 		.4byte	.LASF14
+ 1233 0495 01       		.byte	0x1
+ 1234 0496 B2       		.byte	0xb2
+ 1235 0497 11010000 		.4byte	0x111
+ 1236 049b 93020000 		.4byte	.LLST14
+ 1237 049f 0A       		.uleb128 0xa
+ 1238 04a0 13010000 		.4byte	.LASF15
+ 1239 04a4 01       		.byte	0x1
+ 1240 04a5 B2       		.byte	0xb2
+ 1241 04a6 11010000 		.4byte	0x111
+ 1242 04aa B4020000 		.4byte	.LLST15
+ 1243 04ae 0A       		.uleb128 0xa
+ 1244 04af 55020000 		.4byte	.LASF21
+ 1245 04b3 01       		.byte	0x1
+ 1246 04b4 B2       		.byte	0xb2
+ 1247 04b5 5D000000 		.4byte	0x5d
+ 1248 04b9 D5020000 		.4byte	.LLST16
+ 1249 04bd 13       		.uleb128 0x13
+ 1250 04be 0A000000 		.4byte	.LVL57
+ 1251 04c2 17010000 		.4byte	0x117
+ 1252 04c6 12       		.uleb128 0x12
+ 1253 04c7 01       		.uleb128 0x1
+ 1254 04c8 50       		.byte	0x50
+ 1255 04c9 03       		.uleb128 0x3
+ 1256 04ca F3       		.byte	0xf3
+ 1257 04cb 01       		.uleb128 0x1
+ 1258 04cc 50       		.byte	0x50
+ 1259 04cd 12       		.uleb128 0x12
+ 1260 04ce 01       		.uleb128 0x1
+ 1261 04cf 51       		.byte	0x51
+ 1262 04d0 03       		.uleb128 0x3
+ 1263 04d1 F3       		.byte	0xf3
+ 1264 04d2 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 28
+
+
+ 1265 04d3 51       		.byte	0x51
+ 1266 04d4 12       		.uleb128 0x12
+ 1267 04d5 01       		.uleb128 0x1
+ 1268 04d6 52       		.byte	0x52
+ 1269 04d7 01       		.uleb128 0x1
+ 1270 04d8 30       		.byte	0x30
+ 1271 04d9 12       		.uleb128 0x12
+ 1272 04da 01       		.uleb128 0x1
+ 1273 04db 53       		.byte	0x53
+ 1274 04dc 03       		.uleb128 0x3
+ 1275 04dd F3       		.byte	0xf3
+ 1276 04de 01       		.uleb128 0x1
+ 1277 04df 52       		.byte	0x52
+ 1278 04e0 00       		.byte	0
+ 1279 04e1 00       		.byte	0
+ 1280 04e2 07       		.uleb128 0x7
+ 1281 04e3 84000000 		.4byte	0x84
+ 1282 04e7 ED040000 		.4byte	0x4ed
+ 1283 04eb 16       		.uleb128 0x16
+ 1284 04ec 00       		.byte	0
+ 1285 04ed 17       		.uleb128 0x17
+ 1286 04ee 73747200 		.ascii	"str\000"
+ 1287 04f2 07       		.byte	0x7
+ 1288 04f3 07       		.byte	0x7
+ 1289 04f4 E2040000 		.4byte	0x4e2
+ 1290 04f8 18       		.uleb128 0x18
+ 1291 04f9 34000000 		.4byte	.LASF27
+ 1292 04fd 01       		.byte	0x1
+ 1293 04fe 12       		.byte	0x12
+ 1294 04ff 0A010000 		.4byte	0x10a
+ 1295 0503 05       		.uleb128 0x5
+ 1296 0504 03       		.byte	0x3
+ 1297 0505 00000000 		.4byte	button_pushed
+ 1298 0509 18       		.uleb128 0x18
+ 1299 050a 1B010000 		.4byte	.LASF28
+ 1300 050e 01       		.byte	0x1
+ 1301 050f 14       		.byte	0x14
+ 1302 0510 BE000000 		.4byte	0xbe
+ 1303 0514 05       		.uleb128 0x5
+ 1304 0515 03       		.byte	0x3
+ 1305 0516 00000000 		.4byte	min_none_color
+ 1306 051a 18       		.uleb128 0x18
+ 1307 051b C6000000 		.4byte	.LASF29
+ 1308 051f 01       		.byte	0x1
+ 1309 0520 15       		.byte	0x15
+ 1310 0521 BE000000 		.4byte	0xbe
+ 1311 0525 05       		.uleb128 0x5
+ 1312 0526 03       		.byte	0x3
+ 1313 0527 00000000 		.4byte	max_none_color
+ 1314 052b 18       		.uleb128 0x18
+ 1315 052c A5020000 		.4byte	.LASF30
+ 1316 0530 02       		.byte	0x2
+ 1317 0531 27       		.byte	0x27
+ 1318 0532 BE000000 		.4byte	0xbe
+ 1319 0536 05       		.uleb128 0x5
+ 1320 0537 03       		.byte	0x3
+ 1321 0538 00000000 		.4byte	min_cur_color
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 29
+
+
+ 1322 053c 18       		.uleb128 0x18
+ 1323 053d 5A000000 		.4byte	.LASF31
+ 1324 0541 02       		.byte	0x2
+ 1325 0542 28       		.byte	0x28
+ 1326 0543 BE000000 		.4byte	0xbe
+ 1327 0547 05       		.uleb128 0x5
+ 1328 0548 03       		.byte	0x3
+ 1329 0549 00000000 		.4byte	max_cur_color
+ 1330 054d 07       		.uleb128 0x7
+ 1331 054e 99000000 		.4byte	0x99
+ 1332 0552 5D050000 		.4byte	0x55d
+ 1333 0556 08       		.uleb128 0x8
+ 1334 0557 7D000000 		.4byte	0x7d
+ 1335 055b 05       		.byte	0x5
+ 1336 055c 00       		.byte	0
+ 1337 055d 18       		.uleb128 0x18
+ 1338 055e 02010000 		.4byte	.LASF32
+ 1339 0562 02       		.byte	0x2
+ 1340 0563 2F       		.byte	0x2f
+ 1341 0564 4D050000 		.4byte	0x54d
+ 1342 0568 05       		.uleb128 0x5
+ 1343 0569 03       		.byte	0x3
+ 1344 056a 00000000 		.4byte	boundaries
+ 1345 056e 19       		.uleb128 0x19
+ 1346 056f D1020000 		.4byte	.LASF33
+ 1347 0573 D1020000 		.4byte	.LASF33
+ 1348 0577 03       		.byte	0x3
+ 1349 0578 E7       		.byte	0xe7
+ 1350 0579 1A       		.uleb128 0x1a
+ 1351 057a E7000000 		.4byte	.LASF34
+ 1352 057e E7000000 		.4byte	.LASF34
+ 1353 0582 04       		.byte	0x4
+ 1354 0583 5501     		.2byte	0x155
+ 1355 0585 19       		.uleb128 0x19
+ 1356 0586 56010000 		.4byte	.LASF35
+ 1357 058a 56010000 		.4byte	.LASF35
+ 1358 058e 05       		.byte	0x5
+ 1359 058f 14       		.byte	0x14
+ 1360 0590 19       		.uleb128 0x19
+ 1361 0591 8C020000 		.4byte	.LASF36
+ 1362 0595 8C020000 		.4byte	.LASF36
+ 1363 0599 06       		.byte	0x6
+ 1364 059a AE       		.byte	0xae
+ 1365 059b 1B       		.uleb128 0x1b
+ 1366 059c 64020000 		.4byte	.LASF44
+ 1367 05a0 64020000 		.4byte	.LASF44
+ 1368 05a4 19       		.uleb128 0x19
+ 1369 05a5 4F020000 		.4byte	.LASF37
+ 1370 05a9 4F020000 		.4byte	.LASF37
+ 1371 05ad 07       		.byte	0x7
+ 1372 05ae 09       		.byte	0x9
+ 1373 05af 19       		.uleb128 0x19
+ 1374 05b0 D9020000 		.4byte	.LASF38
+ 1375 05b4 D9020000 		.4byte	.LASF38
+ 1376 05b8 08       		.byte	0x8
+ 1377 05b9 EC       		.byte	0xec
+ 1378 05ba 00       		.byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 30
+
+
+ 1379              		.section	.debug_abbrev,"",%progbits
+ 1380              	.Ldebug_abbrev0:
+ 1381 0000 01       		.uleb128 0x1
+ 1382 0001 11       		.uleb128 0x11
+ 1383 0002 01       		.byte	0x1
+ 1384 0003 25       		.uleb128 0x25
+ 1385 0004 0E       		.uleb128 0xe
+ 1386 0005 13       		.uleb128 0x13
+ 1387 0006 0B       		.uleb128 0xb
+ 1388 0007 03       		.uleb128 0x3
+ 1389 0008 0E       		.uleb128 0xe
+ 1390 0009 1B       		.uleb128 0x1b
+ 1391 000a 0E       		.uleb128 0xe
+ 1392 000b 55       		.uleb128 0x55
+ 1393 000c 17       		.uleb128 0x17
+ 1394 000d 11       		.uleb128 0x11
+ 1395 000e 01       		.uleb128 0x1
+ 1396 000f 10       		.uleb128 0x10
+ 1397 0010 17       		.uleb128 0x17
+ 1398 0011 00       		.byte	0
+ 1399 0012 00       		.byte	0
+ 1400 0013 02       		.uleb128 0x2
+ 1401 0014 24       		.uleb128 0x24
+ 1402 0015 00       		.byte	0
+ 1403 0016 0B       		.uleb128 0xb
+ 1404 0017 0B       		.uleb128 0xb
+ 1405 0018 3E       		.uleb128 0x3e
+ 1406 0019 0B       		.uleb128 0xb
+ 1407 001a 03       		.uleb128 0x3
+ 1408 001b 0E       		.uleb128 0xe
+ 1409 001c 00       		.byte	0
+ 1410 001d 00       		.byte	0
+ 1411 001e 03       		.uleb128 0x3
+ 1412 001f 24       		.uleb128 0x24
+ 1413 0020 00       		.byte	0
+ 1414 0021 0B       		.uleb128 0xb
+ 1415 0022 0B       		.uleb128 0xb
+ 1416 0023 3E       		.uleb128 0x3e
+ 1417 0024 0B       		.uleb128 0xb
+ 1418 0025 03       		.uleb128 0x3
+ 1419 0026 08       		.uleb128 0x8
+ 1420 0027 00       		.byte	0
+ 1421 0028 00       		.byte	0
+ 1422 0029 04       		.uleb128 0x4
+ 1423 002a 16       		.uleb128 0x16
+ 1424 002b 00       		.byte	0
+ 1425 002c 03       		.uleb128 0x3
+ 1426 002d 0E       		.uleb128 0xe
+ 1427 002e 3A       		.uleb128 0x3a
+ 1428 002f 0B       		.uleb128 0xb
+ 1429 0030 3B       		.uleb128 0x3b
+ 1430 0031 0B       		.uleb128 0xb
+ 1431 0032 49       		.uleb128 0x49
+ 1432 0033 13       		.uleb128 0x13
+ 1433 0034 00       		.byte	0
+ 1434 0035 00       		.byte	0
+ 1435 0036 05       		.uleb128 0x5
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 31
+
+
+ 1436 0037 13       		.uleb128 0x13
+ 1437 0038 01       		.byte	0x1
+ 1438 0039 03       		.uleb128 0x3
+ 1439 003a 0E       		.uleb128 0xe
+ 1440 003b 0B       		.uleb128 0xb
+ 1441 003c 0B       		.uleb128 0xb
+ 1442 003d 3A       		.uleb128 0x3a
+ 1443 003e 0B       		.uleb128 0xb
+ 1444 003f 3B       		.uleb128 0x3b
+ 1445 0040 0B       		.uleb128 0xb
+ 1446 0041 01       		.uleb128 0x1
+ 1447 0042 13       		.uleb128 0x13
+ 1448 0043 00       		.byte	0
+ 1449 0044 00       		.byte	0
+ 1450 0045 06       		.uleb128 0x6
+ 1451 0046 0D       		.uleb128 0xd
+ 1452 0047 00       		.byte	0
+ 1453 0048 03       		.uleb128 0x3
+ 1454 0049 0E       		.uleb128 0xe
+ 1455 004a 3A       		.uleb128 0x3a
+ 1456 004b 0B       		.uleb128 0xb
+ 1457 004c 3B       		.uleb128 0x3b
+ 1458 004d 0B       		.uleb128 0xb
+ 1459 004e 49       		.uleb128 0x49
+ 1460 004f 13       		.uleb128 0x13
+ 1461 0050 38       		.uleb128 0x38
+ 1462 0051 0B       		.uleb128 0xb
+ 1463 0052 00       		.byte	0
+ 1464 0053 00       		.byte	0
+ 1465 0054 07       		.uleb128 0x7
+ 1466 0055 01       		.uleb128 0x1
+ 1467 0056 01       		.byte	0x1
+ 1468 0057 49       		.uleb128 0x49
+ 1469 0058 13       		.uleb128 0x13
+ 1470 0059 01       		.uleb128 0x1
+ 1471 005a 13       		.uleb128 0x13
+ 1472 005b 00       		.byte	0
+ 1473 005c 00       		.byte	0
+ 1474 005d 08       		.uleb128 0x8
+ 1475 005e 21       		.uleb128 0x21
+ 1476 005f 00       		.byte	0
+ 1477 0060 49       		.uleb128 0x49
+ 1478 0061 13       		.uleb128 0x13
+ 1479 0062 2F       		.uleb128 0x2f
+ 1480 0063 0B       		.uleb128 0xb
+ 1481 0064 00       		.byte	0
+ 1482 0065 00       		.byte	0
+ 1483 0066 09       		.uleb128 0x9
+ 1484 0067 2E       		.uleb128 0x2e
+ 1485 0068 01       		.byte	0x1
+ 1486 0069 3F       		.uleb128 0x3f
+ 1487 006a 19       		.uleb128 0x19
+ 1488 006b 03       		.uleb128 0x3
+ 1489 006c 0E       		.uleb128 0xe
+ 1490 006d 3A       		.uleb128 0x3a
+ 1491 006e 0B       		.uleb128 0xb
+ 1492 006f 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 32
+
+
+ 1493 0070 0B       		.uleb128 0xb
+ 1494 0071 27       		.uleb128 0x27
+ 1495 0072 19       		.uleb128 0x19
+ 1496 0073 49       		.uleb128 0x49
+ 1497 0074 13       		.uleb128 0x13
+ 1498 0075 11       		.uleb128 0x11
+ 1499 0076 01       		.uleb128 0x1
+ 1500 0077 12       		.uleb128 0x12
+ 1501 0078 06       		.uleb128 0x6
+ 1502 0079 40       		.uleb128 0x40
+ 1503 007a 18       		.uleb128 0x18
+ 1504 007b 9742     		.uleb128 0x2117
+ 1505 007d 19       		.uleb128 0x19
+ 1506 007e 01       		.uleb128 0x1
+ 1507 007f 13       		.uleb128 0x13
+ 1508 0080 00       		.byte	0
+ 1509 0081 00       		.byte	0
+ 1510 0082 0A       		.uleb128 0xa
+ 1511 0083 05       		.uleb128 0x5
+ 1512 0084 00       		.byte	0
+ 1513 0085 03       		.uleb128 0x3
+ 1514 0086 0E       		.uleb128 0xe
+ 1515 0087 3A       		.uleb128 0x3a
+ 1516 0088 0B       		.uleb128 0xb
+ 1517 0089 3B       		.uleb128 0x3b
+ 1518 008a 0B       		.uleb128 0xb
+ 1519 008b 49       		.uleb128 0x49
+ 1520 008c 13       		.uleb128 0x13
+ 1521 008d 02       		.uleb128 0x2
+ 1522 008e 17       		.uleb128 0x17
+ 1523 008f 00       		.byte	0
+ 1524 0090 00       		.byte	0
+ 1525 0091 0B       		.uleb128 0xb
+ 1526 0092 0B       		.uleb128 0xb
+ 1527 0093 01       		.byte	0x1
+ 1528 0094 55       		.uleb128 0x55
+ 1529 0095 17       		.uleb128 0x17
+ 1530 0096 00       		.byte	0
+ 1531 0097 00       		.byte	0
+ 1532 0098 0C       		.uleb128 0xc
+ 1533 0099 34       		.uleb128 0x34
+ 1534 009a 00       		.byte	0
+ 1535 009b 03       		.uleb128 0x3
+ 1536 009c 08       		.uleb128 0x8
+ 1537 009d 3A       		.uleb128 0x3a
+ 1538 009e 0B       		.uleb128 0xb
+ 1539 009f 3B       		.uleb128 0x3b
+ 1540 00a0 0B       		.uleb128 0xb
+ 1541 00a1 49       		.uleb128 0x49
+ 1542 00a2 13       		.uleb128 0x13
+ 1543 00a3 02       		.uleb128 0x2
+ 1544 00a4 17       		.uleb128 0x17
+ 1545 00a5 00       		.byte	0
+ 1546 00a6 00       		.byte	0
+ 1547 00a7 0D       		.uleb128 0xd
+ 1548 00a8 0F       		.uleb128 0xf
+ 1549 00a9 00       		.byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 33
+
+
+ 1550 00aa 0B       		.uleb128 0xb
+ 1551 00ab 0B       		.uleb128 0xb
+ 1552 00ac 49       		.uleb128 0x49
+ 1553 00ad 13       		.uleb128 0x13
+ 1554 00ae 00       		.byte	0
+ 1555 00af 00       		.byte	0
+ 1556 00b0 0E       		.uleb128 0xe
+ 1557 00b1 34       		.uleb128 0x34
+ 1558 00b2 00       		.byte	0
+ 1559 00b3 03       		.uleb128 0x3
+ 1560 00b4 0E       		.uleb128 0xe
+ 1561 00b5 3A       		.uleb128 0x3a
+ 1562 00b6 0B       		.uleb128 0xb
+ 1563 00b7 3B       		.uleb128 0x3b
+ 1564 00b8 0B       		.uleb128 0xb
+ 1565 00b9 49       		.uleb128 0x49
+ 1566 00ba 13       		.uleb128 0x13
+ 1567 00bb 02       		.uleb128 0x2
+ 1568 00bc 18       		.uleb128 0x18
+ 1569 00bd 00       		.byte	0
+ 1570 00be 00       		.byte	0
+ 1571 00bf 0F       		.uleb128 0xf
+ 1572 00c0 34       		.uleb128 0x34
+ 1573 00c1 00       		.byte	0
+ 1574 00c2 03       		.uleb128 0x3
+ 1575 00c3 0E       		.uleb128 0xe
+ 1576 00c4 3A       		.uleb128 0x3a
+ 1577 00c5 0B       		.uleb128 0xb
+ 1578 00c6 3B       		.uleb128 0x3b
+ 1579 00c7 0B       		.uleb128 0xb
+ 1580 00c8 49       		.uleb128 0x49
+ 1581 00c9 13       		.uleb128 0x13
+ 1582 00ca 02       		.uleb128 0x2
+ 1583 00cb 17       		.uleb128 0x17
+ 1584 00cc 00       		.byte	0
+ 1585 00cd 00       		.byte	0
+ 1586 00ce 10       		.uleb128 0x10
+ 1587 00cf 0B       		.uleb128 0xb
+ 1588 00d0 01       		.byte	0x1
+ 1589 00d1 55       		.uleb128 0x55
+ 1590 00d2 17       		.uleb128 0x17
+ 1591 00d3 01       		.uleb128 0x1
+ 1592 00d4 13       		.uleb128 0x13
+ 1593 00d5 00       		.byte	0
+ 1594 00d6 00       		.byte	0
+ 1595 00d7 11       		.uleb128 0x11
+ 1596 00d8 898201   		.uleb128 0x4109
+ 1597 00db 01       		.byte	0x1
+ 1598 00dc 11       		.uleb128 0x11
+ 1599 00dd 01       		.uleb128 0x1
+ 1600 00de 31       		.uleb128 0x31
+ 1601 00df 13       		.uleb128 0x13
+ 1602 00e0 01       		.uleb128 0x1
+ 1603 00e1 13       		.uleb128 0x13
+ 1604 00e2 00       		.byte	0
+ 1605 00e3 00       		.byte	0
+ 1606 00e4 12       		.uleb128 0x12
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 34
+
+
+ 1607 00e5 8A8201   		.uleb128 0x410a
+ 1608 00e8 00       		.byte	0
+ 1609 00e9 02       		.uleb128 0x2
+ 1610 00ea 18       		.uleb128 0x18
+ 1611 00eb 9142     		.uleb128 0x2111
+ 1612 00ed 18       		.uleb128 0x18
+ 1613 00ee 00       		.byte	0
+ 1614 00ef 00       		.byte	0
+ 1615 00f0 13       		.uleb128 0x13
+ 1616 00f1 898201   		.uleb128 0x4109
+ 1617 00f4 01       		.byte	0x1
+ 1618 00f5 11       		.uleb128 0x11
+ 1619 00f6 01       		.uleb128 0x1
+ 1620 00f7 31       		.uleb128 0x31
+ 1621 00f8 13       		.uleb128 0x13
+ 1622 00f9 00       		.byte	0
+ 1623 00fa 00       		.byte	0
+ 1624 00fb 14       		.uleb128 0x14
+ 1625 00fc 0B       		.uleb128 0xb
+ 1626 00fd 01       		.byte	0x1
+ 1627 00fe 11       		.uleb128 0x11
+ 1628 00ff 01       		.uleb128 0x1
+ 1629 0100 12       		.uleb128 0x12
+ 1630 0101 06       		.uleb128 0x6
+ 1631 0102 01       		.uleb128 0x1
+ 1632 0103 13       		.uleb128 0x13
+ 1633 0104 00       		.byte	0
+ 1634 0105 00       		.byte	0
+ 1635 0106 15       		.uleb128 0x15
+ 1636 0107 2E       		.uleb128 0x2e
+ 1637 0108 01       		.byte	0x1
+ 1638 0109 3F       		.uleb128 0x3f
+ 1639 010a 19       		.uleb128 0x19
+ 1640 010b 03       		.uleb128 0x3
+ 1641 010c 0E       		.uleb128 0xe
+ 1642 010d 3A       		.uleb128 0x3a
+ 1643 010e 0B       		.uleb128 0xb
+ 1644 010f 3B       		.uleb128 0x3b
+ 1645 0110 0B       		.uleb128 0xb
+ 1646 0111 27       		.uleb128 0x27
+ 1647 0112 19       		.uleb128 0x19
+ 1648 0113 11       		.uleb128 0x11
+ 1649 0114 01       		.uleb128 0x1
+ 1650 0115 12       		.uleb128 0x12
+ 1651 0116 06       		.uleb128 0x6
+ 1652 0117 40       		.uleb128 0x40
+ 1653 0118 18       		.uleb128 0x18
+ 1654 0119 9742     		.uleb128 0x2117
+ 1655 011b 19       		.uleb128 0x19
+ 1656 011c 01       		.uleb128 0x1
+ 1657 011d 13       		.uleb128 0x13
+ 1658 011e 00       		.byte	0
+ 1659 011f 00       		.byte	0
+ 1660 0120 16       		.uleb128 0x16
+ 1661 0121 21       		.uleb128 0x21
+ 1662 0122 00       		.byte	0
+ 1663 0123 00       		.byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 35
+
+
+ 1664 0124 00       		.byte	0
+ 1665 0125 17       		.uleb128 0x17
+ 1666 0126 34       		.uleb128 0x34
+ 1667 0127 00       		.byte	0
+ 1668 0128 03       		.uleb128 0x3
+ 1669 0129 08       		.uleb128 0x8
+ 1670 012a 3A       		.uleb128 0x3a
+ 1671 012b 0B       		.uleb128 0xb
+ 1672 012c 3B       		.uleb128 0x3b
+ 1673 012d 0B       		.uleb128 0xb
+ 1674 012e 49       		.uleb128 0x49
+ 1675 012f 13       		.uleb128 0x13
+ 1676 0130 3F       		.uleb128 0x3f
+ 1677 0131 19       		.uleb128 0x19
+ 1678 0132 3C       		.uleb128 0x3c
+ 1679 0133 19       		.uleb128 0x19
+ 1680 0134 00       		.byte	0
+ 1681 0135 00       		.byte	0
+ 1682 0136 18       		.uleb128 0x18
+ 1683 0137 34       		.uleb128 0x34
+ 1684 0138 00       		.byte	0
+ 1685 0139 03       		.uleb128 0x3
+ 1686 013a 0E       		.uleb128 0xe
+ 1687 013b 3A       		.uleb128 0x3a
+ 1688 013c 0B       		.uleb128 0xb
+ 1689 013d 3B       		.uleb128 0x3b
+ 1690 013e 0B       		.uleb128 0xb
+ 1691 013f 49       		.uleb128 0x49
+ 1692 0140 13       		.uleb128 0x13
+ 1693 0141 3F       		.uleb128 0x3f
+ 1694 0142 19       		.uleb128 0x19
+ 1695 0143 02       		.uleb128 0x2
+ 1696 0144 18       		.uleb128 0x18
+ 1697 0145 00       		.byte	0
+ 1698 0146 00       		.byte	0
+ 1699 0147 19       		.uleb128 0x19
+ 1700 0148 2E       		.uleb128 0x2e
+ 1701 0149 00       		.byte	0
+ 1702 014a 3F       		.uleb128 0x3f
+ 1703 014b 19       		.uleb128 0x19
+ 1704 014c 3C       		.uleb128 0x3c
+ 1705 014d 19       		.uleb128 0x19
+ 1706 014e 6E       		.uleb128 0x6e
+ 1707 014f 0E       		.uleb128 0xe
+ 1708 0150 03       		.uleb128 0x3
+ 1709 0151 0E       		.uleb128 0xe
+ 1710 0152 3A       		.uleb128 0x3a
+ 1711 0153 0B       		.uleb128 0xb
+ 1712 0154 3B       		.uleb128 0x3b
+ 1713 0155 0B       		.uleb128 0xb
+ 1714 0156 00       		.byte	0
+ 1715 0157 00       		.byte	0
+ 1716 0158 1A       		.uleb128 0x1a
+ 1717 0159 2E       		.uleb128 0x2e
+ 1718 015a 00       		.byte	0
+ 1719 015b 3F       		.uleb128 0x3f
+ 1720 015c 19       		.uleb128 0x19
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 36
+
+
+ 1721 015d 3C       		.uleb128 0x3c
+ 1722 015e 19       		.uleb128 0x19
+ 1723 015f 6E       		.uleb128 0x6e
+ 1724 0160 0E       		.uleb128 0xe
+ 1725 0161 03       		.uleb128 0x3
+ 1726 0162 0E       		.uleb128 0xe
+ 1727 0163 3A       		.uleb128 0x3a
+ 1728 0164 0B       		.uleb128 0xb
+ 1729 0165 3B       		.uleb128 0x3b
+ 1730 0166 05       		.uleb128 0x5
+ 1731 0167 00       		.byte	0
+ 1732 0168 00       		.byte	0
+ 1733 0169 1B       		.uleb128 0x1b
+ 1734 016a 2E       		.uleb128 0x2e
+ 1735 016b 00       		.byte	0
+ 1736 016c 3F       		.uleb128 0x3f
+ 1737 016d 19       		.uleb128 0x19
+ 1738 016e 3C       		.uleb128 0x3c
+ 1739 016f 19       		.uleb128 0x19
+ 1740 0170 6E       		.uleb128 0x6e
+ 1741 0171 0E       		.uleb128 0xe
+ 1742 0172 03       		.uleb128 0x3
+ 1743 0173 0E       		.uleb128 0xe
+ 1744 0174 00       		.byte	0
+ 1745 0175 00       		.byte	0
+ 1746 0176 00       		.byte	0
+ 1747              		.section	.debug_loc,"",%progbits
+ 1748              	.Ldebug_loc0:
+ 1749              	.LLST0:
+ 1750 0000 00000000 		.4byte	.LVL0
+ 1751 0004 22000000 		.4byte	.LVL4
+ 1752 0008 0100     		.2byte	0x1
+ 1753 000a 50       		.byte	0x50
+ 1754 000b 22000000 		.4byte	.LVL4
+ 1755 000f 24000000 		.4byte	.LVL5
+ 1756 0013 0400     		.2byte	0x4
+ 1757 0015 F3       		.byte	0xf3
+ 1758 0016 01       		.uleb128 0x1
+ 1759 0017 50       		.byte	0x50
+ 1760 0018 9F       		.byte	0x9f
+ 1761 0019 24000000 		.4byte	.LVL5
+ 1762 001d 26000000 		.4byte	.LVL6
+ 1763 0021 0100     		.2byte	0x1
+ 1764 0023 50       		.byte	0x50
+ 1765 0024 26000000 		.4byte	.LVL6
+ 1766 0028 28000000 		.4byte	.LVL7
+ 1767 002c 0400     		.2byte	0x4
+ 1768 002e F3       		.byte	0xf3
+ 1769 002f 01       		.uleb128 0x1
+ 1770 0030 50       		.byte	0x50
+ 1771 0031 9F       		.byte	0x9f
+ 1772 0032 28000000 		.4byte	.LVL7
+ 1773 0036 2A000000 		.4byte	.LVL8
+ 1774 003a 0100     		.2byte	0x1
+ 1775 003c 50       		.byte	0x50
+ 1776 003d 2A000000 		.4byte	.LVL8
+ 1777 0041 34000000 		.4byte	.LFE36
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 37
+
+
+ 1778 0045 0400     		.2byte	0x4
+ 1779 0047 F3       		.byte	0xf3
+ 1780 0048 01       		.uleb128 0x1
+ 1781 0049 50       		.byte	0x50
+ 1782 004a 9F       		.byte	0x9f
+ 1783 004b 00000000 		.4byte	0
+ 1784 004f 00000000 		.4byte	0
+ 1785              	.LLST1:
+ 1786 0053 02000000 		.4byte	.LVL1
+ 1787 0057 06000000 		.4byte	.LVL2
+ 1788 005b 0200     		.2byte	0x2
+ 1789 005d 30       		.byte	0x30
+ 1790 005e 9F       		.byte	0x9f
+ 1791 005f 06000000 		.4byte	.LVL2
+ 1792 0063 34000000 		.4byte	.LFE36
+ 1793 0067 0100     		.2byte	0x1
+ 1794 0069 53       		.byte	0x53
+ 1795 006a 00000000 		.4byte	0
+ 1796 006e 00000000 		.4byte	0
+ 1797              	.LLST2:
+ 1798 0072 00000000 		.4byte	.LVL9
+ 1799 0076 1E000000 		.4byte	.LVL11
+ 1800 007a 0100     		.2byte	0x1
+ 1801 007c 50       		.byte	0x50
+ 1802 007d 1E000000 		.4byte	.LVL11
+ 1803 0081 62010000 		.4byte	.LVL39
+ 1804 0085 0100     		.2byte	0x1
+ 1805 0087 59       		.byte	0x59
+ 1806 0088 62010000 		.4byte	.LVL39
+ 1807 008c 96010000 		.4byte	.LVL43
+ 1808 0090 0100     		.2byte	0x1
+ 1809 0092 54       		.byte	0x54
+ 1810 0093 96010000 		.4byte	.LVL43
+ 1811 0097 9C010000 		.4byte	.LVL44
+ 1812 009b 0100     		.2byte	0x1
+ 1813 009d 59       		.byte	0x59
+ 1814 009e 9C010000 		.4byte	.LVL44
+ 1815 00a2 AE010000 		.4byte	.LVL46
+ 1816 00a6 0100     		.2byte	0x1
+ 1817 00a8 54       		.byte	0x54
+ 1818 00a9 AE010000 		.4byte	.LVL46
+ 1819 00ad E2010000 		.4byte	.LVL52
+ 1820 00b1 0100     		.2byte	0x1
+ 1821 00b3 59       		.byte	0x59
+ 1822 00b4 E2010000 		.4byte	.LVL52
+ 1823 00b8 18020000 		.4byte	.LFE33
+ 1824 00bc 0400     		.2byte	0x4
+ 1825 00be F3       		.byte	0xf3
+ 1826 00bf 01       		.uleb128 0x1
+ 1827 00c0 50       		.byte	0x50
+ 1828 00c1 9F       		.byte	0x9f
+ 1829 00c2 00000000 		.4byte	0
+ 1830 00c6 00000000 		.4byte	0
+ 1831              	.LLST3:
+ 1832 00ca 00000000 		.4byte	.LVL9
+ 1833 00ce 1C000000 		.4byte	.LVL10
+ 1834 00d2 0100     		.2byte	0x1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 38
+
+
+ 1835 00d4 51       		.byte	0x51
+ 1836 00d5 1C000000 		.4byte	.LVL10
+ 1837 00d9 62010000 		.4byte	.LVL39
+ 1838 00dd 0100     		.2byte	0x1
+ 1839 00df 58       		.byte	0x58
+ 1840 00e0 62010000 		.4byte	.LVL39
+ 1841 00e4 96010000 		.4byte	.LVL43
+ 1842 00e8 0100     		.2byte	0x1
+ 1843 00ea 55       		.byte	0x55
+ 1844 00eb 96010000 		.4byte	.LVL43
+ 1845 00ef 9C010000 		.4byte	.LVL44
+ 1846 00f3 0100     		.2byte	0x1
+ 1847 00f5 58       		.byte	0x58
+ 1848 00f6 9C010000 		.4byte	.LVL44
+ 1849 00fa DE010000 		.4byte	.LVL50
+ 1850 00fe 0100     		.2byte	0x1
+ 1851 0100 55       		.byte	0x55
+ 1852 0101 DE010000 		.4byte	.LVL50
+ 1853 0105 E2010000 		.4byte	.LVL51
+ 1854 0109 0100     		.2byte	0x1
+ 1855 010b 58       		.byte	0x58
+ 1856 010c E2010000 		.4byte	.LVL51
+ 1857 0110 18020000 		.4byte	.LFE33
+ 1858 0114 0400     		.2byte	0x4
+ 1859 0116 F3       		.byte	0xf3
+ 1860 0117 01       		.uleb128 0x1
+ 1861 0118 51       		.byte	0x51
+ 1862 0119 9F       		.byte	0x9f
+ 1863 011a 00000000 		.4byte	0
+ 1864 011e 00000000 		.4byte	0
+ 1865              	.LLST4:
+ 1866 0122 00000000 		.4byte	.LVL9
+ 1867 0126 21000000 		.4byte	.LVL12-1
+ 1868 012a 0100     		.2byte	0x1
+ 1869 012c 52       		.byte	0x52
+ 1870 012d 21000000 		.4byte	.LVL12-1
+ 1871 0131 18020000 		.4byte	.LFE33
+ 1872 0135 0400     		.2byte	0x4
+ 1873 0137 F3       		.byte	0xf3
+ 1874 0138 01       		.uleb128 0x1
+ 1875 0139 52       		.byte	0x52
+ 1876 013a 9F       		.byte	0x9f
+ 1877 013b 00000000 		.4byte	0
+ 1878 013f 00000000 		.4byte	0
+ 1879              	.LLST5:
+ 1880 0143 00000000 		.4byte	.LVL9
+ 1881 0147 21000000 		.4byte	.LVL12-1
+ 1882 014b 0100     		.2byte	0x1
+ 1883 014d 53       		.byte	0x53
+ 1884 014e 21000000 		.4byte	.LVL12-1
+ 1885 0152 62000000 		.4byte	.LVL17
+ 1886 0156 0100     		.2byte	0x1
+ 1887 0158 55       		.byte	0x55
+ 1888 0159 62000000 		.4byte	.LVL17
+ 1889 015d 18020000 		.4byte	.LFE33
+ 1890 0161 0200     		.2byte	0x2
+ 1891 0163 91       		.byte	0x91
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 39
+
+
+ 1892 0164 44       		.sleb128 -60
+ 1893 0165 00000000 		.4byte	0
+ 1894 0169 00000000 		.4byte	0
+ 1895              	.LLST6:
+ 1896 016d 2C000000 		.4byte	.LVL13
+ 1897 0171 62000000 		.4byte	.LVL17
+ 1898 0175 0200     		.2byte	0x2
+ 1899 0177 30       		.byte	0x30
+ 1900 0178 9F       		.byte	0x9f
+ 1901 0179 62000000 		.4byte	.LVL17
+ 1902 017d DE010000 		.4byte	.LVL50
+ 1903 0181 0100     		.2byte	0x1
+ 1904 0183 57       		.byte	0x57
+ 1905 0184 00000000 		.4byte	0
+ 1906 0188 00000000 		.4byte	0
+ 1907              	.LLST7:
+ 1908 018c 4C000000 		.4byte	.LVL15
+ 1909 0190 DE010000 		.4byte	.LVL50
+ 1910 0194 0200     		.2byte	0x2
+ 1911 0196 91       		.byte	0x91
+ 1912 0197 40       		.sleb128 -64
+ 1913 0198 00000000 		.4byte	0
+ 1914 019c 00000000 		.4byte	0
+ 1915              	.LLST8:
+ 1916 01a0 62000000 		.4byte	.LVL17
+ 1917 01a4 8E000000 		.4byte	.LVL21
+ 1918 01a8 0100     		.2byte	0x1
+ 1919 01aa 56       		.byte	0x56
+ 1920 01ab 8E000000 		.4byte	.LVL21
+ 1921 01af 92000000 		.4byte	.LVL22
+ 1922 01b3 0200     		.2byte	0x2
+ 1923 01b5 30       		.byte	0x30
+ 1924 01b6 9F       		.byte	0x9f
+ 1925 01b7 92000000 		.4byte	.LVL22
+ 1926 01bb BA000000 		.4byte	.LVL26
+ 1927 01bf 0100     		.2byte	0x1
+ 1928 01c1 56       		.byte	0x56
+ 1929 01c2 BA000000 		.4byte	.LVL26
+ 1930 01c6 08010000 		.4byte	.LVL31
+ 1931 01ca 0100     		.2byte	0x1
+ 1932 01cc 5A       		.byte	0x5a
+ 1933 01cd 08010000 		.4byte	.LVL31
+ 1934 01d1 12010000 		.4byte	.LVL32
+ 1935 01d5 0100     		.2byte	0x1
+ 1936 01d7 56       		.byte	0x56
+ 1937 01d8 12010000 		.4byte	.LVL32
+ 1938 01dc 1A010000 		.4byte	.LVL33
+ 1939 01e0 0100     		.2byte	0x1
+ 1940 01e2 5A       		.byte	0x5a
+ 1941 01e3 1A010000 		.4byte	.LVL33
+ 1942 01e7 DE010000 		.4byte	.LVL50
+ 1943 01eb 0100     		.2byte	0x1
+ 1944 01ed 56       		.byte	0x56
+ 1945 01ee 00000000 		.4byte	0
+ 1946 01f2 00000000 		.4byte	0
+ 1947              	.LLST9:
+ 1948 01f6 BA000000 		.4byte	.LVL26
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 40
+
+
+ 1949 01fa 08010000 		.4byte	.LVL31
+ 1950 01fe 0100     		.2byte	0x1
+ 1951 0200 55       		.byte	0x55
+ 1952 0201 12010000 		.4byte	.LVL32
+ 1953 0205 1A010000 		.4byte	.LVL33
+ 1954 0209 0100     		.2byte	0x1
+ 1955 020b 55       		.byte	0x55
+ 1956 020c 00000000 		.4byte	0
+ 1957 0210 00000000 		.4byte	0
+ 1958              	.LLST10:
+ 1959 0214 5A010000 		.4byte	.LVL38
+ 1960 0218 62010000 		.4byte	.LVL39
+ 1961 021c 0200     		.2byte	0x2
+ 1962 021e 30       		.byte	0x30
+ 1963 021f 9F       		.byte	0x9f
+ 1964 0220 62010000 		.4byte	.LVL39
+ 1965 0224 80010000 		.4byte	.LVL41
+ 1966 0228 0100     		.2byte	0x1
+ 1967 022a 52       		.byte	0x52
+ 1968 022b 00000000 		.4byte	0
+ 1969 022f 00000000 		.4byte	0
+ 1970              	.LLST11:
+ 1971 0233 80010000 		.4byte	.LVL41
+ 1972 0237 96010000 		.4byte	.LVL43
+ 1973 023b 0100     		.2byte	0x1
+ 1974 023d 52       		.byte	0x52
+ 1975 023e 9C010000 		.4byte	.LVL44
+ 1976 0242 A4010000 		.4byte	.LVL45
+ 1977 0246 0100     		.2byte	0x1
+ 1978 0248 52       		.byte	0x52
+ 1979 0249 00000000 		.4byte	0
+ 1980 024d 00000000 		.4byte	0
+ 1981              	.LLST12:
+ 1982 0251 00000000 		.4byte	.LVL53
+ 1983 0255 09000000 		.4byte	.LVL54-1
+ 1984 0259 0100     		.2byte	0x1
+ 1985 025b 50       		.byte	0x50
+ 1986 025c 09000000 		.4byte	.LVL54-1
+ 1987 0260 0C000000 		.4byte	.LFE34
+ 1988 0264 0400     		.2byte	0x4
+ 1989 0266 F3       		.byte	0xf3
+ 1990 0267 01       		.uleb128 0x1
+ 1991 0268 50       		.byte	0x50
+ 1992 0269 9F       		.byte	0x9f
+ 1993 026a 00000000 		.4byte	0
+ 1994 026e 00000000 		.4byte	0
+ 1995              	.LLST13:
+ 1996 0272 00000000 		.4byte	.LVL53
+ 1997 0276 09000000 		.4byte	.LVL54-1
+ 1998 027a 0100     		.2byte	0x1
+ 1999 027c 51       		.byte	0x51
+ 2000 027d 09000000 		.4byte	.LVL54-1
+ 2001 0281 0C000000 		.4byte	.LFE34
+ 2002 0285 0400     		.2byte	0x4
+ 2003 0287 F3       		.byte	0xf3
+ 2004 0288 01       		.uleb128 0x1
+ 2005 0289 51       		.byte	0x51
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 41
+
+
+ 2006 028a 9F       		.byte	0x9f
+ 2007 028b 00000000 		.4byte	0
+ 2008 028f 00000000 		.4byte	0
+ 2009              	.LLST14:
+ 2010 0293 00000000 		.4byte	.LVL55
+ 2011 0297 09000000 		.4byte	.LVL57-1
+ 2012 029b 0100     		.2byte	0x1
+ 2013 029d 50       		.byte	0x50
+ 2014 029e 09000000 		.4byte	.LVL57-1
+ 2015 02a2 0C000000 		.4byte	.LFE35
+ 2016 02a6 0400     		.2byte	0x4
+ 2017 02a8 F3       		.byte	0xf3
+ 2018 02a9 01       		.uleb128 0x1
+ 2019 02aa 50       		.byte	0x50
+ 2020 02ab 9F       		.byte	0x9f
+ 2021 02ac 00000000 		.4byte	0
+ 2022 02b0 00000000 		.4byte	0
+ 2023              	.LLST15:
+ 2024 02b4 00000000 		.4byte	.LVL55
+ 2025 02b8 09000000 		.4byte	.LVL57-1
+ 2026 02bc 0100     		.2byte	0x1
+ 2027 02be 51       		.byte	0x51
+ 2028 02bf 09000000 		.4byte	.LVL57-1
+ 2029 02c3 0C000000 		.4byte	.LFE35
+ 2030 02c7 0400     		.2byte	0x4
+ 2031 02c9 F3       		.byte	0xf3
+ 2032 02ca 01       		.uleb128 0x1
+ 2033 02cb 51       		.byte	0x51
+ 2034 02cc 9F       		.byte	0x9f
+ 2035 02cd 00000000 		.4byte	0
+ 2036 02d1 00000000 		.4byte	0
+ 2037              	.LLST16:
+ 2038 02d5 00000000 		.4byte	.LVL55
+ 2039 02d9 06000000 		.4byte	.LVL56
+ 2040 02dd 0100     		.2byte	0x1
+ 2041 02df 52       		.byte	0x52
+ 2042 02e0 06000000 		.4byte	.LVL56
+ 2043 02e4 09000000 		.4byte	.LVL57-1
+ 2044 02e8 0100     		.2byte	0x1
+ 2045 02ea 53       		.byte	0x53
+ 2046 02eb 09000000 		.4byte	.LVL57-1
+ 2047 02ef 0C000000 		.4byte	.LFE35
+ 2048 02f3 0400     		.2byte	0x4
+ 2049 02f5 F3       		.byte	0xf3
+ 2050 02f6 01       		.uleb128 0x1
+ 2051 02f7 52       		.byte	0x52
+ 2052 02f8 9F       		.byte	0x9f
+ 2053 02f9 00000000 		.4byte	0
+ 2054 02fd 00000000 		.4byte	0
+ 2055              		.section	.debug_aranges,"",%progbits
+ 2056 0000 34000000 		.4byte	0x34
+ 2057 0004 0200     		.2byte	0x2
+ 2058 0006 00000000 		.4byte	.Ldebug_info0
+ 2059 000a 04       		.byte	0x4
+ 2060 000b 00       		.byte	0
+ 2061 000c 0000     		.2byte	0
+ 2062 000e 0000     		.2byte	0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 42
+
+
+ 2063 0010 00000000 		.4byte	.LFB36
+ 2064 0014 34000000 		.4byte	.LFE36-.LFB36
+ 2065 0018 00000000 		.4byte	.LFB33
+ 2066 001c 18020000 		.4byte	.LFE33-.LFB33
+ 2067 0020 00000000 		.4byte	.LFB34
+ 2068 0024 0C000000 		.4byte	.LFE34-.LFB34
+ 2069 0028 00000000 		.4byte	.LFB35
+ 2070 002c 0C000000 		.4byte	.LFE35-.LFB35
+ 2071 0030 00000000 		.4byte	0
+ 2072 0034 00000000 		.4byte	0
+ 2073              		.section	.debug_ranges,"",%progbits
+ 2074              	.Ldebug_ranges0:
+ 2075 0000 02000000 		.4byte	.LBB2
+ 2076 0004 20000000 		.4byte	.LBE2
+ 2077 0008 22000000 		.4byte	.LBB3
+ 2078 000c 2A000000 		.4byte	.LBE3
+ 2079 0010 00000000 		.4byte	0
+ 2080 0014 00000000 		.4byte	0
+ 2081 0018 BA000000 		.4byte	.LBB4
+ 2082 001c 08010000 		.4byte	.LBE4
+ 2083 0020 12010000 		.4byte	.LBB5
+ 2084 0024 18010000 		.4byte	.LBE5
+ 2085 0028 00000000 		.4byte	0
+ 2086 002c 00000000 		.4byte	0
+ 2087 0030 80010000 		.4byte	.LBB7
+ 2088 0034 96010000 		.4byte	.LBE7
+ 2089 0038 9C010000 		.4byte	.LBB8
+ 2090 003c A4010000 		.4byte	.LBE8
+ 2091 0040 00000000 		.4byte	0
+ 2092 0044 00000000 		.4byte	0
+ 2093 0048 00000000 		.4byte	.LFB36
+ 2094 004c 34000000 		.4byte	.LFE36
+ 2095 0050 00000000 		.4byte	.LFB33
+ 2096 0054 18020000 		.4byte	.LFE33
+ 2097 0058 00000000 		.4byte	.LFB34
+ 2098 005c 0C000000 		.4byte	.LFE34
+ 2099 0060 00000000 		.4byte	.LFB35
+ 2100 0064 0C000000 		.4byte	.LFE35
+ 2101 0068 00000000 		.4byte	0
+ 2102 006c 00000000 		.4byte	0
+ 2103              		.section	.debug_line,"",%progbits
+ 2104              	.Ldebug_line0:
+ 2105 0000 66020000 		.section	.debug_str,"MS",%progbits,1
+ 2105      02008201 
+ 2105      00000201 
+ 2105      FB0E0D00 
+ 2105      01010101 
+ 2106              	.LASF6:
+ 2107 0000 6C6F6E67 		.ascii	"long long int\000"
+ 2107      206C6F6E 
+ 2107      6720696E 
+ 2107      7400
+ 2108              	.LASF42:
+ 2109 000e 73697A65 		.ascii	"size_t\000"
+ 2109      5F7400
+ 2110              	.LASF18:
+ 2111 0015 616E616C 		.ascii	"analyze_measurement_boundaries\000"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 43
+
+
+ 2111      797A655F 
+ 2111      6D656173 
+ 2111      7572656D 
+ 2111      656E745F 
+ 2112              	.LASF27:
+ 2113 0034 62757474 		.ascii	"button_pushed\000"
+ 2113      6F6E5F70 
+ 2113      75736865 
+ 2113      6400
+ 2114              	.LASF43:
+ 2115 0042 636F6C6F 		.ascii	"color_boundaries\000"
+ 2115      725F626F 
+ 2115      756E6461 
+ 2115      72696573 
+ 2115      00
+ 2116              	.LASF13:
+ 2117 0053 646F7562 		.ascii	"double\000"
+ 2117      6C6500
+ 2118              	.LASF31:
+ 2119 005a 6D61785F 		.ascii	"max_cur_color\000"
+ 2119      6375725F 
+ 2119      636F6C6F 
+ 2119      7200
+ 2120              	.LASF12:
+ 2121 0068 666C6F61 		.ascii	"float\000"
+ 2121      7400
+ 2122              	.LASF1:
+ 2123 006e 756E7369 		.ascii	"unsigned char\000"
+ 2123      676E6564 
+ 2123      20636861 
+ 2123      7200
+ 2124              	.LASF25:
+ 2125 007c 616E616C 		.ascii	"analyze_measurement_boundaries_none\000"
+ 2125      797A655F 
+ 2125      6D656173 
+ 2125      7572656D 
+ 2125      656E745F 
+ 2126              	.LASF23:
+ 2127 00a0 6D61785F 		.ascii	"max_num_to_measure\000"
+ 2127      6E756D5F 
+ 2127      746F5F6D 
+ 2127      65617375 
+ 2127      726500
+ 2128              	.LASF3:
+ 2129 00b3 73686F72 		.ascii	"short unsigned int\000"
+ 2129      7420756E 
+ 2129      7369676E 
+ 2129      65642069 
+ 2129      6E7400
+ 2130              	.LASF29:
+ 2131 00c6 6D61785F 		.ascii	"max_none_color\000"
+ 2131      6E6F6E65 
+ 2131      5F636F6C 
+ 2131      6F7200
+ 2132              	.LASF5:
+ 2133 00d5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2133      20756E73 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 44
+
+
+ 2133      69676E65 
+ 2133      6420696E 
+ 2133      7400
+ 2134              	.LASF34:
+ 2135 00e7 50574D5F 		.ascii	"PWM_Container_WriteCompare\000"
+ 2135      436F6E74 
+ 2135      61696E65 
+ 2135      725F5772 
+ 2135      69746543 
+ 2136              	.LASF32:
+ 2137 0102 626F756E 		.ascii	"boundaries\000"
+ 2137      64617269 
+ 2137      657300
+ 2138              	.LASF19:
+ 2139 010d 636F6C6F 		.ascii	"color\000"
+ 2139      7200
+ 2140              	.LASF15:
+ 2141 0113 6D61785F 		.ascii	"max_rgb\000"
+ 2141      72676200 
+ 2142              	.LASF28:
+ 2143 011b 6D696E5F 		.ascii	"min_none_color\000"
+ 2143      6E6F6E65 
+ 2143      5F636F6C 
+ 2143      6F7200
+ 2144              	.LASF14:
+ 2145 012a 6D696E5F 		.ascii	"min_rgb\000"
+ 2145      72676200 
+ 2146              	.LASF8:
+ 2147 0132 756E7369 		.ascii	"unsigned int\000"
+ 2147      676E6564 
+ 2147      20696E74 
+ 2147      00
+ 2148              	.LASF7:
+ 2149 013f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2149      206C6F6E 
+ 2149      6720756E 
+ 2149      7369676E 
+ 2149      65642069 
+ 2150              	.LASF35:
+ 2151 0156 4F70656E 		.ascii	"OpenCloseTestGates\000"
+ 2151      436C6F73 
+ 2151      65546573 
+ 2151      74476174 
+ 2151      657300
+ 2152              	.LASF24:
+ 2153 0169 636F756E 		.ascii	"count_not_none\000"
+ 2153      745F6E6F 
+ 2153      745F6E6F 
+ 2153      6E6500
+ 2154              	.LASF39:
+ 2155 0178 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2155      43313120 
+ 2155      352E342E 
+ 2155      31203230 
+ 2155      31363036 
+ 2156 01ab 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 2156      20726576 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 45
+
+
+ 2156      6973696F 
+ 2156      6E203233 
+ 2156      37373135 
+ 2157 01de 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2157      66756E63 
+ 2157      74696F6E 
+ 2157      2D736563 
+ 2157      74696F6E 
+ 2158              	.LASF17:
+ 2159 0206 636F6D70 		.ascii	"compare_to_none_color\000"
+ 2159      6172655F 
+ 2159      746F5F6E 
+ 2159      6F6E655F 
+ 2159      636F6C6F 
+ 2160              	.LASF10:
+ 2161 021c 73697A65 		.ascii	"sizetype\000"
+ 2161      74797065 
+ 2161      00
+ 2162              	.LASF26:
+ 2163 0225 616E616C 		.ascii	"analyze_measurement_boundaries_color\000"
+ 2163      797A655F 
+ 2163      6D656173 
+ 2163      7572656D 
+ 2163      656E745F 
+ 2164              	.LASF11:
+ 2165 024a 63686172 		.ascii	"char\000"
+ 2165      00
+ 2166              	.LASF37:
+ 2167 024f 7072696E 		.ascii	"print\000"
+ 2167      7400
+ 2168              	.LASF21:
+ 2169 0255 636F756E 		.ascii	"count_settings\000"
+ 2169      745F7365 
+ 2169      7474696E 
+ 2169      677300
+ 2170              	.LASF44:
+ 2171 0264 6D656D63 		.ascii	"memcpy\000"
+ 2171      707900
+ 2172              	.LASF2:
+ 2173 026b 73686F72 		.ascii	"short int\000"
+ 2173      7420696E 
+ 2173      7400
+ 2174              	.LASF40:
+ 2175 0275 6C656172 		.ascii	"learn_color.c\000"
+ 2175      6E5F636F 
+ 2175      6C6F722E 
+ 2175      6300
+ 2176              	.LASF20:
+ 2177 0283 6E6F6E65 		.ascii	"none_col\000"
+ 2177      5F636F6C 
+ 2177      00
+ 2178              	.LASF36:
+ 2179 028c 67657452 		.ascii	"getRGB\000"
+ 2179      474200
+ 2180              	.LASF22:
+ 2181 0293 63757272 		.ascii	"curr_num\000"
+ 2181      5F6E756D 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\cc4hVDKp.s 			page 46
+
+
+ 2181      00
+ 2182              	.LASF4:
+ 2183 029c 6C6F6E67 		.ascii	"long int\000"
+ 2183      20696E74 
+ 2183      00
+ 2184              	.LASF30:
+ 2185 02a5 6D696E5F 		.ascii	"min_cur_color\000"
+ 2185      6375725F 
+ 2185      636F6C6F 
+ 2185      7200
+ 2186              	.LASF9:
+ 2187 02b3 6C6F6E67 		.ascii	"long double\000"
+ 2187      20646F75 
+ 2187      626C6500 
+ 2188              	.LASF0:
+ 2189 02bf 7369676E 		.ascii	"signed char\000"
+ 2189      65642063 
+ 2189      68617200 
+ 2190              	.LASF16:
+ 2191 02cb 5F426F6F 		.ascii	"_Bool\000"
+ 2191      6C00
+ 2192              	.LASF33:
+ 2193 02d1 73707269 		.ascii	"sprintf\000"
+ 2193      6E746600 
+ 2194              	.LASF38:
+ 2195 02d9 43794465 		.ascii	"CyDelay\000"
+ 2195      6C617900 
+ 2196              	.LASF41:
+ 2197 02e1 433A5C55 		.ascii	"C:\\Users\\ADMIN\\Documents\\Sorting-project\\MandM"
+ 2197      73657273 
+ 2197      5C41444D 
+ 2197      494E5C44 
+ 2197      6F63756D 
+ 2198 030f 732D736F 		.ascii	"s-sorting.cydsn\000"
+ 2198      7274696E 
+ 2198      672E6379 
+ 2198      64736E00 
+ 2199              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

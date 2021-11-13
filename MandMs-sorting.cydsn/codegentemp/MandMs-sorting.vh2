@@ -1,0 +1,2534 @@
+--
+--	Conversion of MandMs-sorting.v to vh2:
+--
+--	Cypress Semiconductor - WARP Version 6.3 IR 41
+--	Sat Nov 13 03:14:06 2021
+--
+
+USE cypress.cypress.all;
+USE cypress.rtlpkg.all;
+ENTITY top_RTL IS
+ATTRIBUTE part_name of top_RTL:TYPE IS "cpsoc3";
+END top_RTL;
+--------------------------------------------------------
+ARCHITECTURE R_T_L OF top_RTL IS
+SIGNAL Net_130 : bit;
+SIGNAL Net_110 : bit;
+SIGNAL Net_100_0 : bit;
+SIGNAL Net_1440 : bit;
+SIGNAL tmpOE__Step_1_net_0 : bit;
+SIGNAL Net_132 : bit;
+SIGNAL tmpFB_0__Step_1_net_0 : bit;
+SIGNAL tmpIO_0__Step_1_net_0 : bit;
+TERMINAL tmpSIOVREF__Step_1_net_0 : bit;
+SIGNAL zero : bit;
+SIGNAL one : bit;
+SIGNAL tmpINTERRUPT_0__Step_1_net_0 : bit;
+SIGNAL Net_131 : bit;
+SIGNAL Net_107 : bit;
+SIGNAL \Control_Reg_1:clk\ : bit;
+SIGNAL \Control_Reg_1:rst\ : bit;
+SIGNAL Net_78 : bit;
+SIGNAL \Control_Reg_1:control_out_0\ : bit;
+SIGNAL Net_1231 : bit;
+SIGNAL \Control_Reg_1:control_out_1\ : bit;
+SIGNAL Net_90 : bit;
+SIGNAL \Control_Reg_1:control_out_2\ : bit;
+SIGNAL Net_91 : bit;
+SIGNAL \Control_Reg_1:control_out_3\ : bit;
+SIGNAL Net_93 : bit;
+SIGNAL \Control_Reg_1:control_out_4\ : bit;
+SIGNAL Net_94 : bit;
+SIGNAL \Control_Reg_1:control_out_5\ : bit;
+SIGNAL Net_95 : bit;
+SIGNAL \Control_Reg_1:control_out_6\ : bit;
+SIGNAL Net_96 : bit;
+SIGNAL \Control_Reg_1:control_out_7\ : bit;
+SIGNAL \Control_Reg_1:control_7\ : bit;
+SIGNAL \Control_Reg_1:control_6\ : bit;
+SIGNAL \Control_Reg_1:control_5\ : bit;
+SIGNAL \Control_Reg_1:control_4\ : bit;
+SIGNAL \Control_Reg_1:control_3\ : bit;
+SIGNAL \Control_Reg_1:control_2\ : bit;
+SIGNAL \Control_Reg_1:control_1\ : bit;
+SIGNAL \Control_Reg_1:control_0\ : bit;
+SIGNAL tmpOE__Step_2_5_net_0 : bit;
+SIGNAL tmpFB_0__Step_2_5_net_0 : bit;
+SIGNAL tmpIO_0__Step_2_5_net_0 : bit;
+TERMINAL tmpSIOVREF__Step_2_5_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Step_2_5_net_0 : bit;
+SIGNAL tmpOE__Step_3_4_net_0 : bit;
+SIGNAL tmpFB_0__Step_3_4_net_0 : bit;
+SIGNAL tmpIO_0__Step_3_4_net_0 : bit;
+TERMINAL tmpSIOVREF__Step_3_4_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Step_3_4_net_0 : bit;
+SIGNAL tmpOE__Dir_1_net_0 : bit;
+SIGNAL tmpFB_0__Dir_1_net_0 : bit;
+SIGNAL tmpIO_0__Dir_1_net_0 : bit;
+TERMINAL tmpSIOVREF__Dir_1_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Dir_1_net_0 : bit;
+SIGNAL tmpOE__Dir_2_5_net_0 : bit;
+SIGNAL tmpFB_0__Dir_2_5_net_0 : bit;
+SIGNAL tmpIO_0__Dir_2_5_net_0 : bit;
+TERMINAL tmpSIOVREF__Dir_2_5_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Dir_2_5_net_0 : bit;
+SIGNAL tmpOE__Dir_3_4_net_0 : bit;
+SIGNAL tmpFB_0__Dir_3_4_net_0 : bit;
+SIGNAL tmpIO_0__Dir_3_4_net_0 : bit;
+TERMINAL tmpSIOVREF__Dir_3_4_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Dir_3_4_net_0 : bit;
+SIGNAL Net_1232 : bit;
+SIGNAL Net_100_4 : bit;
+SIGNAL Net_75 : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_4\ : bit;
+SIGNAL Net_100_3 : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_3\ : bit;
+SIGNAL Net_100_2 : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_2\ : bit;
+SIGNAL Net_100_1 : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_1\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_0\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_31\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_30\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_29\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_28\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_27\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_26\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_25\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_23\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_22\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_21\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_20\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_19\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_18\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_17\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_15\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_14\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_13\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_12\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_11\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_10\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_9\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_7\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_6\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_4\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_3\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_2\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_1\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:b_0\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_31\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_30\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_29\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_28\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_27\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_26\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_25\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_23\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_22\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_21\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_20\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_19\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_18\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_17\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_15\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_14\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_13\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_12\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_11\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_10\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_9\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_7\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_6\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_4\ : bit;
+SIGNAL \BasicCounter_1:MODIN1_4\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_3\ : bit;
+SIGNAL \BasicCounter_1:MODIN1_3\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_2\ : bit;
+SIGNAL \BasicCounter_1:MODIN1_2\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_1\ : bit;
+SIGNAL \BasicCounter_1:MODIN1_1\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:a_0\ : bit;
+SIGNAL \BasicCounter_1:MODIN1_0\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_31\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_30\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_29\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_28\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_27\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_26\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_25\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_23\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_22\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_21\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_20\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_19\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_18\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_17\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_15\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_14\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_13\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_12\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_11\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_10\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_9\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_7\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_6\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_4\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_3\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_2\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_1\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:b_0\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_31\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_31\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_30\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_30\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_29\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_29\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_28\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_28\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_27\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_27\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_26\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_26\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_25\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_25\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_24\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_23\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_23\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_22\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_22\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_21\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_21\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_20\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_20\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_19\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_19\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_18\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_18\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_17\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_17\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_16\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_15\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_15\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_14\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_14\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_13\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_13\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_12\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_12\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_11\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_11\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_10\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_10\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_9\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_9\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_8\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_7\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_7\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_6\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_6\ : bit;
+SIGNAL \BasicCounter_1:add_vi_vv_MODGEN_1_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_4\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_3\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_2\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_1\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:s_0\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_31\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_30\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_29\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_28\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_27\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_26\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_25\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_24\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_23\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_22\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_21\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_20\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_19\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_18\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_17\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_16\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_15\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_14\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_13\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_12\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_11\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_10\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_9\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_8\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_7\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_6\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_5\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_4\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_3\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
+SIGNAL \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
+SIGNAL cy_srff_1 : bit;
+SIGNAL Net_104 : bit;
+SIGNAL \Control_Reg_2:clk\ : bit;
+SIGNAL \Control_Reg_2:rst\ : bit;
+SIGNAL \Control_Reg_2:control_out_0\ : bit;
+SIGNAL \Control_Reg_2:control_out_1\ : bit;
+SIGNAL \Control_Reg_2:control_out_2\ : bit;
+SIGNAL Net_263 : bit;
+SIGNAL \Control_Reg_2:control_out_3\ : bit;
+SIGNAL Net_125 : bit;
+SIGNAL \Control_Reg_2:control_out_4\ : bit;
+SIGNAL Net_126 : bit;
+SIGNAL \Control_Reg_2:control_out_5\ : bit;
+SIGNAL Net_127 : bit;
+SIGNAL \Control_Reg_2:control_out_6\ : bit;
+SIGNAL Net_128 : bit;
+SIGNAL \Control_Reg_2:control_out_7\ : bit;
+SIGNAL \Control_Reg_2:control_7\ : bit;
+SIGNAL \Control_Reg_2:control_6\ : bit;
+SIGNAL \Control_Reg_2:control_5\ : bit;
+SIGNAL \Control_Reg_2:control_4\ : bit;
+SIGNAL \Control_Reg_2:control_3\ : bit;
+SIGNAL \Control_Reg_2:control_2\ : bit;
+SIGNAL \Control_Reg_2:control_1\ : bit;
+SIGNAL \Control_Reg_2:control_0\ : bit;
+SIGNAL \Status_Reg_1:status_0\ : bit;
+SIGNAL \Status_Reg_1:status_1\ : bit;
+SIGNAL \Status_Reg_1:status_2\ : bit;
+SIGNAL \Status_Reg_1:status_3\ : bit;
+SIGNAL \Status_Reg_1:status_4\ : bit;
+SIGNAL \Status_Reg_1:status_5\ : bit;
+SIGNAL \Status_Reg_1:status_6\ : bit;
+SIGNAL \Status_Reg_1:status_7\ : bit;
+SIGNAL \PWM_Container:Net_81\ : bit;
+SIGNAL \PWM_Container:Net_75\ : bit;
+SIGNAL \PWM_Container:Net_69\ : bit;
+SIGNAL \PWM_Container:Net_66\ : bit;
+SIGNAL \PWM_Container:Net_82\ : bit;
+SIGNAL \PWM_Container:Net_72\ : bit;
+SIGNAL Net_837 : bit;
+SIGNAL Net_833 : bit;
+SIGNAL Net_830 : bit;
+SIGNAL Net_1430 : bit;
+SIGNAL Net_846 : bit;
+SIGNAL Net_861 : bit;
+SIGNAL \FreqDiv_1:not_last_reset\ : bit;
+SIGNAL Net_1457 : bit;
+SIGNAL \FreqDiv_1:count_5\ : bit;
+SIGNAL \FreqDiv_1:count_4\ : bit;
+SIGNAL \FreqDiv_1:count_3\ : bit;
+SIGNAL \FreqDiv_1:count_2\ : bit;
+SIGNAL \FreqDiv_1:count_1\ : bit;
+SIGNAL \FreqDiv_1:count_0\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_5\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_4\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_3\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_2\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_1\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_0\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_31\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_30\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_29\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_28\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_27\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_26\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_25\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_23\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_22\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_21\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_20\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_19\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_18\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_17\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_15\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_14\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_13\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_12\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_11\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_10\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_9\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_7\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_5\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_4\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_3\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_2\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_1\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:b_0\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_31\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_30\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_29\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_28\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_27\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_26\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_25\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_23\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_22\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_21\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_20\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_19\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_18\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_17\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_15\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_14\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_13\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_12\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_11\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_10\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_9\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_7\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_5\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_5\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_4\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_4\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_3\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_3\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_2\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_2\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_1\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_1\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:a_0\ : bit;
+SIGNAL \FreqDiv_1:MODIN2_0\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_31\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_30\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_29\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_28\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_27\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_26\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_25\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_23\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_22\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_21\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_20\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_19\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_18\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_17\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_15\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_14\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_13\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_12\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_11\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_10\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_9\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_7\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_5\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_4\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_3\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_2\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_1\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:b_0\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_31\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_31\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_30\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_30\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_29\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_29\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_28\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_28\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_27\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_27\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_26\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_26\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_25\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_25\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_24\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_23\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_23\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_22\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_22\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_21\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_21\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_20\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_20\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_19\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_19\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_18\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_18\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_17\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_17\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_16\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_15\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_15\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_14\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_14\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_13\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_13\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_12\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_12\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_11\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_11\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_10\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_10\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_9\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_9\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_8\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_7\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_7\ : bit;
+SIGNAL \FreqDiv_1:add_vi_vv_MODGEN_2_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_5\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_4\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_3\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_2\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_1\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:s_0\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_31\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_30\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_29\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_28\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_27\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_26\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_25\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:b_24\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_23\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_22\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_21\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_20\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_19\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_18\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_17\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:b_16\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_15\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_14\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_13\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_12\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_11\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_10\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_9\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:b_8\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_7\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_6\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_5\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_4\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_3\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
+SIGNAL \FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
+SIGNAL tmpOE__Dir_Container_net_0 : bit;
+SIGNAL tmpFB_0__Dir_Container_net_0 : bit;
+SIGNAL tmpIO_0__Dir_Container_net_0 : bit;
+TERMINAL tmpSIOVREF__Dir_Container_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Dir_Container_net_0 : bit;
+SIGNAL tmpOE__Step_Container_net_0 : bit;
+SIGNAL tmpFB_0__Step_Container_net_0 : bit;
+SIGNAL tmpIO_0__Step_Container_net_0 : bit;
+TERMINAL tmpSIOVREF__Step_Container_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Step_Container_net_0 : bit;
+SIGNAL \FreqDiv_2:not_last_reset\ : bit;
+SIGNAL \FreqDiv_2:count_3\ : bit;
+SIGNAL \FreqDiv_2:count_2\ : bit;
+SIGNAL \FreqDiv_2:count_1\ : bit;
+SIGNAL \FreqDiv_2:count_0\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_3\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_2\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_1\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_0\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_31\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_30\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_29\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_28\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_27\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_26\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_25\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_23\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_22\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_21\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_20\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_19\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_18\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_17\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_15\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_14\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_13\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_12\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_11\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_10\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_9\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_7\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_6\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_5\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_3\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_2\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_1\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:b_0\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_31\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_30\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_29\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_28\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_27\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_26\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_25\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_23\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_22\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_21\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_20\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_19\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_18\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_17\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_15\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_14\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_13\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_12\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_11\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_10\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_9\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_7\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_6\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_5\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_3\ : bit;
+SIGNAL \FreqDiv_2:MODIN3_3\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_2\ : bit;
+SIGNAL \FreqDiv_2:MODIN3_2\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_1\ : bit;
+SIGNAL \FreqDiv_2:MODIN3_1\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:a_0\ : bit;
+SIGNAL \FreqDiv_2:MODIN3_0\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_31\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_30\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_29\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_28\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_27\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_26\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_25\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_23\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_22\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_21\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_20\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_19\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_18\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_17\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_15\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_14\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_13\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_12\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_11\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_10\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_9\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_7\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_6\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_5\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_3\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_2\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_1\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:b_0\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_31\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_31\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_30\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_30\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_29\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_29\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_28\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_28\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_27\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_27\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_26\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_26\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_25\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_25\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_24\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_23\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_23\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_22\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_22\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_21\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_21\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_20\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_20\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_19\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_19\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_18\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_18\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_17\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_17\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_16\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_15\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_15\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_14\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_14\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_13\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_13\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_12\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_12\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_11\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_11\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_10\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_10\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_9\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_9\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_8\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_7\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_7\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_6\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_6\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_5\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_5\ : bit;
+SIGNAL \FreqDiv_2:add_vi_vv_MODGEN_3_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_3\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_2\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_1\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:s_0\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_31\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_30\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_29\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_28\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_27\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_26\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_25\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:b_24\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_23\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_22\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_21\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_20\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_19\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_18\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_17\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:b_16\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_15\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_14\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_13\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_12\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_11\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_10\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_9\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:b_8\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_7\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_6\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_5\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_4\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_3\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
+SIGNAL \FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
+SIGNAL \I2C:Net_847\ : bit;
+SIGNAL \I2C:select_s_wire\ : bit;
+SIGNAL \I2C:rx_wire\ : bit;
+SIGNAL \I2C:Net_1257\ : bit;
+SIGNAL \I2C:uncfg_rx_irq\ : bit;
+SIGNAL \I2C:Net_1170\ : bit;
+SIGNAL \I2C:sclk_s_wire\ : bit;
+SIGNAL \I2C:mosi_s_wire\ : bit;
+SIGNAL \I2C:miso_m_wire\ : bit;
+SIGNAL \I2C:tmpOE__sda_net_0\ : bit;
+SIGNAL \I2C:tmpFB_0__sda_net_0\ : bit;
+SIGNAL Net_381 : bit;
+TERMINAL \I2C:tmpSIOVREF__sda_net_0\ : bit;
+SIGNAL \I2C:tmpINTERRUPT_0__sda_net_0\ : bit;
+SIGNAL \I2C:tmpOE__scl_net_0\ : bit;
+SIGNAL \I2C:tmpFB_0__scl_net_0\ : bit;
+SIGNAL Net_380 : bit;
+TERMINAL \I2C:tmpSIOVREF__scl_net_0\ : bit;
+SIGNAL \I2C:tmpINTERRUPT_0__scl_net_0\ : bit;
+SIGNAL \I2C:Net_1099\ : bit;
+SIGNAL \I2C:Net_1258\ : bit;
+SIGNAL Net_364 : bit;
+SIGNAL \I2C:cts_wire\ : bit;
+SIGNAL \I2C:tx_wire\ : bit;
+SIGNAL \I2C:rts_wire\ : bit;
+SIGNAL \I2C:mosi_m_wire\ : bit;
+SIGNAL \I2C:select_m_wire_3\ : bit;
+SIGNAL \I2C:select_m_wire_2\ : bit;
+SIGNAL \I2C:select_m_wire_1\ : bit;
+SIGNAL \I2C:select_m_wire_0\ : bit;
+SIGNAL \I2C:sclk_m_wire\ : bit;
+SIGNAL \I2C:miso_s_wire\ : bit;
+SIGNAL Net_382 : bit;
+SIGNAL Net_373 : bit;
+SIGNAL \I2C:Net_1028\ : bit;
+SIGNAL Net_366 : bit;
+SIGNAL Net_367 : bit;
+SIGNAL Net_368 : bit;
+SIGNAL Net_369 : bit;
+SIGNAL Net_370 : bit;
+SIGNAL Net_371 : bit;
+SIGNAL Net_372 : bit;
+SIGNAL Net_375 : bit;
+SIGNAL Net_376 : bit;
+SIGNAL Net_383 : bit;
+SIGNAL \UART:Net_847\ : bit;
+SIGNAL \UART:select_s_wire\ : bit;
+SIGNAL \UART:rx_wire\ : bit;
+SIGNAL \UART:Net_1268\ : bit;
+SIGNAL \UART:Net_1257\ : bit;
+SIGNAL \UART:uncfg_rx_irq\ : bit;
+SIGNAL \UART:Net_1170\ : bit;
+SIGNAL \UART:sclk_s_wire\ : bit;
+SIGNAL \UART:mosi_s_wire\ : bit;
+SIGNAL \UART:miso_m_wire\ : bit;
+SIGNAL \UART:tmpOE__tx_net_0\ : bit;
+SIGNAL \UART:tx_wire\ : bit;
+SIGNAL \UART:tmpFB_0__tx_net_0\ : bit;
+SIGNAL \UART:tmpIO_0__tx_net_0\ : bit;
+TERMINAL \UART:tmpSIOVREF__tx_net_0\ : bit;
+SIGNAL \UART:tmpINTERRUPT_0__tx_net_0\ : bit;
+SIGNAL \UART:Net_1099\ : bit;
+SIGNAL \UART:Net_1258\ : bit;
+SIGNAL \UART:tmpOE__rx_net_0\ : bit;
+SIGNAL \UART:tmpIO_0__rx_net_0\ : bit;
+TERMINAL \UART:tmpSIOVREF__rx_net_0\ : bit;
+SIGNAL \UART:tmpINTERRUPT_0__rx_net_0\ : bit;
+SIGNAL \UART:cts_wire\ : bit;
+SIGNAL Net_463 : bit;
+SIGNAL \UART:rts_wire\ : bit;
+SIGNAL \UART:mosi_m_wire\ : bit;
+SIGNAL \UART:select_m_wire_3\ : bit;
+SIGNAL \UART:select_m_wire_2\ : bit;
+SIGNAL \UART:select_m_wire_1\ : bit;
+SIGNAL \UART:select_m_wire_0\ : bit;
+SIGNAL \UART:sclk_m_wire\ : bit;
+SIGNAL \UART:miso_s_wire\ : bit;
+SIGNAL Net_479 : bit;
+SIGNAL Net_480 : bit;
+SIGNAL Net_481 : bit;
+SIGNAL Net_472 : bit;
+SIGNAL \UART:Net_1028\ : bit;
+SIGNAL Net_465 : bit;
+SIGNAL Net_466 : bit;
+SIGNAL Net_467 : bit;
+SIGNAL Net_468 : bit;
+SIGNAL Net_469 : bit;
+SIGNAL Net_470 : bit;
+SIGNAL Net_471 : bit;
+SIGNAL Net_474 : bit;
+SIGNAL Net_475 : bit;
+SIGNAL Net_482 : bit;
+SIGNAL \Debouncer_1:op_clk\ : bit;
+SIGNAL \Debouncer_1:DEBOUNCER[0]:d_sync_0\ : bit;
+SIGNAL Net_1445 : bit;
+SIGNAL \Debouncer_1:DEBOUNCER[0]:d_sync_1\ : bit;
+SIGNAL Net_1447 : bit;
+SIGNAL Net_1450 : bit;
+SIGNAL Net_1448 : bit;
+SIGNAL Net_1449 : bit;
+SIGNAL \NeoPixel:tmpOE__pixl_net_0\ : bit;
+SIGNAL \NeoPixel:tmpFB_0__pixl_net_0\ : bit;
+SIGNAL \NeoPixel:tmpIO_0__pixl_net_0\ : bit;
+TERMINAL \NeoPixel:tmpSIOVREF__pixl_net_0\ : bit;
+SIGNAL \NeoPixel:tmpINTERRUPT_0__pixl_net_0\ : bit;
+SIGNAL \PWM_RED:Net_81\ : bit;
+SIGNAL \PWM_RED:Net_75\ : bit;
+SIGNAL \PWM_RED:Net_69\ : bit;
+SIGNAL \PWM_RED:Net_66\ : bit;
+SIGNAL \PWM_RED:Net_82\ : bit;
+SIGNAL \PWM_RED:Net_72\ : bit;
+SIGNAL Net_1389 : bit;
+SIGNAL Net_1385 : bit;
+SIGNAL Net_1379 : bit;
+SIGNAL Net_1383 : bit;
+SIGNAL Net_1384 : bit;
+SIGNAL Net_1382 : bit;
+SIGNAL \PWM_GREEN:Net_81\ : bit;
+SIGNAL \PWM_GREEN:Net_75\ : bit;
+SIGNAL \PWM_GREEN:Net_69\ : bit;
+SIGNAL \PWM_GREEN:Net_66\ : bit;
+SIGNAL \PWM_GREEN:Net_82\ : bit;
+SIGNAL \PWM_GREEN:Net_72\ : bit;
+SIGNAL Net_1401 : bit;
+SIGNAL Net_1397 : bit;
+SIGNAL Net_1391 : bit;
+SIGNAL Net_1395 : bit;
+SIGNAL Net_1396 : bit;
+SIGNAL Net_1394 : bit;
+SIGNAL \PWM_BLUE:Net_81\ : bit;
+SIGNAL \PWM_BLUE:Net_75\ : bit;
+SIGNAL \PWM_BLUE:Net_69\ : bit;
+SIGNAL \PWM_BLUE:Net_66\ : bit;
+SIGNAL \PWM_BLUE:Net_82\ : bit;
+SIGNAL \PWM_BLUE:Net_72\ : bit;
+SIGNAL Net_1413 : bit;
+SIGNAL Net_1409 : bit;
+SIGNAL Net_1403 : bit;
+SIGNAL Net_1407 : bit;
+SIGNAL Net_1408 : bit;
+SIGNAL Net_1406 : bit;
+SIGNAL tmpOE__RED_net_0 : bit;
+SIGNAL tmpFB_0__RED_net_0 : bit;
+SIGNAL tmpIO_0__RED_net_0 : bit;
+TERMINAL tmpSIOVREF__RED_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__RED_net_0 : bit;
+SIGNAL tmpOE__GREEN_net_0 : bit;
+SIGNAL tmpFB_0__GREEN_net_0 : bit;
+SIGNAL tmpIO_0__GREEN_net_0 : bit;
+TERMINAL tmpSIOVREF__GREEN_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__GREEN_net_0 : bit;
+SIGNAL tmpOE__BLUE_net_0 : bit;
+SIGNAL tmpFB_0__BLUE_net_0 : bit;
+SIGNAL tmpIO_0__BLUE_net_0 : bit;
+TERMINAL tmpSIOVREF__BLUE_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__BLUE_net_0 : bit;
+SIGNAL tmpOE__SW_net_0 : bit;
+SIGNAL tmpFB_0__SW_net_0 : bit;
+SIGNAL tmpIO_0__SW_net_0 : bit;
+TERMINAL tmpSIOVREF__SW_net_0 : bit;
+SIGNAL Net_100_0D : bit;
+SIGNAL Net_1232D : bit;
+SIGNAL Net_100_4D : bit;
+SIGNAL Net_100_3D : bit;
+SIGNAL Net_100_2D : bit;
+SIGNAL Net_100_1D : bit;
+SIGNAL cy_srff_1D : bit;
+SIGNAL \FreqDiv_1:not_last_reset\\D\ : bit;
+SIGNAL Net_1457D : bit;
+SIGNAL \FreqDiv_1:count_5\\D\ : bit;
+SIGNAL \FreqDiv_1:count_4\\D\ : bit;
+SIGNAL \FreqDiv_1:count_3\\D\ : bit;
+SIGNAL \FreqDiv_1:count_2\\D\ : bit;
+SIGNAL \FreqDiv_1:count_1\\D\ : bit;
+SIGNAL \FreqDiv_1:count_0\\D\ : bit;
+SIGNAL \FreqDiv_2:not_last_reset\\D\ : bit;
+SIGNAL \FreqDiv_2:count_3\\D\ : bit;
+SIGNAL \FreqDiv_2:count_2\\D\ : bit;
+SIGNAL \FreqDiv_2:count_1\\D\ : bit;
+SIGNAL \FreqDiv_2:count_0\\D\ : bit;
+SIGNAL \Debouncer_1:DEBOUNCER[0]:d_sync_0\\D\ : bit;
+SIGNAL \Debouncer_1:DEBOUNCER[0]:d_sync_1\\D\ : bit;
+SIGNAL Net_1450D : bit;
+SIGNAL Net_1448D : bit;
+SIGNAL Net_1449D : bit;
+BEGIN
+
+Net_130 <= ((Net_110 and Net_100_0));
+
+zero <=  ('0') ;
+
+tmpOE__Step_1_net_0 <=  ('1') ;
+
+Net_131 <= ((Net_100_0 and Net_107));
+
+Net_100_4D <= ((not Net_100_4 and Net_100_0 and Net_75 and Net_100_3 and Net_100_2 and Net_100_1));
+
+Net_100_3D <= ((not Net_100_4 and not Net_100_3 and Net_100_0 and Net_75 and Net_100_2 and Net_100_1)
+	OR (not Net_100_4 and not Net_100_1 and Net_100_3)
+	OR (not Net_100_4 and not Net_100_2 and Net_100_3)
+	OR (not Net_100_4 and not Net_75 and Net_100_3)
+	OR (not Net_100_0 and not Net_100_4 and Net_100_3));
+
+Net_100_2D <= ((not Net_100_4 and not Net_100_2 and Net_100_0 and Net_75 and Net_100_1)
+	OR (not Net_100_4 and not Net_100_1 and Net_100_2)
+	OR (not Net_100_4 and not Net_75 and Net_100_2)
+	OR (not Net_100_0 and not Net_100_4 and Net_100_2));
+
+Net_100_1D <= ((not Net_100_4 and not Net_100_1 and Net_100_0 and Net_75)
+	OR (not Net_100_4 and not Net_75 and Net_100_1)
+	OR (not Net_100_0 and not Net_100_4 and Net_100_1));
+
+Net_100_0D <= ((not Net_100_4 and not Net_75 and Net_100_0)
+	OR (not Net_100_0 and not Net_100_4 and Net_75));
+
+cy_srff_1D <= ((not Net_100_4 and Net_75)
+	OR (not Net_100_4 and Net_78));
+
+Net_132 <= ((Net_100_0 and Net_104));
+
+Net_1457D <= ((not \FreqDiv_1:count_4\ and not \FreqDiv_1:count_3\ and \FreqDiv_1:count_5\ and \FreqDiv_1:count_2\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_0\ and Net_1457)
+	OR (not \FreqDiv_1:count_1\ and Net_1457)
+	OR (Net_1457 and \FreqDiv_1:count_3\)
+	OR (Net_1457 and \FreqDiv_1:count_2\)
+	OR (not \FreqDiv_1:count_4\ and Net_1457)
+	OR (Net_1457 and \FreqDiv_1:count_5\)
+	OR not \FreqDiv_1:not_last_reset\);
+
+\FreqDiv_1:count_5\\D\ <= ((not \FreqDiv_1:count_5\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_4\ and \FreqDiv_1:count_3\ and \FreqDiv_1:count_2\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_3\ and \FreqDiv_1:count_5\ and \FreqDiv_1:count_4\)
+	OR (not \FreqDiv_1:count_4\ and \FreqDiv_1:count_5\ and \FreqDiv_1:count_3\)
+	OR (not \FreqDiv_1:count_0\ and \FreqDiv_1:count_5\)
+	OR (not \FreqDiv_1:count_1\ and \FreqDiv_1:count_5\)
+	OR (not \FreqDiv_1:count_2\ and \FreqDiv_1:count_5\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_5\));
+
+\FreqDiv_1:count_4\\D\ <= ((not \FreqDiv_1:count_4\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_3\ and \FreqDiv_1:count_2\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_0\ and \FreqDiv_1:count_4\)
+	OR (not \FreqDiv_1:count_1\ and \FreqDiv_1:count_4\)
+	OR (not \FreqDiv_1:count_2\ and \FreqDiv_1:count_4\)
+	OR (not \FreqDiv_1:count_3\ and \FreqDiv_1:count_4\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_4\));
+
+\FreqDiv_1:count_3\\D\ <= ((not \FreqDiv_1:count_3\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_4\ and \FreqDiv_1:count_2\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_5\ and not \FreqDiv_1:count_3\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_2\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_0\ and \FreqDiv_1:count_3\)
+	OR (not \FreqDiv_1:count_1\ and \FreqDiv_1:count_3\)
+	OR (not \FreqDiv_1:count_2\ and \FreqDiv_1:count_3\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_3\));
+
+\FreqDiv_1:count_2\\D\ <= ((not \FreqDiv_1:count_2\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_1\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_0\ and \FreqDiv_1:count_2\)
+	OR (not \FreqDiv_1:count_1\ and \FreqDiv_1:count_2\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_2\));
+
+\FreqDiv_1:count_1\\D\ <= ((not \FreqDiv_1:count_1\ and \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_0\)
+	OR (not \FreqDiv_1:count_0\ and \FreqDiv_1:count_1\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_1\));
+
+\FreqDiv_1:count_0\\D\ <= ((not \FreqDiv_1:count_0\ and \FreqDiv_1:not_last_reset\)
+	OR (not \FreqDiv_1:not_last_reset\ and \FreqDiv_1:count_0\));
+
+Net_1232D <= ((not \FreqDiv_2:count_2\ and not \FreqDiv_2:count_1\ and \FreqDiv_2:count_3\ and \FreqDiv_2:count_0\)
+	OR (Net_1232 and \FreqDiv_2:count_1\)
+	OR (Net_1232 and \FreqDiv_2:count_0\)
+	OR (not \FreqDiv_2:count_2\ and Net_1232)
+	OR (Net_1232 and \FreqDiv_2:count_3\)
+	OR not \FreqDiv_2:not_last_reset\);
+
+\FreqDiv_2:count_3\\D\ <= ((not \FreqDiv_2:count_3\ and \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_2\ and \FreqDiv_2:count_1\ and \FreqDiv_2:count_0\)
+	OR (not \FreqDiv_2:count_1\ and \FreqDiv_2:count_3\ and \FreqDiv_2:count_2\)
+	OR (not \FreqDiv_2:count_2\ and \FreqDiv_2:count_3\ and \FreqDiv_2:count_1\)
+	OR (not \FreqDiv_2:count_0\ and \FreqDiv_2:count_3\)
+	OR (not \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_3\));
+
+\FreqDiv_2:count_2\\D\ <= ((not \FreqDiv_2:count_2\ and \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_1\ and \FreqDiv_2:count_0\)
+	OR (not \FreqDiv_2:count_0\ and \FreqDiv_2:count_2\)
+	OR (not \FreqDiv_2:count_1\ and \FreqDiv_2:count_2\)
+	OR (not \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_2\));
+
+\FreqDiv_2:count_1\\D\ <= ((not \FreqDiv_2:count_1\ and \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_2\ and \FreqDiv_2:count_0\)
+	OR (not \FreqDiv_2:count_3\ and not \FreqDiv_2:count_1\ and \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_0\)
+	OR (not \FreqDiv_2:count_0\ and \FreqDiv_2:count_1\)
+	OR (not \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_1\));
+
+\FreqDiv_2:count_0\\D\ <= ((not \FreqDiv_2:count_0\ and \FreqDiv_2:not_last_reset\)
+	OR (not \FreqDiv_2:not_last_reset\ and \FreqDiv_2:count_0\));
+
+Net_1450D <= ((not \Debouncer_1:DEBOUNCER[0]:d_sync_1\ and \Debouncer_1:DEBOUNCER[0]:d_sync_0\));
+
+Clock:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"052151a1-2f7b-4e2b-9a41-4090854d5292",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"250000000000",
+		is_direct=>'0',
+		is_digital=>'0')
+	PORT MAP(clock_out=>Net_1440,
+		dig_domain_out=>open);
+Step_1:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"e851a3b9-efb8-48be-bbb8-b303b216c393",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_132,
+		fb=>(tmpFB_0__Step_1_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Step_1_net_0),
+		siovref=>(tmpSIOVREF__Step_1_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Step_1_net_0);
+\Control_Reg_1:Sync:ctrl_reg\:cy_psoc3_control
+	GENERIC MAP(cy_init_value=>"00000000",
+		cy_force_order=>'1',
+		cy_ctrl_mode_1=>"00000000",
+		cy_ctrl_mode_0=>"00000000",
+		cy_ext_reset=>'0')
+	PORT MAP(reset=>zero,
+		clock=>zero,
+		control=>(\Control_Reg_1:control_7\, \Control_Reg_1:control_6\, \Control_Reg_1:control_5\, \Control_Reg_1:control_4\,
+			\Control_Reg_1:control_3\, \Control_Reg_1:control_2\, \Control_Reg_1:control_1\, Net_78));
+Step_2_5:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"bed3abe7-53d6-43e9-a22d-ccec343517b8",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_131,
+		fb=>(tmpFB_0__Step_2_5_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Step_2_5_net_0),
+		siovref=>(tmpSIOVREF__Step_2_5_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Step_2_5_net_0);
+Step_3_4:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"3d1d776c-8240-4340-aa21-5bde635888e6",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_130,
+		fb=>(tmpFB_0__Step_3_4_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Step_3_4_net_0),
+		siovref=>(tmpSIOVREF__Step_3_4_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Step_3_4_net_0);
+Dir_1:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"d3729e10-ac96-4e5f-b749-655e6ca43396",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__Dir_1_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Dir_1_net_0),
+		siovref=>(tmpSIOVREF__Dir_1_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Dir_1_net_0);
+Dir_2_5:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"3d75c33d-16df-4503-90cd-2909d8849cf6",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__Dir_2_5_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Dir_2_5_net_0),
+		siovref=>(tmpSIOVREF__Dir_2_5_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Dir_2_5_net_0);
+Dir_3_4:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"911ee831-bbd2-412e-b7cf-8e2044b5fa56",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__Dir_3_4_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Dir_3_4_net_0),
+		siovref=>(tmpSIOVREF__Dir_3_4_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Dir_3_4_net_0);
+\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:gs(24):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_24\);
+\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:gs(16):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_16\);
+\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:gs(8):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_8\);
+\Control_Reg_2:Sync:ctrl_reg\:cy_psoc3_control
+	GENERIC MAP(cy_init_value=>"00000000",
+		cy_force_order=>'1',
+		cy_ctrl_mode_1=>"00000000",
+		cy_ctrl_mode_0=>"00000000",
+		cy_ext_reset=>'0')
+	PORT MAP(reset=>zero,
+		clock=>zero,
+		control=>(\Control_Reg_2:control_7\, \Control_Reg_2:control_6\, \Control_Reg_2:control_5\, \Control_Reg_2:control_4\,
+			\Control_Reg_2:control_3\, Net_110, Net_107, Net_104));
+\Status_Reg_1:sts:sts_reg\:cy_psoc3_status
+	GENERIC MAP(cy_force_order=>'1',
+		cy_md_select=>"00000000")
+	PORT MAP(reset=>zero,
+		clock=>Net_1440,
+		status=>(zero, zero, zero, zero,
+			zero, zero, zero, Net_75));
+\PWM_Container:cy_m0s8_tcpwm_1\:cy_m0s8_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_1440,
+		capture=>zero,
+		count=>tmpOE__Step_1_net_0,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		underflow=>Net_837,
+		overflow=>Net_833,
+		compare_match=>Net_830,
+		line_out=>Net_1430,
+		line_out_compl=>Net_846,
+		interrupt=>Net_861);
+\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:gs(24):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_24\);
+\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:gs(16):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_16\);
+\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:gs(8):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_1:MODULE_2:g2:a0:g1:z1:s0:g1:u0:c_8\);
+Dir_Container:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"d17b465e-5aa4-462f-942a-ce1f7569c670",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__Dir_Container_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Dir_Container_net_0),
+		siovref=>(tmpSIOVREF__Dir_Container_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Dir_Container_net_0);
+Step_Container:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"5303952b-a0ae-45d8-9877-3511481f9b42",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_1430,
+		fb=>(tmpFB_0__Step_Container_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Step_Container_net_0),
+		siovref=>(tmpSIOVREF__Step_Container_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Step_Container_net_0);
+\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:gs(24):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_24\);
+\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:gs(16):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_16\);
+\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:gs(8):g2:g3:ub\:cy_buf
+	PORT MAP(x=>zero,
+		y=>\FreqDiv_2:MODULE_3:g2:a0:g1:z1:s0:g1:u0:c_8\);
+\I2C:SCBCLK\:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"3dbba19d-7851-4a83-b204-a0a386fe8d68/2dc2d7a8-ce2b-43c7-af4a-821c8cd73ccf",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"625000000",
+		is_direct=>'0',
+		is_digital=>'0')
+	PORT MAP(clock_out=>\I2C:Net_847\,
+		dig_domain_out=>open);
+\I2C:sda\:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"3dbba19d-7851-4a83-b204-a0a386fe8d68/5382e105-1382-4a2e-b9f4-3bb2feba71e0",
+		drive_mode=>"100",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"B",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(\I2C:tmpFB_0__sda_net_0\),
+		analog=>(open),
+		io=>Net_381,
+		siovref=>(\I2C:tmpSIOVREF__sda_net_0\),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>\I2C:tmpINTERRUPT_0__sda_net_0\);
+\I2C:scl\:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"3dbba19d-7851-4a83-b204-a0a386fe8d68/22863ebe-a37b-476f-b252-6e49a8c00b12",
+		drive_mode=>"100",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"B",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(\I2C:tmpFB_0__scl_net_0\),
+		analog=>(open),
+		io=>Net_380,
+		siovref=>(\I2C:tmpSIOVREF__scl_net_0\),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>\I2C:tmpINTERRUPT_0__scl_net_0\);
+\I2C:SCB_IRQ\:cy_isr_v1_0
+	GENERIC MAP(int_type=>"10",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_364);
+\I2C:SCB\:cy_m0s8_scb_v2_0
+	GENERIC MAP(cy_registers=>"",
+		scb_mode=>0)
+	PORT MAP(clock=>\I2C:Net_847\,
+		interrupt=>Net_364,
+		rx=>zero,
+		tx=>\I2C:tx_wire\,
+		cts=>zero,
+		rts=>\I2C:rts_wire\,
+		mosi_m=>\I2C:mosi_m_wire\,
+		miso_m=>zero,
+		select_m=>(\I2C:select_m_wire_3\, \I2C:select_m_wire_2\, \I2C:select_m_wire_1\, \I2C:select_m_wire_0\),
+		sclk_m=>\I2C:sclk_m_wire\,
+		mosi_s=>zero,
+		miso_s=>\I2C:miso_s_wire\,
+		select_s=>zero,
+		sclk_s=>zero,
+		scl=>Net_380,
+		sda=>Net_381,
+		tx_req=>Net_382,
+		rx_req=>Net_373);
+\UART:SCBCLK\:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/2dc2d7a8-ce2b-43c7-af4a-821c8cd73ccf",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"8680555555.55556",
+		is_direct=>'0',
+		is_digital=>'0')
+	PORT MAP(clock_out=>\UART:Net_847\,
+		dig_domain_out=>open);
+\UART:tx\:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/23b8206d-1c77-4e61-be4a-b4037d5de5fc",
+		drive_mode=>"110",
+		ibuf_enabled=>"0",
+		init_dr_st=>"1",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"B",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>\UART:tx_wire\,
+		fb=>(\UART:tmpFB_0__tx_net_0\),
+		analog=>(open),
+		io=>(\UART:tmpIO_0__tx_net_0\),
+		siovref=>(\UART:tmpSIOVREF__tx_net_0\),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>\UART:tmpINTERRUPT_0__tx_net_0\);
+\UART:rx\:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/78e33e5d-45ea-4b75-88d5-73274e8a7ce4",
+		drive_mode=>"001",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"I",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>\UART:rx_wire\,
+		analog=>(open),
+		io=>(\UART:tmpIO_0__rx_net_0\),
+		siovref=>(\UART:tmpSIOVREF__rx_net_0\),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>\UART:tmpINTERRUPT_0__rx_net_0\);
+\UART:SCB\:cy_m0s8_scb_v2_0
+	GENERIC MAP(cy_registers=>"",
+		scb_mode=>2)
+	PORT MAP(clock=>\UART:Net_847\,
+		interrupt=>Net_463,
+		rx=>\UART:rx_wire\,
+		tx=>\UART:tx_wire\,
+		cts=>zero,
+		rts=>\UART:rts_wire\,
+		mosi_m=>\UART:mosi_m_wire\,
+		miso_m=>zero,
+		select_m=>(\UART:select_m_wire_3\, \UART:select_m_wire_2\, \UART:select_m_wire_1\, \UART:select_m_wire_0\),
+		sclk_m=>\UART:sclk_m_wire\,
+		mosi_s=>zero,
+		miso_s=>\UART:miso_s_wire\,
+		select_s=>zero,
+		sclk_s=>zero,
+		scl=>Net_479,
+		sda=>Net_480,
+		tx_req=>Net_481,
+		rx_req=>Net_472);
+\Debouncer_1:ClkSync\:cy_psoc3_udb_clock_enable_v1_0
+	GENERIC MAP(sync_mode=>'1')
+	PORT MAP(clock_in=>Net_1457,
+		enable=>tmpOE__Step_1_net_0,
+		clock_out=>\Debouncer_1:op_clk\);
+\NeoPixel:pixl\:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"cb12d90f-29cf-448b-9b91-4f54b2053bdb/e851a3b9-efb8-48be-bbb8-b303b216c393",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(\NeoPixel:tmpFB_0__pixl_net_0\),
+		analog=>(open),
+		io=>(\NeoPixel:tmpIO_0__pixl_net_0\),
+		siovref=>(\NeoPixel:tmpSIOVREF__pixl_net_0\),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>\NeoPixel:tmpINTERRUPT_0__pixl_net_0\);
+\PWM_RED:cy_m0s8_tcpwm_1\:cy_m0s8_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_1440,
+		capture=>zero,
+		count=>tmpOE__Step_1_net_0,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		underflow=>Net_1389,
+		overflow=>Net_1385,
+		compare_match=>Net_1379,
+		line_out=>Net_1383,
+		line_out_compl=>Net_1384,
+		interrupt=>Net_1382);
+\PWM_GREEN:cy_m0s8_tcpwm_1\:cy_m0s8_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_1440,
+		capture=>zero,
+		count=>tmpOE__Step_1_net_0,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		underflow=>Net_1401,
+		overflow=>Net_1397,
+		compare_match=>Net_1391,
+		line_out=>Net_1395,
+		line_out_compl=>Net_1396,
+		interrupt=>Net_1394);
+\PWM_BLUE:cy_m0s8_tcpwm_1\:cy_m0s8_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_1440,
+		capture=>zero,
+		count=>tmpOE__Step_1_net_0,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		underflow=>Net_1413,
+		overflow=>Net_1409,
+		compare_match=>Net_1403,
+		line_out=>Net_1407,
+		line_out_compl=>Net_1408,
+		interrupt=>Net_1406);
+RED:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"06e5fa1d-cd9a-4624-b1d3-5d27ed31c8f3",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_1383,
+		fb=>(tmpFB_0__RED_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__RED_net_0),
+		siovref=>(tmpSIOVREF__RED_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__RED_net_0);
+GREEN:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"73cd4fb7-b583-465f-a394-465a391f68cd",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_1395,
+		fb=>(tmpFB_0__GREEN_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__GREEN_net_0),
+		siovref=>(tmpSIOVREF__GREEN_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__GREEN_net_0);
+BLUE:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"d1833667-a031-4175-adbb-8b06d687f174",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>Net_1407,
+		fb=>(tmpFB_0__BLUE_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__BLUE_net_0),
+		siovref=>(tmpSIOVREF__BLUE_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__BLUE_net_0);
+SW:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
+		drive_mode=>"010",
+		ibuf_enabled=>"1",
+		init_dr_st=>"1",
+		input_sync=>"0",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"10",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"0",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"I",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"00",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(tmpOE__Step_1_net_0),
+		y=>(zero),
+		fb=>(tmpFB_0__SW_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__SW_net_0),
+		siovref=>(tmpSIOVREF__SW_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>tmpOE__Step_1_net_0,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>tmpOE__Step_1_net_0,
+		out_reset=>zero,
+		interrupt=>Net_1445);
+isr_SW:cy_isr_v1_0
+	GENERIC MAP(int_type=>"10",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_1450);
+Net_100_0:cy_dff
+	PORT MAP(d=>Net_100_0D,
+		clk=>Net_1232,
+		q=>Net_100_0);
+Net_1232:cy_dff
+	PORT MAP(d=>Net_1232D,
+		clk=>Net_1440,
+		q=>Net_1232);
+Net_100_4:cy_dff
+	PORT MAP(d=>Net_100_4D,
+		clk=>Net_1232,
+		q=>Net_100_4);
+Net_100_3:cy_dff
+	PORT MAP(d=>Net_100_3D,
+		clk=>Net_1232,
+		q=>Net_100_3);
+Net_100_2:cy_dff
+	PORT MAP(d=>Net_100_2D,
+		clk=>Net_1232,
+		q=>Net_100_2);
+Net_100_1:cy_dff
+	PORT MAP(d=>Net_100_1D,
+		clk=>Net_1232,
+		q=>Net_100_1);
+cy_srff_1:cy_dff
+	PORT MAP(d=>cy_srff_1D,
+		clk=>Net_1440,
+		q=>Net_75);
+\FreqDiv_1:not_last_reset\:cy_dff
+	PORT MAP(d=>tmpOE__Step_1_net_0,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:not_last_reset\);
+Net_1457:cy_dff
+	PORT MAP(d=>Net_1457D,
+		clk=>Net_1232,
+		q=>Net_1457);
+\FreqDiv_1:count_5\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_5\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_5\);
+\FreqDiv_1:count_4\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_4\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_4\);
+\FreqDiv_1:count_3\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_3\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_3\);
+\FreqDiv_1:count_2\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_2\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_2\);
+\FreqDiv_1:count_1\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_1\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_1\);
+\FreqDiv_1:count_0\:cy_dff
+	PORT MAP(d=>\FreqDiv_1:count_0\\D\,
+		clk=>Net_1232,
+		q=>\FreqDiv_1:count_0\);
+\FreqDiv_2:not_last_reset\:cy_dff
+	PORT MAP(d=>tmpOE__Step_1_net_0,
+		clk=>Net_1440,
+		q=>\FreqDiv_2:not_last_reset\);
+\FreqDiv_2:count_3\:cy_dff
+	PORT MAP(d=>\FreqDiv_2:count_3\\D\,
+		clk=>Net_1440,
+		q=>\FreqDiv_2:count_3\);
+\FreqDiv_2:count_2\:cy_dff
+	PORT MAP(d=>\FreqDiv_2:count_2\\D\,
+		clk=>Net_1440,
+		q=>\FreqDiv_2:count_2\);
+\FreqDiv_2:count_1\:cy_dff
+	PORT MAP(d=>\FreqDiv_2:count_1\\D\,
+		clk=>Net_1440,
+		q=>\FreqDiv_2:count_1\);
+\FreqDiv_2:count_0\:cy_dff
+	PORT MAP(d=>\FreqDiv_2:count_0\\D\,
+		clk=>Net_1440,
+		q=>\FreqDiv_2:count_0\);
+\Debouncer_1:DEBOUNCER[0]:d_sync_0\:cy_dff
+	PORT MAP(d=>Net_1445,
+		clk=>\Debouncer_1:op_clk\,
+		q=>\Debouncer_1:DEBOUNCER[0]:d_sync_0\);
+\Debouncer_1:DEBOUNCER[0]:d_sync_1\:cy_dff
+	PORT MAP(d=>\Debouncer_1:DEBOUNCER[0]:d_sync_0\,
+		clk=>\Debouncer_1:op_clk\,
+		q=>\Debouncer_1:DEBOUNCER[0]:d_sync_1\);
+Net_1450:cy_dff
+	PORT MAP(d=>Net_1450D,
+		clk=>\Debouncer_1:op_clk\,
+		q=>Net_1450);
+Net_1448:cy_dff
+	PORT MAP(d=>zero,
+		clk=>\Debouncer_1:op_clk\,
+		q=>Net_1448);
+Net_1449:cy_dff
+	PORT MAP(d=>zero,
+		clk=>\Debouncer_1:op_clk\,
+		q=>Net_1449);
+
+END R_T_L;
