@@ -1,9 +1,14 @@
 # M&Ms sorter
 
 M&Ms sorter is a device to sort candies that look loke M&Ms. It can use default colours for sorting or "learn" new ones at the beginning of the sorting process.
+![sorter](sorter.jpeg)
 
 
 ## Description
+
+
+![candies](M&Ms.png)
+
 
 M&Ms sorter consists of a color sensor, stepper motors, drivers and a shield for them, joystick and the microcontroller PSoC4.
 
@@ -23,6 +28,7 @@ With this sorting machine you can sort up to 5 colors with a container for incor
 
 
 ## Wiring diagram
-
+![diagram](wiring_diagram.jpg)
 
 ## PSoC creator scheme
+![PSoC](PSoCCreator_scheme.png)
