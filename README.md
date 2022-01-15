@@ -1,6 +1,6 @@
 # M&Ms sorter
 
-M&Ms sorter is a device to sort candies that look loke M&Ms. It can use default colours for sorting or "learn" new ones at the beginning of the sorting process.
+M&Ms sorter is a device to sort candies that look like M&Ms. It can use default colours for sorting or "learn" new ones at the beginning of the sorting process.
 ![sorter](sorter.jpeg)
 
 
@@ -10,7 +10,7 @@ M&Ms sorter is a device to sort candies that look loke M&Ms. It can use default 
 ![candies](M&Ms.png)
 
 
-M&Ms sorter consists of a color sensor, stepper motors, drivers and a shield for them, joystick and the microcontroller PSoC4.
+M&Ms sorter consists of a color sensor, stepper motors, drivers and a shield for them, joystick and the PSoC4 microcontroller.
 
 The sorting process looks like this:
 1. Spinning container analyzes the candy's color and supplies it to the "tunnel".
@@ -19,8 +19,8 @@ The sorting process looks like this:
 Before sorting the user can set unique colors of sorting. For this:
 1. The user should press the button and wait until the color sensor will finish to read "no color" state.
 2. Then the user should fill container with candies of the first color and push the joystick-button. 
-3. The container starts spinning and analyzing the colour cleaning all samples of "no color" state.
-4. After "reading" enough samples of the first colour container stops spinning. It is ready to the next color.
+3. The container starts spinning and analyzing the color cleaning all samples of "no color" state.
+4. After "reading" enough samples of the first color container stops spinning. It is ready for the next color.
 5. This procedure should be repeated for all colors that the user wants to sort.
 6. Then, with pushing a button, the user can turn on the sorting process.
 
